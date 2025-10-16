@@ -1,0 +1,86 @@
+.threew-fitment-block {
+	backdrop-filter: blur(12px);
+	background: rgba(15, 25, 40, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 24px;
+	padding: clamp(1.5rem, 4vw, 2.75rem);
+	color: var(--wp--preset--color--surface-alt);
+	display: grid;
+	gap: clamp(1.25rem, 4vw, 2rem);
+	align-items: center;
+	box-shadow: 0 24px 60px rgba(5, 15, 30, 0.6);
+}
+
+.threew-fitment-block__copy {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.threew-fitment-block__headline {
+	margin: 0;
+	font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+}
+
+.threew-fitment-block__subheadline {
+	margin: 0;
+	color: rgba(238, 243, 255, 0.78);
+	font-size: var(--wp--preset--font-size--body-md);
+}
+
+.threew-fitment-block__form {
+	display: grid;
+	gap: clamp(0.75rem, 2vw, 1rem);
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.threew-fitment-block__field {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.threew-fitment-block__field label {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: rgba(238, 243, 255, 0.65);
+}
+
+.threew-fitment-block__field select {
+	appearance: none;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 999px;
+	padding: 0.65rem 1rem;
+	color: var(--wp--preset--color--surface-alt);
+	font-size: 0.95rem;
+}
+
+.threew-fitment-block__field select:disabled {
+	opacity: 0.6;
+}
+
+.threew-fitment-block__submit {
+	grid-column: span 2;
+	justify-self: end;
+	padding: 0.75rem 2.5rem;
+	border-radius: 999px;
+	border: none;
+	background: linear-gradient(135deg, var(--wp--preset--color--secondary), var(--wp--preset--color--primary));
+	color: var(--wp--preset--color--ink-inverse);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.threew-fitment-block__submit:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+@media (max-width: 700px) {
+	.threew-fitment-block__submit {
+		grid-column: 1 / -1;
+		justify-self: stretch;
+	}
+}

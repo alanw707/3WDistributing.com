@@ -1,0 +1,33 @@
+{
+  "apiVersion": 3,
+  "name": "3w/fitment-selector",
+  "title": "Fitment Selector",
+  "category": "layout",
+  "icon": "filter",
+  "description": "Hero block for selecting vehicle year, make, model, and trim.",
+  "keywords": ["vehicle", "fitment", "search"],
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "default": "Select Your Vehicle"
+    },
+    "subheadline": {
+      "type": "string",
+      "default": "Choose year, make, and model to see compatible parts."
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "Search Parts"
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css"
+}

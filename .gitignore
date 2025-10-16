@@ -1,0 +1,24 @@
+# Environment
+.env
+.env.local
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+wp-content/themes/3w-2025/build/
+wp-content/themes/3w-2025/assets/
+
+# Local tooling
+.serena/
+
+# WordPress uploads & cache
+wp-content/uploads/
+wp-content/cache/
+
+# OS metadata
+.DS_Store
+Thumbs.db
