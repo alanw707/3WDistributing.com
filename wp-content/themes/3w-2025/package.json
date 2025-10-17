@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "wp-scripts start",
-    "build": "wp-scripts build",
+    "dev": "wp-scripts start src/index.js src/blocks/fitment-selector/view.js",
+    "build": "wp-scripts build src/index.js src/blocks/fitment-selector/view.js",
     "lint:css": "npm run lint:css:style && npm run lint:css:size",
     "lint:css:style": "stylelint 'src/**/*.css' 'patterns/**/*.css' 'parts/**/*.css' 'assets/**/*.css'",
     "lint:css:size": "node ./scripts/check-css-size.cjs",

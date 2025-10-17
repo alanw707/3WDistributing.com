@@ -56,7 +56,11 @@
 }
 
 .threew-fitment-block__field select:disabled {
-	opacity: 0.6;
+	opacity: 1;
+	background: rgba(255, 255, 255, 0.14);
+	border-color: rgba(255, 255, 255, 0.38);
+	color: rgba(238, 243, 255, 0.6);
+	cursor: not-allowed;
 }
 
 .threew-fitment-block__submit {
@@ -76,6 +80,76 @@
 .threew-fitment-block__submit:disabled {
 	opacity: 0.6;
 	cursor: default;
+}
+
+.threew-fitment-block__helper {
+	font-size: 0.8rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(238, 243, 255, 0.55);
+	margin: 0;
+	margin-top: -0.25rem;
+}
+
+/* Error message styling */
+.threew-fitment-block__error {
+	display: none;
+	padding: 1rem 1.5rem;
+	background: rgba(220, 38, 38, 0.15);
+	border: 1px solid rgba(220, 38, 38, 0.4);
+	border-radius: 12px;
+	color: #fca5a5;
+	font-size: 0.9rem;
+	margin-bottom: 1rem;
+}
+
+/* Loading state for selects */
+.threew-fitment-block__field select.is-loading {
+	background-image:
+		linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.08) 25%,
+			rgba(255, 255, 255, 0.15) 50%,
+			rgba(255, 255, 255, 0.08) 75%
+		);
+	background-size: 200% 100%;
+	animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+/* Focus states for accessibility */
+.threew-fitment-block__field select:focus {
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 2px;
+	border-color: var(--wp--preset--color--primary);
+}
+
+.threew-fitment-block__submit:focus {
+	outline: 2px solid var(--wp--preset--color--surface-alt);
+	outline-offset: 2px;
+}
+
+/* Hover states for enabled controls */
+.threew-fitment-block__field select:not(:disabled):hover {
+	background: rgba(255, 255, 255, 0.12);
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+.threew-fitment-block__submit:not(:disabled):hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(24, 184, 215, 0.35);
+}
+
+.threew-fitment-block__submit:not(:disabled):active {
+	transform: translateY(0);
 }
 
 @media (max-width: 700px) {

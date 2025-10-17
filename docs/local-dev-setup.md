@@ -38,6 +38,7 @@
 - Theme scaffold lives at `wp-content/themes/3w-2025` (mounted into container).
 - Assets compile into `assets/app.css`, `assets/app.js`, `assets/editor.css`.
 - Add block patterns to `patterns/` and template parts under `parts/`.
+- Run `bash scripts/theme-sync.sh` to rebuild and stream the theme into the running WordPress container (`--skip-build` skips the rebuild step).
 
 ## Xdebug Toggle
 ```

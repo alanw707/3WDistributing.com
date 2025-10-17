@@ -166,6 +166,9 @@ export default function Edit({ attributes, setAttributes }) {
 						{ctaLabel || __('Search Parts', 'threew-2025')}
 					</button>
 				</div>
+				<p className="threew-fitment-block__helper">
+					{__('Begin with year to unlock make, model, and trim options.', 'threew-2025')}
+				</p>
 			</div>
 		</>
 	);

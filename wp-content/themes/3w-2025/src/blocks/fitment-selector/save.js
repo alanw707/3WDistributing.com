@@ -19,26 +19,26 @@ export default function save({ attributes }) {
 			</div>
 			<div className="threew-fitment-block__form" data-fitment-interactive="pending">
 				<div className="threew-fitment-block__field">
-					<label>{'Year'}</label>
-					<select disabled>
+					<label htmlFor="threew-fitment-year">{'Year'}</label>
+					<select id="threew-fitment-year" disabled>
 						<option value="">{'Select'}</option>
 					</select>
 				</div>
 				<div className="threew-fitment-block__field">
-					<label>{'Make'}</label>
-					<select disabled>
+					<label htmlFor="threew-fitment-make">{'Make'}</label>
+					<select id="threew-fitment-make" disabled>
 						<option value="">{'Select'}</option>
 					</select>
 				</div>
 				<div className="threew-fitment-block__field">
-					<label>{'Model'}</label>
-					<select disabled>
+					<label htmlFor="threew-fitment-model">{'Model'}</label>
+					<select id="threew-fitment-model" disabled>
 						<option value="">{'Select'}</option>
 					</select>
 				</div>
 				<div className="threew-fitment-block__field">
-					<label>{'Trim'}</label>
-					<select disabled>
+					<label htmlFor="threew-fitment-trim">{'Trim'}</label>
+					<select id="threew-fitment-trim" disabled>
 						<option value="">{'Select'}</option>
 					</select>
 				</div>
@@ -46,6 +46,9 @@ export default function save({ attributes }) {
 					{ctaLabel || 'Search Parts'}
 				</button>
 			</div>
+			<p className="threew-fitment-block__helper">
+				{'Begin with year to unlock make, model, and trim options.'}
+			</p>
 		</div>
 	);
 }

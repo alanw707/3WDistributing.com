@@ -1,0 +1,77 @@
+.threew-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 4vw, 2.75rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem) var(--threew-header-padding-x);
+  margin-top: clamp(2rem, 6vw, 3.5rem);
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(240, 244, 255, 0.82) 100%
+  );
+  border-radius: clamp(1rem, 3vw, 1.75rem);
+  border: 1px solid rgba(12, 30, 51, 0.06);
+  box-shadow: 0 18px 32px rgba(12, 30, 51, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.threew-trust-strip__item {
+  display: flex;
+  gap: 1rem;
+  color: var(--wp--preset--color--ink);
+  align-items: flex-start;
+  max-width: 320px;
+  transition: transform 0.3s ease;
+}
+
+.threew-trust-strip__item:hover {
+  transform: translateY(-2px);
+}
+
+.threew-trust-strip__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(16, 40, 73, 0.35);
+  background: rgba(16, 55, 102, 0.08);
+  color: var(--wp--preset--color--primary-dark);
+  box-shadow: 0 12px 28px rgba(12, 30, 51, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.threew-trust-strip__item:hover .threew-trust-strip__icon {
+  transform: scale(1.08);
+  box-shadow: 0 16px 38px rgba(12, 30, 51, 0.28);
+  border-color: rgba(24, 184, 215, 0.45);
+  background: rgba(24, 184, 215, 0.12);
+}
+
+.threew-trust-strip__icon-graphic {
+  width: 2rem;
+  height: 2rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.threew-trust-strip__copy {
+  gap: 0.35rem;
+}
+
+.threew-trust-strip__copy h5 {
+  margin: 0;
+  font-size: 1.075rem;
+  letter-spacing: 0.06em;
+  color: var(--wp--preset--color--primary-dark);
+}
+
+.threew-trust-strip__copy p {
+  margin: 0;
+  color: rgba(12, 30, 51, 0.76);
+}

@@ -11,11 +11,14 @@
 3. [x] Create hero, trust strip, and category tile patterns.
 4. [x] Configure build tooling pipeline (stylelint + CSS size guardrails, PostCSS minification).
 
-## Sprint 2 — Commerce Templates
-1. Product grid template with filter sidebar styling.
-2. Product detail template (gallery, purchase panel, spec tabs).
-3. Brand landing template + carousel integration.
-4. Add testimonial slider and support CTA blocks.
+## Sprint 2 — Experience Polish & Commerce Prep
+1. Home page polish pass (hero layout tweaks, trust strip spacing, category tiles hover states).
+2. Blog index + homepage blog cards refresh.
+3. Article template refinements (sticky TOC, related products slot).
+4. Product grid template with filter sidebar styling — tackle after content polish.
+5. Product detail template (gallery, purchase panel, spec tabs).
+6. Brand landing template + carousel integration.
+7. Add testimonial slider and support CTA blocks.
 
 ## Sprint 3 — Content Experience
 1. Blog index + article templates with sticky TOC.

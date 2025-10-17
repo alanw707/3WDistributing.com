@@ -1,0 +1,9 @@
+@media (prefers-reduced-motion: reduce) {
+  .threew-hero__actions .wp-block-button__link,
+  .threew-category-grid__tile,
+  .threew-category-grid__cta,
+  .threew-blog-card,
+  .threew-blog-card__read-more {
+    transition: none;
+  }
+}

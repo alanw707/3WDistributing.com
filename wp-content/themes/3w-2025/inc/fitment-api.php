@@ -1,0 +1,422 @@
+<?php
+/**
+ * Fitment Selector REST API Endpoints
+ *
+ * Provides REST API endpoints for vehicle fitment data:
+ * - /wp-json/threew/v1/fitment/years
+ * - /wp-json/threew/v1/fitment/makes?year={year}
+ * - /wp-json/threew/v1/fitment/models?year={year}&make={make}
+ * - /wp-json/threew/v1/fitment/trims?year={year}&make={make}&model={model}
+ *
+ * @package 3W_2025
+ */
+
+namespace ThreeW\Fitment;
+
+/**
+ * Register REST API routes for fitment data
+ */
+function register_fitment_routes() {
+	register_rest_route(
+		'threew/v1',
+		'/fitment/years',
+		array(
+			'methods'             => 'GET',
+			'callback'            => __NAMESPACE__ . '\get_years',
+			'permission_callback' => '__return_true', // Public endpoint
+		)
+	);
+
+	register_rest_route(
+		'threew/v1',
+		'/fitment/makes',
+		array(
+			'methods'             => 'GET',
+			'callback'            => __NAMESPACE__ . '\get_makes',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'year' => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+			),
+		)
+	);
+
+	register_rest_route(
+		'threew/v1',
+		'/fitment/models',
+		array(
+			'methods'             => 'GET',
+			'callback'            => __NAMESPACE__ . '\get_models',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'year' => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'make' => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+			),
+		)
+	);
+
+	register_rest_route(
+		'threew/v1',
+		'/fitment/trims',
+		array(
+			'methods'             => 'GET',
+			'callback'            => __NAMESPACE__ . '\get_trims',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'year'  => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'make'  => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'model' => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', __NAMESPACE__ . '\register_fitment_routes' );
+
+/**
+ * Get available years from fitment inventory
+ *
+ * @return array List of years
+ */
+function get_years() {
+	$inventory = get_fitment_inventory();
+	$years     = array_keys( $inventory );
+
+	// Sort years in descending order (newest first)
+	rsort( $years );
+
+	return rest_ensure_response( $years );
+}
+
+/**
+ * Get available makes for a given year
+ *
+ * @param \WP_REST_Request $request Request object.
+ * @return \WP_REST_Response|WP_Error Response object or error
+ */
+function get_makes( $request ) {
+	$year      = $request->get_param( 'year' );
+	$inventory = get_fitment_inventory();
+
+	if ( ! isset( $inventory[ $year ] ) ) {
+		return new \WP_Error(
+			'invalid_year',
+			__( 'Invalid year specified.', 'threew-2025' ),
+			array( 'status' => 400 )
+		);
+	}
+
+	$makes = array_keys( $inventory[ $year ] );
+
+	// Sort alphabetically
+	sort( $makes );
+
+	return rest_ensure_response( $makes );
+}
+
+/**
+ * Get available models for a given year and make
+ *
+ * @param \WP_REST_Request $request Request object.
+ * @return \WP_REST_Response|WP_Error Response object or error
+ */
+function get_models( $request ) {
+	$year      = $request->get_param( 'year' );
+	$make      = $request->get_param( 'make' );
+	$inventory = get_fitment_inventory();
+
+	if ( ! isset( $inventory[ $year ][ $make ] ) ) {
+		return new \WP_Error(
+			'invalid_make',
+			__( 'Invalid make specified for this year.', 'threew-2025' ),
+			array( 'status' => 400 )
+		);
+	}
+
+	$models = array_keys( $inventory[ $year ][ $make ] );
+
+	// Sort alphabetically
+	sort( $models );
+
+	return rest_ensure_response( $models );
+}
+
+/**
+ * Get available trims for a given year, make, and model
+ *
+ * @param \WP_REST_Request $request Request object.
+ * @return \WP_REST_Response|WP_Error Response object or error
+ */
+function get_trims( $request ) {
+	$year      = $request->get_param( 'year' );
+	$make      = $request->get_param( 'make' );
+	$model     = $request->get_param( 'model' );
+	$inventory = get_fitment_inventory();
+
+	if ( ! isset( $inventory[ $year ][ $make ][ $model ] ) ) {
+		return new \WP_Error(
+			'invalid_model',
+			__( 'Invalid model specified for this year and make.', 'threew-2025' ),
+			array( 'status' => 400 )
+		);
+	}
+
+	$trims = $inventory[ $year ][ $make ][ $model ];
+
+	// Sort alphabetically
+	sort( $trims );
+
+	return rest_ensure_response( $trims );
+}
+
+/**
+ * Get fitment inventory data
+ *
+ * Returns the complete vehicle fitment inventory.
+ * In production, this should be replaced with database queries
+ * or integration with a fitment data provider.
+ *
+ * @return array Nested array of year => make => model => trims
+ */
+function get_fitment_inventory() {
+	// Check for cached inventory
+	$cache_key = 'threew_fitment_inventory';
+	$inventory = wp_cache_get( $cache_key );
+
+	if ( false !== $inventory ) {
+		return $inventory;
+	}
+
+	/**
+	 * Filter fitment inventory data
+	 *
+	 * Allows external plugins or custom code to provide fitment data.
+	 * This is the recommended integration point for fitment data providers.
+	 *
+	 * @param array $inventory Default inventory data
+	 */
+	$inventory = apply_filters( 'threew_fitment_inventory', get_default_inventory() );
+
+	// Cache for 1 hour
+	wp_cache_set( $cache_key, $inventory, '', HOUR_IN_SECONDS );
+
+	return $inventory;
+}
+
+/**
+ * Get default fitment inventory (sample data)
+ *
+ * This is sample data for development. In production, replace with:
+ * - Database queries
+ * - Integration with fitment data provider (e.g., SEMA Data Co-op)
+ * - Custom product metadata
+ *
+ * @return array Default inventory structure
+ */
+function get_default_inventory() {
+	return array(
+		'2025' => array(
+			'Audi'       => array(
+				'RS7' => array( 'Performance', 'Prestige' ),
+				'Q8'  => array( 'S-Line', 'Base' ),
+			),
+			'BMW'        => array(
+				'M4' => array( 'Competition', 'CS' ),
+				'X5' => array( 'M Sport', 'Luxury' ),
+			),
+			'Mercedes'   => array(
+				'AMG GT' => array( 'S', 'C', 'R' ),
+				'C-Class' => array( 'C300', 'C43 AMG' ),
+			),
+		),
+		'2024' => array(
+			'Audi'       => array(
+				'RS6'  => array( 'Avant', 'Performance' ),
+				'RS7'  => array( 'Performance', 'Prestige' ),
+				'Q8'   => array( 'S-Line', 'Base' ),
+			),
+			'BMW'        => array(
+				'M3'  => array( 'Competition', 'CS' ),
+				'M4'  => array( 'Competition', 'CS', 'CSL' ),
+				'M5'  => array( 'Competition' ),
+				'X5'  => array( 'M Sport', 'Luxury', 'M50i' ),
+			),
+			'Mercedes'   => array(
+				'C63'     => array( 'S', 'Edition 1' ),
+				'E63'     => array( 'S', 'Wagon' ),
+				'G63'     => array( 'Standard' ),
+				'AMG GT'  => array( 'S', 'C', 'R' ),
+			),
+			'Porsche'    => array(
+				'911'    => array( 'Carrera', 'Carrera S', 'Turbo', 'GT3' ),
+				'Taycan' => array( 'Turbo', 'Turbo S', 'GTS' ),
+				'Macan'  => array( 'GTS', 'Turbo' ),
+			),
+		),
+		'2023' => array(
+			'Audi'       => array(
+				'RS6'  => array( 'Avant', 'Performance' ),
+				'RS7'  => array( 'Performance', 'Prestige' ),
+				'Q8'   => array( 'S-Line', 'Base' ),
+				'R8'   => array( 'V10', 'V10 Plus' ),
+			),
+			'BMW'        => array(
+				'M2'  => array( 'Competition' ),
+				'M3'  => array( 'Competition', 'CS' ),
+				'M4'  => array( 'Competition', 'CS' ),
+				'M5'  => array( 'Competition' ),
+				'X5'  => array( 'M Sport', 'Luxury', 'M50i' ),
+				'X6'  => array( 'M Sport', 'M50i' ),
+			),
+			'Lexus'      => array(
+				'IS500'  => array( 'F SPORT Performance' ),
+				'LC500'  => array( 'Base', 'Convertible' ),
+			),
+			'Mercedes'   => array(
+				'C63'     => array( 'S', 'Edition 1' ),
+				'E63'     => array( 'S', 'Wagon' ),
+				'G63'     => array( 'Standard' ),
+				'AMG GT'  => array( 'S', 'C', 'R', 'Black Series' ),
+			),
+			'Nissan'     => array(
+				'GT-R'    => array( 'Premium', 'NISMO', 'Track Edition' ),
+				'Z'       => array( 'Sport', 'Performance' ),
+			),
+			'Porsche'    => array(
+				'911'     => array( 'Carrera', 'Carrera S', 'Turbo', 'GT3', 'GT3 RS' ),
+				'Taycan'  => array( 'Turbo', 'Turbo S', 'GTS' ),
+				'Cayman'  => array( 'GTS', 'GT4' ),
+				'Macan'   => array( 'GTS', 'Turbo' ),
+			),
+		),
+		'2022' => array(
+			'Audi'       => array(
+				'RS6'  => array( 'Avant' ),
+				'RS7'  => array( 'Performance' ),
+				'Q8'   => array( 'S-Line', 'Base' ),
+				'R8'   => array( 'V10', 'V10 Plus' ),
+			),
+			'BMW'        => array(
+				'M2'  => array( 'Competition' ),
+				'M3'  => array( 'Competition' ),
+				'M4'  => array( 'Competition' ),
+				'M5'  => array( 'Competition' ),
+				'M8'  => array( 'Competition', 'Gran Coupe' ),
+			),
+			'Chevrolet'  => array(
+				'Corvette' => array( 'Stingray', 'Z06' ),
+				'Camaro'   => array( 'SS', 'ZL1' ),
+			),
+			'Dodge'      => array(
+				'Challenger' => array( 'R/T', 'Scat Pack', 'SRT Hellcat' ),
+				'Charger'    => array( 'R/T', 'Scat Pack', 'SRT Hellcat' ),
+			),
+			'Mercedes'   => array(
+				'C63'     => array( 'S' ),
+				'E63'     => array( 'S', 'Wagon' ),
+				'AMG GT'  => array( 'S', 'C', 'R' ),
+			),
+			'Porsche'    => array(
+				'911'     => array( 'Carrera', 'Carrera S', 'Turbo', 'GT3' ),
+				'Taycan'  => array( 'Turbo', 'Turbo S' ),
+				'Cayman'  => array( 'GTS', 'GT4' ),
+			),
+		),
+	);
+}
+
+/**
+ * Clear fitment inventory cache
+ *
+ * Useful when inventory data is updated.
+ * Can be called manually or hooked to product updates.
+ */
+function clear_fitment_cache() {
+	wp_cache_delete( 'threew_fitment_inventory' );
+}
+
+/**
+ * Render fitment selector block manually
+ *
+ * This function renders the fitment selector block markup
+ * for use in PHP templates.
+ *
+ * @param array $attributes Block attributes.
+ * @return string Block HTML.
+ */
+function render_fitment_selector( $attributes = array() ) {
+	// Default attributes
+	$defaults = array(
+		'headline'    => __( 'Select Your Vehicle', 'threew-2025' ),
+		'subheadline' => __( 'Choose year, make, and model to see compatible parts.', 'threew-2025' ),
+		'ctaLabel'    => __( 'Search Parts', 'threew-2025' ),
+	);
+
+	$attributes = wp_parse_args( $attributes, $defaults );
+
+	// Generate block HTML
+	ob_start();
+	?>
+	<div class="wp-block-3w-fitment-selector threew-fitment-block">
+		<div class="threew-fitment-block__copy">
+			<h3 class="threew-fitment-block__headline"><?php echo esc_html( $attributes['headline'] ); ?></h3>
+			<p class="threew-fitment-block__subheadline"><?php echo esc_html( $attributes['subheadline'] ); ?></p>
+		</div>
+		<div class="threew-fitment-block__form" data-fitment-interactive="pending">
+			<div class="threew-fitment-block__field">
+				<label for="threew-fitment-year"><?php esc_html_e( 'Year', 'threew-2025' ); ?></label>
+				<select id="threew-fitment-year" disabled>
+					<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+				</select>
+			</div>
+			<div class="threew-fitment-block__field">
+				<label for="threew-fitment-make"><?php esc_html_e( 'Make', 'threew-2025' ); ?></label>
+				<select id="threew-fitment-make" disabled>
+					<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+				</select>
+			</div>
+			<div class="threew-fitment-block__field">
+				<label for="threew-fitment-model"><?php esc_html_e( 'Model', 'threew-2025' ); ?></label>
+				<select id="threew-fitment-model" disabled>
+					<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+				</select>
+			</div>
+			<div class="threew-fitment-block__field">
+				<label for="threew-fitment-trim"><?php esc_html_e( 'Trim', 'threew-2025' ); ?></label>
+				<select id="threew-fitment-trim" disabled>
+					<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+				</select>
+			</div>
+			<button class="threew-fitment-block__submit" type="button" disabled>
+				<?php echo esc_html( $attributes['ctaLabel'] ); ?>
+			</button>
+		</div>
+		<p class="threew-fitment-block__helper">
+			<?php esc_html_e( 'Begin with year to unlock make, model, and trim options.', 'threew-2025' ); ?>
+		</p>
+	</div>
+	<?php
+	return ob_get_clean();
+}

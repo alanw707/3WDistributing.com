@@ -15,6 +15,7 @@ add_action('after_setup_theme', function () {
     add_theme_support('automatic-feed-links');
     add_theme_support('html5', ['comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets']);
     add_theme_support('wp-block-styles');
+    add_theme_support('woocommerce');
     add_theme_support('responsive-embeds');
     add_theme_support('editor-styles');
     add_theme_support('align-wide');
@@ -64,6 +65,7 @@ add_action('enqueue_block_assets', function () {
 add_action('wp_enqueue_scripts', function () {
     $asset = threew_2025_get_asset();
     $script_path = get_theme_file_path('build/index.js');
+    $style_path  = get_theme_file_path('build/index.css');
 
     if ($asset && file_exists($script_path)) {
         wp_enqueue_script(
@@ -71,6 +73,30 @@ add_action('wp_enqueue_scripts', function () {
             get_theme_file_uri('build/index.js'),
             $asset['dependencies'],
             $asset['version'],
+            true
+        );
+    }
+
+    if (file_exists($style_path)) {
+        wp_enqueue_style(
+            'threew-2025-frontend',
+            get_theme_file_uri('build/index.css'),
+            ['threew-2025-style'],
+            filemtime($style_path)
+        );
+    }
+
+    // Enqueue fitment selector view script for frontend interactivity
+    $fitment_view_asset_path = get_theme_file_path('build/view.asset.php');
+    $fitment_view_path = get_theme_file_path('build/view.js');
+
+    if (file_exists($fitment_view_path) && file_exists($fitment_view_asset_path)) {
+        $fitment_view_asset = include $fitment_view_asset_path;
+        wp_enqueue_script(
+            'threew-fitment-view',
+            get_theme_file_uri('build/view.js'),
+            $fitment_view_asset['dependencies'],
+            $fitment_view_asset['version'],
             true
         );
     }
@@ -93,3 +119,8 @@ add_action('enqueue_block_editor_assets', function () {
         );
     }
 });
+
+/**
+ * Include fitment API endpoints
+ */
+require_once get_theme_file_path('inc/fitment-api.php');

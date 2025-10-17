@@ -1,0 +1,56 @@
+/* Carbon fiber texture for dark sections */
+.has-carbon-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 3px
+    );
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Asphalt texture for hero sections */
+.has-asphalt-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(0, 0, 0, 0.05) 0%,
+      transparent 25%
+    );
+  opacity: 0.6;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+.threew-hero--fullbleed.has-asphalt-texture,
+.threew-category-grid__tile.has-carbon-texture {
+  position: relative;
+}

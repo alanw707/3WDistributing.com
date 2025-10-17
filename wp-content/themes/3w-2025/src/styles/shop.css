@@ -1,0 +1,257 @@
+.threew-shop {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  padding: clamp(2rem, 5vw, 4rem) var(--threew-header-padding-x)
+    clamp(3rem, 6vw, 5rem);
+}
+
+.threew-shop__breadcrumbs {
+  font-size: var(--wp--preset--font-size--body-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(12, 30, 51, 0.6);
+}
+
+.threew-shop__breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.threew-shop__breadcrumbs a:hover {
+  color: var(--wp--preset--color--secondary);
+}
+
+.threew-shop__hero {
+  background: var(--wp--preset--gradient--hero);
+  color: var(--wp--preset--color--ink-inverse);
+  border-radius: 1.5rem;
+  padding: clamp(2rem, 5vw, 3rem);
+  display: grid;
+  gap: 0.75rem;
+  box-shadow: 0 24px 48px rgba(12, 30, 51, 0.25);
+}
+
+.threew-shop__hero .wp-block-heading {
+  margin: 0;
+}
+
+.threew-shop__hero-note {
+  margin: 0;
+  max-width: 56ch;
+  color: rgba(238, 243, 255, 0.82);
+}
+
+.threew-shop__layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.threew-product-filters {
+  background: var(--wp--preset--color--surface);
+  border: 1px solid rgba(20, 24, 31, 0.08);
+  border-radius: 1.25rem;
+  padding: clamp(1.5rem, 4vw, 2rem);
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.75rem);
+  position: sticky;
+  top: clamp(6rem, 10vw, 8rem);
+}
+
+.threew-product-filters__intro {
+  margin: 0;
+  color: rgba(20, 24, 31, 0.7);
+  font-size: var(--wp--preset--font-size--body-sm);
+}
+
+.threew-product-filters__controls > * + * {
+  padding-top: 1.25rem;
+  margin-top: 1.25rem;
+  border-top: 1px solid rgba(20, 24, 31, 0.08);
+}
+
+.threew-product-filters__controls
+  .wp-block-woocommerce-product-filter-reset
+  button {
+  border-radius: 999px;
+  border: 1px solid rgba(20, 24, 31, 0.2);
+  background: transparent;
+  color: var(--wp--preset--color--ink);
+  padding: 0.45rem 1.2rem;
+  font-size: var(--wp--preset--font-size--body-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.threew-product-filters__controls
+  .wp-block-woocommerce-product-filter-reset
+  button:hover {
+  background: var(--wp--preset--color--secondary);
+  border-color: var(--wp--preset--color--secondary);
+  color: var(--wp--preset--color--primary-dark);
+}
+
+.threew-product-grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.threew-product-grid__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.threew-product-grid__toolbar > * {
+  font-size: var(--wp--preset--font-size--body-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(20, 24, 31, 0.7);
+}
+
+.threew-product-grid__active {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.threew-product-grid__active ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.threew-product-grid__active li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  background: rgba(24, 184, 215, 0.12);
+  border: 1px solid rgba(24, 184, 215, 0.45);
+  padding: 0.35rem 0.75rem;
+  color: var(--wp--preset--color--primary-dark);
+  font-size: var(--wp--preset--font-size--body-sm);
+}
+
+.threew-product-grid__active button {
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
+.threew-product-grid .wp-block-post-template.is-layout-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.threew-product-card {
+  background: var(--wp--preset--color--surface-alt);
+  border: 1px solid rgba(20, 24, 31, 0.06);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.85rem;
+  height: 100%;
+  box-shadow: 0 16px 36px rgba(12, 30, 51, 0.12);
+}
+
+.threew-product-card .wc-block-components-product-image {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.threew-product-card .wc-block-components-product-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.threew-product-card .wc-block-components-product-title {
+  font-size: 1.05rem;
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--wp--preset--color--ink);
+  margin: 0;
+}
+
+.threew-product-card .wc-block-components-product-price {
+  font-size: var(--wp--preset--font-size--body-lg);
+  color: var(--wp--preset--color--primary-dark);
+  font-family: var(--wp--preset--font-family--numeric);
+}
+
+.threew-product-card .wc-block-components-product-rating {
+  color: var(--wp--preset--color--secondary);
+}
+
+.threew-product-card .wp-block-button__link {
+  width: 100%;
+  justify-content: center;
+  padding-block: 0.65rem;
+}
+
+.threew-shop__seo,
+.threew-shop__related {
+  background: var(--wp--preset--color--surface);
+  border: 1px solid rgba(20, 24, 31, 0.06);
+  border-radius: 1.25rem;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.threew-shop__related ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.threew-shop__related a {
+  color: var(--wp--preset--color--primary);
+  text-decoration: none;
+}
+
+.threew-shop__related a:hover {
+  color: var(--wp--preset--color--secondary);
+}
+
+@media (max-width: 1200px) {
+  .threew-shop__layout {
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .threew-shop {
+    padding-inline: clamp(1.5rem, 6vw, 2.5rem);
+  }
+
+  .threew-shop__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .threew-product-filters {
+    position: static;
+  }
+
+  .threew-product-grid__toolbar {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 782px) {
+  .threew-product-grid .wp-block-post-template.is-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}

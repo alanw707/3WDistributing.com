@@ -26,6 +26,9 @@ wp-content/themes/3w-2025/assets/
 wp-content/uploads/
 wp-content/cache/
 
+# Playwright artifacts
+test-results/
+
 # OS metadata
 .DS_Store
 Thumbs.db

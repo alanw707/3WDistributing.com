@@ -1,0 +1,3 @@
+:root {
+  --threew-header-padding-x: clamp(1rem, 5vw, 3rem);
+}

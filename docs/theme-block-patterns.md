@@ -2,7 +2,7 @@
 
 | Pattern Name | Description | Notes |
 | --- | --- | --- |
-| `hero-fitment` | Full-width hero with background image, overlay gradient, headline, fitment selector (buttons block). | Should integrate custom fitment block component. |
+| `hero-fitment` | Full-width hero with background image, overlay gradient, headline, fitment selector (buttons block). | Integrates custom fitment block component and now ships with `threew-hero--fullbleed` variant inspired by 21st.dev (grid overlay + gradient glows). |
 | `trust-strip` | Three-column info cards featuring icons and short copy (shipping, guarantee, support). | Use `columns` + icon block. |
 | `category-tiles` | Responsive grid of category cards with hover gradient overlay and CTA arrow. | Use `group` with inner `image` and `heading` blocks. |
 | `brand-carousel` | Horizontal logo strip with auto-scroll effect. | Could be block pattern wrapping custom carousel block. |
