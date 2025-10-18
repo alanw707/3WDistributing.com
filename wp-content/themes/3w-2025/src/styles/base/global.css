@@ -8,3 +8,57 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* stylelint-disable selector-max-universal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* stylelint-enable selector-max-universal */
+
+body {
+  margin: 0;
+  font-family: var(--wp--preset--font-family--body, 'Inter', sans-serif);
+  font-size: var(--threew-font-size-body);
+  line-height: 1.65;
+  color: var(--wp--preset--color--ink);
+  background: var(--wp--preset--color--surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.threew-body--nav-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.25em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--wp--preset--color--secondary);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.threew-container {
+  width: 100%;
+  max-width: var(--threew-content-max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 2.5rem);
+}

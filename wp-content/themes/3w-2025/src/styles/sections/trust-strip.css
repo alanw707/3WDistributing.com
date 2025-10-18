@@ -1,9 +1,8 @@
 .threew-trust-strip {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: clamp(1.25rem, 4vw, 2.75rem);
-  padding: clamp(1.75rem, 4vw, 2.75rem) var(--threew-header-padding-x);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem) var(--threew-header-padding-x);
   margin-top: clamp(2rem, 6vw, 3.5rem);
   background: linear-gradient(
     140deg,
@@ -18,11 +17,26 @@
 
 .threew-trust-strip__item {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   color: var(--wp--preset--color--ink);
-  align-items: flex-start;
-  max-width: 320px;
+  align-items: center;
+  text-align: center;
+  max-width: none;
+  width: 100%;
   transition: transform 0.3s ease;
+}
+
+@media (min-width: 48rem) {
+  .threew-trust-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .threew-trust-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .threew-trust-strip__item:hover {
@@ -53,7 +67,7 @@
 .threew-trust-strip__icon-graphic {
   width: 2rem;
   height: 2rem;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 2;
   fill: none;
   stroke-linecap: round;
@@ -61,7 +75,9 @@
 }
 
 .threew-trust-strip__copy {
+  display: grid;
   gap: 0.35rem;
+  justify-items: center;
 }
 
 .threew-trust-strip__copy h5 {
@@ -69,9 +85,32 @@
   font-size: 1.075rem;
   letter-spacing: 0.06em;
   color: var(--wp--preset--color--primary-dark);
+  font-weight: 600;
 }
 
 .threew-trust-strip__copy p {
   margin: 0;
-  color: rgba(12, 30, 51, 0.76);
+  color: rgba(12, 30, 51, 0.82);
+}
+
+@media (min-width: 48rem) {
+  .threew-trust-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .threew-trust-strip__item {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .threew-trust-strip__copy {
+    justify-items: flex-start;
+  }
+}
+
+@media (min-width: 64rem) {
+  .threew-trust-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

@@ -4,3 +4,9 @@ import './styles/shop.css';
 
 // Blocks
 import './blocks/fitment-selector';
+
+// Header interactions
+import './scripts/header';
+
+// Hero interactions
+import './scripts/hero-motion';

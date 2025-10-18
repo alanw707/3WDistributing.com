@@ -1,41 +1,176 @@
 .threew-fitment-block {
-	backdrop-filter: blur(12px);
-	background: rgba(15, 25, 40, 0.7);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 24px;
-	padding: clamp(1.5rem, 4vw, 2.75rem);
-	color: var(--wp--preset--color--surface-alt);
+	position: relative;
 	display: grid;
-	gap: clamp(1.25rem, 4vw, 2rem);
-	align-items: center;
-	box-shadow: 0 24px 60px rgba(5, 15, 30, 0.6);
+	gap: clamp(0.9rem, 2vw, 1.4rem);
+	max-width: min(100%, 560px);
+	width: 100%;
+	margin-inline: auto;
+	padding: clamp(1.1rem, 3.5vw, 1.75rem);
+	color: var(--wp--preset--color--surface-alt);
+	background: rgba(7, 18, 34, 0.92);
+	border: 1px solid rgba(24, 184, 215, 0.22);
+	border-radius: clamp(1.1rem, 2.8vw, 1.65rem);
+	box-shadow: 0 26px 48px rgba(4, 12, 25, 0.55);
+	backdrop-filter: blur(14px);
+	overflow: hidden;
+}
+
+/* stylelint-disable-next-line selector-max-universal */
+.threew-fitment-block > * {
+	position: relative;
+	z-index: 1;
+}
+
+.threew-fitment-block::before {
+	content: '';
+	position: absolute;
+	inset: -35% 5% auto 25%;
+	height: 62%;
+	background: radial-gradient(circle at 20% 30%, rgba(24, 184, 215, 0.4) 0%, rgba(24, 184, 215, 0) 70%);
+	filter: blur(55px);
+	opacity: 0.4;
+	pointer-events: none;
+	animation: threew-fitment-glow 18s ease-in-out infinite;
 }
 
 .threew-fitment-block__copy {
 	display: grid;
-	gap: 0.5rem;
+	gap: 0.4rem;
+	text-align: center;
+}
+
+.threew-fitment-block__progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  padding: clamp(0.4rem, 1.2vw, 0.7rem) clamp(0.55rem, 1.4vw, 0.95rem);
+  border-radius: clamp(0.85rem, 2.4vw, 1.2rem);
+  background: rgba(8, 24, 44, 0.6);
+  border: 1px solid rgba(24, 184, 215, 0.18);
+  box-shadow: inset 0 1px 0 rgba(238, 243, 255, 0.05);
+}
+
+.threew-fitment-block__progress::before {
+	content: '';
+	position: absolute;
+	left: clamp(1.4rem, 5vw, 2.5rem);
+	right: clamp(1.4rem, 5vw, 2.5rem);
+	top: 50%;
+	height: 2px;
+	background: linear-gradient(90deg, rgba(24, 184, 215, 0.45), rgba(24, 184, 215, 0.05));
+	transform: translateY(-50%);
+	z-index: 0;
+	display: none;
+}
+
+.threew-fitment-progress__step {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.32rem 0.6rem;
+	border-radius: 999px;
+	background: rgba(8, 26, 48, 0.7);
+	border: 1px solid rgba(24, 184, 215, 0.16);
+	transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+	z-index: 1;
+}
+
+.threew-fitment-progress__step.is-active {
+	border-color: rgba(24, 184, 215, 0.5);
+	background: rgba(17, 60, 96, 0.85);
+	box-shadow: 0 8px 18px rgba(24, 184, 215, 0.25);
+}
+
+.threew-fitment-progress__step.is-complete {
+	border-color: rgba(24, 184, 215, 0.3);
+	background: rgba(24, 184, 215, 0.16);
+}
+
+.threew-fitment-progress__index {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: clamp(1.4rem, 3vw, 1.7rem);
+	height: clamp(1.4rem, 3vw, 1.7rem);
+	border-radius: 50%;
+	background: rgba(24, 184, 215, 0.16);
+	border: 1px solid rgba(24, 184, 215, 0.35);
+	font-family: var(--wp--preset--font-family--numeric);
+	font-size: clamp(0.85rem, 1.9vw, 0.95rem);
+	letter-spacing: 0.08em;
+}
+
+.threew-fitment-progress__label {
+	font-size: clamp(0.72rem, 1.6vw, 0.85rem);
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: rgba(238, 243, 255, 0.72);
+}
+
+.threew-fitment-progress__step.is-complete .threew-fitment-progress__label {
+	color: rgba(238, 243, 255, 0.82);
+}
+
+.threew-fitment-progress__connector {
+	display: none;
 }
 
 .threew-fitment-block__headline {
 	margin: 0;
-	font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+	font-size: clamp(1.4rem, 2.9vw, 1.85rem);
+	line-height: 1.15;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
 }
 
 .threew-fitment-block__subheadline {
 	margin: 0;
 	color: rgba(238, 243, 255, 0.78);
-	font-size: var(--wp--preset--font-size--body-md);
+	font-size: clamp(0.9rem, 2.2vw, 1rem);
+}
+
+.threew-fitment-block__form-shell {
+	display: grid;
+	gap: clamp(0.75rem, 2vw, 1.15rem);
+	background: rgba(6, 20, 38, 0.6);
+	border: 1px solid rgba(24, 184, 215, 0.2);
+	border-radius: clamp(1rem, 2.6vw, 1.45rem);
+	padding: clamp(0.85rem, 2.4vw, 1.3rem);
+	box-shadow: inset 0 1px 0 rgba(238, 243, 255, 0.06);
 }
 
 .threew-fitment-block__form {
 	display: grid;
-	gap: clamp(0.75rem, 2vw, 1rem);
-	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: clamp(0.65rem, 1.6vw, 1rem);
+	grid-template-columns: minmax(0, 1fr);
+	padding: clamp(0.75rem, 2.2vw, 1.15rem);
+	background: linear-gradient(150deg, rgba(238, 243, 255, 0.08), rgba(238, 243, 255, 0.01));
+	border: 1px solid rgba(238, 243, 255, 0.12);
+	border-radius: clamp(0.95rem, 2.5vw, 1.45rem);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 20px 36px rgba(4, 12, 25, 0.42);
+	backdrop-filter: blur(14px);
+	transform: translate3d(0, 16px, 0);
+	opacity: 0;
+	transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.4s ease;
+}
+
+.threew-fitment-block__form[data-fitment-interactive='ready'] {
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
+}
+
+.threew-fitment-block__form[data-fitment-interactive='ready']:hover {
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 38px rgba(4, 12, 25, 0.46);
 }
 
 .threew-fitment-block__field {
 	display: grid;
 	gap: 0.35rem;
+	position: relative;
 }
 
 .threew-fitment-block__field label {
@@ -47,12 +182,15 @@
 
 .threew-fitment-block__field select {
 	appearance: none;
-	background: rgba(255, 255, 255, 0.08);
-	border: 1px solid rgba(255, 255, 255, 0.2);
-	border-radius: 999px;
-	padding: 0.65rem 1rem;
+	background: linear-gradient(130deg, rgba(16, 46, 76, 0.58), rgba(7, 22, 40, 0.72));
+	border: 1px solid rgba(238, 243, 255, 0.22);
+	border-radius: clamp(0.85rem, 2vw, 1.3rem);
+	padding: clamp(0.55rem, 1.7vw, 0.8rem) clamp(1rem, 2.6vw, 1.25rem);
 	color: var(--wp--preset--color--surface-alt);
-	font-size: 0.95rem;
+	font-size: clamp(0.85rem, 1.9vw, 0.95rem);
+	min-height: 2.75rem;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 24px rgba(4, 12, 25, 0.35);
+	transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .threew-fitment-block__field select:disabled {
@@ -61,13 +199,14 @@
 	border-color: rgba(255, 255, 255, 0.38);
 	color: rgba(238, 243, 255, 0.6);
 	cursor: not-allowed;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .threew-fitment-block__submit {
-	grid-column: span 2;
-	justify-self: end;
-	padding: 0.75rem 2.5rem;
-	border-radius: 999px;
+	grid-column: 1 / -1;
+	justify-self: stretch;
+	padding: clamp(0.65rem, 2vw, 0.85rem);
+	border-radius: clamp(0.85rem, 2.5vw, 1.25rem);
 	border: none;
 	background: linear-gradient(135deg, var(--wp--preset--color--secondary), var(--wp--preset--color--primary));
 	color: var(--wp--preset--color--ink-inverse);
@@ -75,6 +214,12 @@
 	letter-spacing: 0.1em;
 	font-weight: 600;
 	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	box-shadow: 0 14px 32px rgba(24, 184, 215, 0.28);
+	transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
 }
 
 .threew-fitment-block__submit:disabled {
@@ -83,12 +228,12 @@
 }
 
 .threew-fitment-block__helper {
-	font-size: 0.8rem;
+	font-size: clamp(0.72rem, 1.8vw, 0.8rem);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: rgba(238, 243, 255, 0.55);
 	margin: 0;
-	margin-top: -0.25rem;
+	text-align: center;
 }
 
 /* Error message styling */
@@ -116,6 +261,7 @@
 	animation: loading-shimmer 1.5s infinite;
 }
 
+/* stylelint-disable rule-empty-line-before */
 @keyframes loading-shimmer {
 	0% {
 		background-position: 200% 0;
@@ -130,31 +276,130 @@
 	outline: 2px solid var(--wp--preset--color--primary);
 	outline-offset: 2px;
 	border-color: var(--wp--preset--color--primary);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 0 4px rgba(24, 184, 215, 0.18);
 }
 
 .threew-fitment-block__submit:focus {
 	outline: 2px solid var(--wp--preset--color--surface-alt);
 	outline-offset: 2px;
+	box-shadow: 0 18px 38px rgba(24, 184, 215, 0.4);
 }
 
 /* Hover states for enabled controls */
 .threew-fitment-block__field select:not(:disabled):hover {
 	background: rgba(255, 255, 255, 0.12);
 	border-color: rgba(255, 255, 255, 0.3);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 12px 28px rgba(4, 12, 25, 0.4);
 }
 
 .threew-fitment-block__submit:not(:disabled):hover {
-	transform: translateY(-2px);
-	box-shadow: 0 8px 24px rgba(24, 184, 215, 0.35);
+	transform: translateY(-1px);
+	box-shadow: 0 18px 36px rgba(24, 184, 215, 0.35);
+	filter: brightness(1.03);
 }
 
-.threew-fitment-block__submit:not(:disabled):active {
-	transform: translateY(0);
+.threew-fitment-block__field::after {
+	content: '';
+	position: absolute;
+	right: clamp(0.8rem, 2.6vw, 1.2rem);
+	top: calc(50% + 0.1rem);
+	width: 0.6rem;
+	height: 0.6rem;
+	background: rgba(238, 243, 255, 0.85);
+	mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.25 6l3.25 4 3.25-4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+	pointer-events: none;
+	transition: opacity 0.25s ease, transform 0.25s ease;
+	display: none;
 }
 
-@media (max-width: 700px) {
-	.threew-fitment-block__submit {
-		grid-column: 1 / -1;
-		justify-self: stretch;
+.threew-fitment-block__field:has(select)::after {
+	display: block;
+}
+
+.threew-fitment-block__field:focus-within::after,
+.threew-fitment-block__field:hover::after {
+	transform: translateY(2px);
+	opacity: 0.95;
+}
+
+@keyframes threew-fitment-glow {
+	0%,
+	100% {
+		transform: translate3d(-10px, 0, 0) scale(1);
+		opacity: 0.45;
+	}
+	50% {
+		transform: translate3d(6px, 4px, 0) scale(1.05);
+		opacity: 0.65;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.threew-fitment-block {
+		backdrop-filter: none;
+	}
+
+	.threew-fitment-block::before,
+	.threew-fitment-block__form {
+		animation: none;
+		transform: none;
+		transition-duration: 0.001ms;
+	}
+
+	.threew-fitment-block__form[data-fitment-interactive='ready'] {
+		opacity: 1;
+	}
+
+	.threew-fitment-block__form {
+		opacity: 1;
+	}
+}
+/* stylelint-enable rule-empty-line-before */
+
+@media (max-width: 40rem) {
+	.threew-fitment-block__progress {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.5rem;
+	}
+
+	.threew-fitment-progress__step {
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.threew-fitment-progress__label {
+		flex: 1;
+		text-align: right;
+	}
+
+	.threew-fitment-block__form-shell {
+		gap: clamp(0.65rem, 2vw, 1rem);
+	}
+}
+
+@media (min-width: 48rem) {
+	.threew-fitment-block {
+		max-width: min(100%, 600px);
+	}
+
+	.threew-fitment-block__progress {
+		flex-wrap: nowrap;
+		justify-content: space-between;
+	}
+
+	.threew-fitment-block__progress::before {
+		display: block;
+	}
+}
+
+@media (min-width: 64rem) {
+	.threew-fitment-block {
+		max-width: clamp(420px, 45vw, 600px);
+		padding: clamp(1.35rem, 3vw, 2rem);
+	}
+
+	.threew-fitment-block__form {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }

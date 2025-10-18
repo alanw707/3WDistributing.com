@@ -1,0 +1,14 @@
+body.admin-bar .threew-header {
+  top: 32px;
+}
+
+@media (max-width: 48.9375rem) {
+  body.admin-bar .threew-header {
+    top: 46px;
+  }
+
+  .threew-header__primary {
+    gap: var(--threew-space-3xs);
+    padding-block: var(--threew-space-xs);
+  }
+}

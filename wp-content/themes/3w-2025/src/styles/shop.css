@@ -65,7 +65,7 @@
   font-size: var(--wp--preset--font-size--body-sm);
 }
 
-.threew-product-filters__controls > * + * {
+.threew-product-filters__controls > :not(:first-child) {
   padding-top: 1.25rem;
   margin-top: 1.25rem;
   border-top: 1px solid rgba(20, 24, 31, 0.08);
@@ -103,9 +103,6 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-}
-
-.threew-product-grid__toolbar > * {
   font-size: var(--wp--preset--font-size--body-sm);
   letter-spacing: 0.08em;
   text-transform: uppercase;

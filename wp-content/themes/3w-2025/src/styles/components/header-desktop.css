@@ -1,0 +1,115 @@
+@media (min-width: 64rem) {
+  .threew-header {
+    border-bottom: none;
+  }
+
+  .threew-header__utility-nav--inline {
+    display: block;
+  }
+
+  .threew-header__utility-menu {
+    gap: var(--threew-space-xs);
+  }
+
+  .threew-header__utility-menu a {
+    background: transparent;
+    border: 1px solid rgba(238, 243, 255, 0.16);
+  }
+
+  .threew-header__primary {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(var(--threew-space-md), 4vw, var(--threew-space-lg));
+    padding-block: var(--threew-space-sm);
+  }
+
+  .threew-header__primary-inner {
+    flex: 1 1 auto;
+    width: min(100%, calc(var(--threew-content-max-width) + 2 * var(--threew-header-padding-x)));
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--threew-space-md), 4vw, var(--threew-space-lg));
+  }
+
+  .threew-header__brand-line {
+    flex: 0 0 auto;
+  }
+
+  .threew-header__toggle {
+    display: none;
+  }
+
+  .threew-header__drawer {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--threew-space-md), 4vw, var(--threew-space-lg));
+    padding-top: 0;
+    max-height: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .threew-header__nav {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .threew-header__menu {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2.25rem);
+    font-size: var(--wp--preset--font-size--body-sm);
+  }
+
+  .threew-header__menu li {
+    border: 0;
+  }
+
+  .threew-header__menu a {
+    padding: 0.25rem 0;
+    border: 0;
+  }
+
+  .threew-header__menu a::after {
+    width: 100%;
+  }
+
+  .threew-header__search {
+    flex: 0 0 clamp(240px, 22vw, 320px);
+    max-width: none;
+  }
+
+  .threew-header--compact .threew-header__search {
+    flex-basis: clamp(220px, 18vw, 280px);
+  }
+
+  .threew-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--threew-space-2xs);
+    flex: 0 0 auto;
+  }
+
+  .threew-header--compact .threew-header__actions .wp-block-button__link,
+  .threew-header--compact .threew-header__dealer-link {
+    padding: 0.4rem 0.85rem;
+    min-height: 2.25rem;
+  }
+
+  .threew-header__actions .wp-block-button__link,
+  .threew-header__dealer-link {
+    width: auto;
+  }
+
+  .threew-header__utility-nav--drawer {
+    display: none;
+  }
+
+  .threew-header__overlay {
+    display: none;
+  }
+}

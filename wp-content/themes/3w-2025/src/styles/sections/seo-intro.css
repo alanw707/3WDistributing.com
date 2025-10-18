@@ -1,0 +1,68 @@
+.threew-seo-intro {
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  background: linear-gradient(120deg, rgba(4, 12, 25, 0.95) 0%, rgba(8, 22, 42, 0.92) 60%, rgba(12, 30, 51, 0.88) 100%);
+  color: rgba(238, 243, 255, 0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.threew-seo-intro::before {
+  content: '';
+  position: absolute;
+  inset: -20% 10% auto -5%;
+  height: 80%;
+  background: radial-gradient(circle at center, rgba(24, 184, 215, 0.24) 0%, transparent 70%);
+  opacity: 0.6;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.threew-seo-intro__inner {
+  position: relative;
+  max-width: 960px;
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.threew-seo-intro__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.threew-seo-intro__copy {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.75rem);
+  line-height: 1.7;
+}
+
+.threew-seo-intro__copy h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  color: rgba(24, 184, 215, 0.9);
+}
+
+.threew-seo-intro__copy p {
+  margin: 0;
+  color: rgba(238, 243, 255, 0.78);
+}
+
+.threew-seo-intro__cta {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(24, 184, 215, 0.95);
+}
+
+@media (max-width: 768px) {
+  .threew-seo-intro {
+    padding-inline: clamp(1.25rem, 6vw, 2rem);
+  }
+
+  .threew-seo-intro__title {
+    letter-spacing: 0.08em;
+  }
+}
