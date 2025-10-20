@@ -3,8 +3,17 @@
     border-bottom: none;
   }
 
+  .threew-header__utility {
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--threew-space-2xs);
+    text-align: left;
+  }
+
   .threew-header__utility-nav--inline {
     display: block;
+    margin-left: auto;
   }
 
   .threew-header__utility-menu {
@@ -13,7 +22,11 @@
 
   .threew-header__utility-menu a {
     background: transparent;
-    border: 1px solid rgba(238, 243, 255, 0.16);
+    border: 1px solid var(--threew-border-inverse);
+  }
+
+  .threew-header__utility-text {
+    text-align: left;
   }
 
   .threew-header__primary {
@@ -21,7 +34,7 @@
     align-items: center;
     justify-content: center;
     gap: clamp(var(--threew-space-md), 4vw, var(--threew-space-lg));
-    padding-block: var(--threew-space-sm);
+    padding-block: clamp(var(--threew-header-padding-y), 3vw, var(--threew-space-sm));
   }
 
   .threew-header__primary-inner {
@@ -34,6 +47,10 @@
 
   .threew-header__brand-line {
     flex: 0 0 auto;
+  }
+
+  .threew-header__site-title {
+    white-space: nowrap;
   }
 
   .threew-header__toggle {
@@ -61,8 +78,9 @@
   .threew-header__menu {
     display: inline-flex;
     align-items: center;
-    gap: clamp(1rem, 2.5vw, 2.25rem);
-    font-size: var(--wp--preset--font-size--body-sm);
+    gap: clamp(0.75rem, 2vw, 1.8rem);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    letter-spacing: 0.05em;
   }
 
   .threew-header__menu li {
@@ -72,6 +90,7 @@
   .threew-header__menu a {
     padding: 0.25rem 0;
     border: 0;
+    white-space: nowrap;
   }
 
   .threew-header__menu a::after {
@@ -94,14 +113,12 @@
     flex: 0 0 auto;
   }
 
-  .threew-header--compact .threew-header__actions .wp-block-button__link,
-  .threew-header--compact .threew-header__dealer-link {
+  .threew-header--compact .threew-header__actions .wp-block-button__link {
     padding: 0.4rem 0.85rem;
     min-height: 2.25rem;
   }
 
-  .threew-header__actions .wp-block-button__link,
-  .threew-header__dealer-link {
+  .threew-header__actions .wp-block-button__link {
     width: auto;
   }
 

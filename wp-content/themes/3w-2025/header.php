@@ -46,17 +46,13 @@ $utility_menu = wp_nav_menu(
 		<div class="threew-header__primary-inner">
 			<div class="threew-header__brand-line">
 				<div class="threew-header__branding">
-					<?php
-					if ( has_custom_logo() ) {
-						the_custom_logo();
-					} else {
-						printf(
-							'<a class="threew-header__site-title" href="%1$s">%2$s</a>',
-							esc_url( home_url( '/' ) ),
-							esc_html( get_bloginfo( 'name' ) )
-						);
-					}
-					?>
+					<?php if ( has_custom_logo() ) : ?>
+						<span class="threew-header__branding-logo"><?php echo wp_kses_post( get_custom_logo() ); ?></span>
+					<?php endif; ?>
+
+					<a class="threew-header__site-title screen-reader-text" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+						<?php echo esc_html( get_bloginfo( 'name' ) ); ?>
+					</a>
 				</div>
 				<button class="threew-header__toggle" type="button" aria-expanded="false" aria-controls="threew-header-drawer">
 					<span class="threew-header__toggle-icon" aria-hidden="true">
@@ -104,14 +100,9 @@ $utility_menu = wp_nav_menu(
 				</form>
 
 				<div class="threew-header__actions">
-					<a class="threew-header__dealer-link" href="<?php echo esc_url( home_url( '/dealer' ) ); ?>">
-						<?php esc_html_e( 'Dealer Portal', 'threew-2025' ); ?>
-					</a>
-					<a class="wp-block-button__link wp-element-button is-style-outline" href="<?php echo esc_url( home_url( '/wishlist' ) ); ?>">
-						<?php esc_html_e( 'Wishlist', 'threew-2025' ); ?>
-					</a>
-					<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/cart' ) ); ?>">
-						<?php esc_html_e( 'Cart', 'threew-2025' ); ?>
+					<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/cart' ) ); ?>" data-threew-cart-link>
+						<span class="threew-header__actions-label"><?php esc_html_e( 'Cart', 'threew-2025' ); ?></span>
+						<span class="threew-header__cart-count" aria-live="polite" aria-atomic="true" data-threew-cart-count hidden>0</span>
 					</a>
 				</div>
 

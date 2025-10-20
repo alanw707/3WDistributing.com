@@ -19,6 +19,12 @@ add_action('after_setup_theme', function () {
     add_theme_support('responsive-embeds');
     add_theme_support('editor-styles');
     add_theme_support('align-wide');
+    add_theme_support('custom-logo', [
+        'height'      => 120,
+        'width'       => 300,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ]);
 
     register_nav_menus([
         'primary' => __('Primary Navigation', 'threew-2025'),

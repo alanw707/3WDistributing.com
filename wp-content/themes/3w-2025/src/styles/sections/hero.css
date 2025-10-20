@@ -387,19 +387,3 @@
     width: auto;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .threew-hero__background-texture {
-    animation: none;
-  }
-
-  .threew-hero__panel::before {
-    animation: none;
-  }
-
-  [data-hero-support] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}

@@ -248,18 +248,3 @@
   }
 }
 /* stylelint-enable rule-empty-line-before */
-
-@media (prefers-reduced-motion: reduce) {
-  .threew-hero__background-photo,
-  .threew-hero__background-texture,
-  .threew-hero__background-grid,
-  .threew-hero__background-glow,
-  .threew-hero__background-orb {
-    animation: none;
-  }
-
-  .threew-hero__panel::before,
-  .threew-hero__metric-icon {
-    animation: none;
-  }
-}
