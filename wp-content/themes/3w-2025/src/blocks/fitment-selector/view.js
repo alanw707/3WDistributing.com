@@ -226,7 +226,9 @@ class FitmentSelector {
 			return;
 		}
 
-		select.innerHTML = `<option value="">Select ${ placeholder }</option>`;
+		// Insert a disabled placeholder that shows in the closed state
+		// but is hidden from the dropdown list via CSS.
+		select.innerHTML = `<option value="" disabled selected>Select ${ placeholder }</option>`;
 		options.forEach( ( option ) => {
 			const optionEl = document.createElement( 'option' );
 			optionEl.value = option;
@@ -246,7 +248,8 @@ class FitmentSelector {
 			return;
 		}
 
-		select.innerHTML = `<option value="">Select ${ placeholder }</option>`;
+		// Restore disabled placeholder and reset value
+		select.innerHTML = `<option value="" disabled selected>Select ${ placeholder }</option>`;
 		select.disabled = true;
 		select.value = '';
 	}

@@ -188,16 +188,47 @@
 }
 
 .threew-fitment-block__field select {
-	appearance: none;
-	background: linear-gradient(130deg, rgba(16, 46, 76, 0.58), rgba(7, 22, 40, 0.72));
-	border: 1px solid rgba(238, 243, 255, 0.22);
-	border-radius: clamp(0.85rem, 2vw, 1.3rem);
-	padding: clamp(0.55rem, 1.7vw, 0.8rem) clamp(1rem, 2.6vw, 1.25rem);
-	color: var(--wp--preset--color--surface-alt);
-	font-size: clamp(0.85rem, 1.9vw, 0.95rem);
-	min-height: 2.75rem;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 24px rgba(4, 12, 25, 0.35);
-	transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    /* Cross-browser reset of native arrow for consistent styling */
+    appearance: none;
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-appearance: none;
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -moz-appearance: none;
+    background: linear-gradient(130deg, rgba(16, 46, 76, 0.58), rgba(7, 22, 40, 0.72));
+    border: 1px solid rgba(238, 243, 255, 0.22);
+    border-radius: clamp(0.85rem, 2vw, 1.3rem);
+    padding: clamp(0.55rem, 1.7vw, 0.8rem) clamp(1rem, 2.6vw, 1.25rem);
+    color: var(--wp--preset--color--surface-alt);
+    font-size: clamp(0.85rem, 1.9vw, 0.95rem);
+    min-height: 2.75rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 24px rgba(4, 12, 25, 0.35);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    background-clip: padding-box; /* prevent background bleed into border on Windows */
+    color-scheme: dark; /* hint to UA popover for better contrast */
+}
+
+/* Ensure dropdown list matches theme when browser allows option styling */
+.threew-fitment-block__field select option {
+    background-color: rgba(7, 18, 34, 0.98);
+    color: var(--wp--preset--color--surface-alt);
+}
+
+.threew-fitment-block__field select option:checked,
+.threew-fitment-block__field select option:focus,
+.threew-fitment-block__field select option:hover {
+    background-color: rgba(24, 184, 215, 0.18);
+    color: var(--wp--preset--color--surface-alt);
+}
+
+/* Hide the placeholder option from the dropdown list,
+   while keeping it visible when the select is closed. */
+.threew-fitment-block__field select option[disabled][value=""] {
+    display: none;
+}
+
+/* Old Edge/IE arrow hide (harmless elsewhere) */
+.threew-fitment-block__field select::-ms-expand {
+    display: none;
 }
 
 .threew-fitment-block__field select:disabled {
@@ -306,17 +337,18 @@
 }
 
 .threew-fitment-block__field::after {
-	content: '';
-	position: absolute;
-	right: clamp(0.8rem, 2.6vw, 1.2rem);
-	top: calc(50% + 0.1rem);
-	width: 0.6rem;
-	height: 0.6rem;
-	background: rgba(238, 243, 255, 0.85);
-	mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.25 6l3.25 4 3.25-4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-	pointer-events: none;
-	transition: opacity 0.25s ease, transform 0.25s ease;
-	display: none;
+    content: '';
+    position: absolute;
+    right: clamp(0.8rem, 2.6vw, 1.2rem);
+    top: 50%;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: rgba(238, 243, 255, 0.85);
+    mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.25 6l3.25 4 3.25-4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    display: none;
+    transform: translateY(-50%);
 }
 
 .threew-fitment-block__field:has(select)::after {

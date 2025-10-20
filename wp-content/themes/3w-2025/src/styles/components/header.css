@@ -218,6 +218,7 @@
   padding-block: var(--threew-space-sm) var(--threew-space-md);
 }
 
+/* stylelint-disable-next-line selector-max-universal */
 .threew-header__drawer > * {
   width: 100%;
 }
@@ -432,10 +433,7 @@
 
 .threew-header__overlay {
   position: fixed;
-  top: var(--threew-header-overlay-top, 0);
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: var(--threew-header-overlay-top, 0) 0 0 0;
   background: rgba(4, 12, 25, 0.65);
   opacity: 0;
   pointer-events: none;

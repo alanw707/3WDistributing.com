@@ -108,7 +108,7 @@
 		window.addEventListener( 'resize', handleViewportMetricsChange );
 		window.addEventListener(
 			'orientationchange',
-			handleViewportMetricsChange,
+			handleViewportMetricsChange
 		);
 
 		const setOpenState = ( isOpen, { focusToggle = false } = {} ) => {

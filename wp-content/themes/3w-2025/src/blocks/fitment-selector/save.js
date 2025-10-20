@@ -79,7 +79,9 @@ export default function save( { attributes } ) {
 					<div className="threew-fitment-block__field">
 						<label htmlFor="threew-fitment-year">{ 'Year' }</label>
 						<select id="threew-fitment-year" disabled>
-							<option value="">{ 'Select' }</option>
+							<option value="" disabled selected>
+								{ 'Select' }
+							</option>
 						</select>
 					</div>
 					<div className="threew-fitment-block__field">
@@ -87,7 +89,9 @@ export default function save( { attributes } ) {
 							{ 'Manufacturer' }
 						</label>
 						<select id="threew-fitment-make" disabled>
-							<option value="">{ 'Select' }</option>
+							<option value="" disabled selected>
+								{ 'Select' }
+							</option>
 						</select>
 					</div>
 					<div className="threew-fitment-block__field">
@@ -95,13 +99,17 @@ export default function save( { attributes } ) {
 							{ 'Model' }
 						</label>
 						<select id="threew-fitment-model" disabled>
-							<option value="">{ 'Select' }</option>
+							<option value="" disabled selected>
+								{ 'Select' }
+							</option>
 						</select>
 					</div>
 					<div className="threew-fitment-block__field">
 						<label htmlFor="threew-fitment-trim">{ 'Trim' }</label>
 						<select id="threew-fitment-trim" disabled>
-							<option value="">{ 'Select' }</option>
+							<option value="" disabled selected>
+								{ 'Select' }
+							</option>
 						</select>
 					</div>
 					<button

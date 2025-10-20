@@ -11,9 +11,6 @@
 
   .threew-hero__inner {
     padding-inline: clamp(0.75rem, 4vw, 1.5rem);
-  }
-
-  .threew-hero__inner {
     gap: clamp(1rem, 4vw, 1.75rem);
   }
 
@@ -33,9 +30,12 @@
 
   /* Fitment card: hide numbered progress and ensure single-column grid under tablet */
   .threew-fitment-block__progress {
+    /* stylelint-disable-next-line declaration-no-important */
     display: none !important;
   }
+
   .threew-fitment-block__form {
+    /* stylelint-disable-next-line declaration-no-important */
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
@@ -102,9 +102,7 @@
     font-size: clamp(0.85rem, 3.8vw, 0.95rem);
   }
 
-  .threew-fitment-block__form {
-    gap: clamp(0.6rem, 2.4vw, 0.9rem);
-  }
+  /* moved into the main .threew-fitment-block__form rule within this breakpoint */
 
   .threew-fitment-block__field select {
     min-height: 3rem;
@@ -167,6 +165,7 @@
     box-shadow: none;
     border-radius: 0;
     padding: 0;
+    gap: clamp(0.6rem, 2.4vw, 0.9rem);
   }
 
   .threew-fitment-block::before {

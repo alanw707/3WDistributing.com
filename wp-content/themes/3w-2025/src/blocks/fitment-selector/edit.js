@@ -212,7 +212,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								value={ year }
 								onChange={ handleYearChange }
 							>
-								<option value="">
+								<option value="" disabled selected>
 									{ __( 'Select', 'threew-2025' ) }
 								</option>
 								{ getYears().map( ( y ) => (
@@ -233,7 +233,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								onChange={ handleMakeChange }
 								disabled={ ! makes.length }
 							>
-								<option value="">
+								<option value="" disabled selected>
 									{ __( 'Select', 'threew-2025' ) }
 								</option>
 								{ makes.map( ( mk ) => (
@@ -254,7 +254,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								onChange={ handleModelChange }
 								disabled={ ! models.length }
 							>
-								<option value="">
+								<option value="" disabled selected>
 									{ __( 'Select', 'threew-2025' ) }
 								</option>
 								{ models.map( ( md ) => (
@@ -277,7 +277,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								}
 								disabled={ ! trims.length }
 							>
-								<option value="">
+								<option value="" disabled selected>
 									{ __( 'Select', 'threew-2025' ) }
 								</option>
 								{ trims.map( ( tr ) => (
