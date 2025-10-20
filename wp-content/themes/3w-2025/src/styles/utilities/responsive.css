@@ -4,6 +4,15 @@
     min-height: auto;
   }
 
+  /* Reduce side gutters around hero content */
+  .threew-hero--fullbleed {
+    padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+  }
+
+  .threew-hero__inner {
+    padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+  }
+
   .threew-hero__inner {
     gap: clamp(1rem, 4vw, 1.75rem);
   }
@@ -20,6 +29,23 @@
   .threew-hero__metrics {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     padding: clamp(0.9rem, 4vw, 1.5rem);
+  }
+
+  /* Fitment card: hide numbered progress and ensure single-column grid under tablet */
+  .threew-fitment-block__progress {
+    display: none !important;
+  }
+  .threew-fitment-block__form {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* Slightly reduce outer padding on the fitment card and hide helper */
+  .threew-fitment-block {
+    padding: clamp(0.75rem, 3.5vw, 1rem);
+  }
+
+  .threew-fitment-block__helper {
+    display: none;
   }
 }
 
@@ -41,9 +67,10 @@
   }
 
   .threew-hero--fullbleed {
-    width: 100%;
-    padding-inline: clamp(1.25rem, 8vw, 2.25rem);
-    padding-block: clamp(2.5rem, 12vw, 3.5rem);
+    /* Keep hero full-bleed on mobile; width is defined in hero.css
+       using 100vw + negative margins to span edge-to-edge. */
+    padding-inline: clamp(0.75rem, 5vw, 1.25rem);
+    padding-block: clamp(2rem, 10vw, 3rem);
   }
 
   .threew-hero--fullbleed .threew-hero__inner {
@@ -52,6 +79,36 @@
 
   .threew-hero__content {
     gap: 1rem;
+  }
+
+  .threew-hero__inner {
+    padding-inline: clamp(0.75rem, 5vw, 1.25rem);
+  }
+
+  /* Tame hero headline scale/spacing on small screens */
+  .threew-hero__content h1 {
+    font-size: clamp(1.75rem, 8.5vw, 2.35rem);
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+  }
+
+  /* Fitment card: tighten heading/subheading and improve touch target spacing */
+  .threew-fitment-block__headline {
+    font-size: clamp(1.1rem, 5.5vw, 1.35rem);
+    letter-spacing: 0.04em;
+  }
+
+  .threew-fitment-block__subheadline {
+    font-size: clamp(0.85rem, 3.8vw, 0.95rem);
+  }
+
+  .threew-fitment-block__form {
+    gap: clamp(0.6rem, 2.4vw, 0.9rem);
+  }
+
+  .threew-fitment-block__field select {
+    min-height: 3rem;
+    padding-block: clamp(0.6rem, 2.6vw, 0.85rem);
   }
 
   .threew-hero__actions {
@@ -76,9 +133,44 @@
     aspect-ratio: 3 / 2;
   }
 
+  /* Remove leading padding so hero meets the header edge-to-edge */
   .threew-front-page {
-    padding: clamp(2rem, 10vw, 3rem) clamp(1.5rem, 8vw, 2.5rem)
-      clamp(3rem, 11vw, 4rem);
+    padding: 0 clamp(1rem, 6vw, 2rem)
+      clamp(2.5rem, 10vw, 3.25rem);
+  }
+
+  /* Tighten hero supporting cards */
+  .threew-hero__supporting-item {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
+  }
+
+  /* Fitment block: reduce outer padding and flatten nested cards */
+  .threew-fitment-block {
+    padding: clamp(0.75rem, 4.5vw, 1rem);
+    border-radius: clamp(0.85rem, 2vw, 1.1rem);
+    box-shadow: none;
+    background: transparent;
+    border: 0;
+  }
+
+  .threew-fitment-block__form-shell {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .threew-fitment-block__form {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .threew-fitment-block::before {
+    display: none;
   }
 
   .threew-blog-index {

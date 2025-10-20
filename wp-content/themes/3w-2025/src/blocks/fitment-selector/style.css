@@ -91,17 +91,24 @@
 }
 
 .threew-fitment-progress__index {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: clamp(1.4rem, 3vw, 1.7rem);
-	height: clamp(1.4rem, 3vw, 1.7rem);
-	border-radius: 50%;
-	background: rgba(24, 184, 215, 0.16);
-	border: 1px solid rgba(24, 184, 215, 0.35);
-	font-family: var(--wp--preset--font-family--numeric);
-	font-size: clamp(0.85rem, 1.9vw, 0.95rem);
-	letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(1.4rem, 3vw, 1.7rem);
+  height: clamp(1.4rem, 3vw, 1.7rem);
+  border-radius: 50%;
+  background: rgba(24, 184, 215, 0.16);
+  border: 1px solid rgba(24, 184, 215, 0.35);
+  font-family: var(--wp--preset--font-family--numeric);
+  font-size: clamp(0.85rem, 1.9vw, 0.95rem);
+  letter-spacing: 0.08em;
+}
+
+/* Mobile: hide step progress chips for a cleaner layout */
+@media (max-width: 782px) {
+  .threew-fitment-block__progress {
+    display: none;
+  }
 }
 
 .threew-fitment-progress__label {
@@ -394,12 +401,37 @@
 }
 
 @media (min-width: 64rem) {
-	.threew-fitment-block {
-		max-width: clamp(420px, 45vw, 600px);
-		padding: clamp(1.35rem, 3vw, 2rem);
-	}
+    .threew-fitment-block {
+        max-width: clamp(420px, 45vw, 600px);
+        padding: clamp(1.2rem, 2.2vw, 1.6rem);
+        border-radius: 0.75rem;
+    }
 
-	.threew-fitment-block__form {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
+    /* Desktop: reduce rounded corners and inner layers */
+    .threew-fitment-block__form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-radius: 0.5rem;
+        box-shadow: none;
+        border: 0;
+        background: transparent;
+        padding: 0;
+    }
+
+    .threew-fitment-progress__step,
+    .threew-fitment-progress__index,
+    .threew-fitment-block__field select,
+    .threew-fitment-block__submit {
+        border-radius: 0.5rem;
+    }
+
+    .threew-fitment-block__progress {
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .threew-fitment-block__progress::before {
+        display: none;
+    }
 }
