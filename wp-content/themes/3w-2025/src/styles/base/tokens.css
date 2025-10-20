@@ -1,7 +1,13 @@
 :root {
   --threew-header-padding-x: clamp(1rem, 5vw, 3rem);
   --threew-header-padding-y: clamp(0.75rem, 2vw, 1.15rem);
-  --threew-header-gradient: linear-gradient(180deg, var(--wp--preset--color--primary-dark) 0%, rgba(12, 30, 51, 0.92) 70%, rgba(12, 30, 51, 0.85) 100%);
+  --threew-header-surface: #0c1e33;
+  --threew-header-gradient: linear-gradient(
+    180deg,
+    var(--wp--preset--color--primary-dark) 0%,
+    var(--threew-header-surface) 65%,
+    var(--threew-header-surface) 100%
+  );
   --threew-border-inverse: rgba(238, 243, 255, 0.12);
   --threew-content-max-width: min(100% - 2rem, 72rem);
   --threew-space-3xs: clamp(0.25rem, 1vw, 0.375rem);

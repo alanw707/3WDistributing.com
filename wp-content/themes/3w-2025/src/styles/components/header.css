@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   background: var(--threew-header-gradient);
+  background-color: var(--threew-header-surface);
   color: var(--wp--preset--color--surface-alt);
   box-shadow: var(--threew-shadow-header);
   border-bottom: 1px solid var(--threew-border-inverse);
@@ -19,7 +20,12 @@
   gap: var(--threew-space-3xs);
   padding: var(--threew-space-3xs) var(--threew-header-padding-x);
   width: 100%;
-  background: rgba(12, 30, 51, 0.94);
+  background: var(--threew-header-surface);
+  background: color-mix(
+    in srgb,
+    var(--threew-header-surface) 94%,
+    rgba(0, 0, 0, 1) 6%
+  );
   font-size: var(--threew-font-size-meta);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -186,25 +192,56 @@
 .threew-header__drawer {
   display: grid;
   gap: var(--threew-space-sm);
-  padding-top: var(--threew-space-xs);
+  padding: 0 var(--threew-header-padding-x);
+  background: var(--threew-header-surface);
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
   transform: translateY(-10px);
   transition: max-height 0.3s ease, opacity 0.2s ease, transform 0.25s ease;
+  position: relative;
+  z-index: 60; /* ensure drawer content sits above overlay */
 }
 
 .threew-header[data-nav-open='true'] .threew-header__drawer {
-  max-height: clamp(26rem, 85vh, 36rem);
+  max-height: var(
+    --threew-header-drawer-max-height,
+    clamp(26rem, 85vh, 36rem)
+  );
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
   margin-top: var(--threew-space-xs);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-block: var(--threew-space-sm) var(--threew-space-md);
+}
+
+.threew-header__drawer > * {
+  width: 100%;
 }
 
 .threew-header__nav {
   order: 1;
+  width: 100%;
+}
+
+@media (max-width: 63.9375rem) {
+  .threew-header[data-nav-open='true'] .threew-header__drawer {
+    background: linear-gradient(
+      180deg,
+      var(--threew-header-surface) 0%,
+      rgba(8, 16, 28, 0.96) 45%,
+      rgba(6, 12, 22, 0.88) 100%
+    );
+  }
+}
+
+@media (min-width: 64rem) {
+  .threew-header__drawer {
+    background: transparent;
+  }
 }
 
 .threew-header__menu {
@@ -216,6 +253,7 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+  width: 100%;
 }
 
 .threew-header__menu a {
@@ -394,7 +432,10 @@
 
 .threew-header__overlay {
   position: fixed;
-  inset: 0;
+  top: var(--threew-header-overlay-top, 0);
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: rgba(4, 12, 25, 0.65);
   opacity: 0;
   pointer-events: none;

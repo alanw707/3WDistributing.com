@@ -50,3 +50,9 @@
 4. Refresh `header.js` if additional state management (badge, tagline toggles) introduced.
 5. Validate visual changes at 375px, 768px, 1024px, 1440px; capture screenshots for docs.
 6. Run `npm run lint:css`, `npm run lint:js`, and smoke test in local WP before merge.
+
+## Mobile QA Findings — Playwright (Oct 20, 2025)
+- Resolved Oct 20: Drawer links now sit above the overlay; `.threew-header__drawer` uses `position: relative` with `z-index: 60`, and diagnostics show the tap target is the link itself (`tests/e2e/header-mobile.spec.js:14`).
+- Resolved Oct 20: Primary nav link passes the Playwright tap trial—no overlay interception and the drawer remains open after the gesture (`tests/e2e/header-mobile.spec.js:61`).
+- Resolved Oct 20: Diagnostics confirm the overlay stays active for scrim duties while the drawer reports `position: relative` (`tests/e2e/header-mobile.spec.js:34`).
+- Follow-up: Smooth the overlay/drawer timing—consider staggering the scrim fade versus drawer slide for less abruptness on low-end devices.

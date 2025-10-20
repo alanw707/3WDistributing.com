@@ -16,6 +16,60 @@
 		const COMPACT_THRESHOLD = 96;
 		let compactApplied = false;
 
+		const updateOverlayOffset = () => {
+			if ( ! overlay ) {
+				return;
+			}
+
+			if ( header.dataset.navOpen === 'true' ) {
+				const { bottom } = header.getBoundingClientRect();
+				const topOffset = Math.max( 0, Math.round( bottom ) );
+				overlay.style.setProperty(
+					'--threew-header-overlay-top',
+					`${ topOffset }px`
+				);
+			} else {
+				overlay.style.removeProperty( '--threew-header-overlay-top' );
+			}
+		};
+
+		const updateDrawerMaxHeight = () => {
+			if ( header.dataset.navOpen !== 'true' ) {
+				drawer.style.removeProperty(
+					'--threew-header-drawer-max-height'
+				);
+				return;
+			}
+
+			const viewport = window.visualViewport;
+			const viewportHeight = viewport?.height ?? window.innerHeight ?? 0;
+			const viewportOffsetTop = viewport?.offsetTop ?? 0;
+			const { top } = drawer.getBoundingClientRect();
+			const drawerTopWithinViewport = top - viewportOffsetTop;
+			const breathingRoom = 24;
+			const availableHeight = Math.max(
+				0,
+				Math.round(
+					viewportHeight - drawerTopWithinViewport - breathingRoom
+				)
+			);
+
+			if ( availableHeight > 0 ) {
+				drawer.style.setProperty(
+					'--threew-header-drawer-max-height',
+					`${ availableHeight }px`
+				);
+				return;
+			}
+
+			drawer.style.removeProperty( '--threew-header-drawer-max-height' );
+		};
+
+		const syncNavMetrics = () => {
+			updateOverlayOffset();
+			updateDrawerMaxHeight();
+		};
+
 		const syncCompactState = () => {
 			if ( header.dataset.navOpen === 'true' ) {
 				header.classList.remove( 'threew-header--compact' );
@@ -47,8 +101,15 @@
 		};
 
 		window.addEventListener( 'scroll', handleScroll, { passive: true } );
-		window.addEventListener( 'resize', syncCompactState );
-		window.addEventListener( 'orientationchange', syncCompactState );
+		const handleViewportMetricsChange = () => {
+			syncCompactState();
+			syncNavMetrics();
+		};
+		window.addEventListener( 'resize', handleViewportMetricsChange );
+		window.addEventListener(
+			'orientationchange',
+			handleViewportMetricsChange,
+		);
 
 		const setOpenState = ( isOpen, { focusToggle = false } = {} ) => {
 			header.dataset.navOpen = isOpen ? 'true' : 'false';
@@ -58,6 +119,11 @@
 			if ( overlay ) {
 				overlay.classList.toggle( 'is-active', isOpen );
 				overlay.toggleAttribute( 'aria-hidden', ! isOpen );
+			}
+
+			syncNavMetrics();
+			if ( isOpen ) {
+				window.requestAnimationFrame( syncNavMetrics );
 			}
 
 			if ( isOpen ) {
@@ -128,7 +194,20 @@
 			mql.addListener( handleViewportChange );
 		}
 
+		const visualViewport = window.visualViewport;
+		if ( visualViewport ) {
+			visualViewport.addEventListener(
+				'resize',
+				handleViewportMetricsChange
+			);
+			visualViewport.addEventListener(
+				'scroll',
+				handleViewportMetricsChange
+			);
+		}
+
 		syncCompactState();
+		syncNavMetrics();
 	};
 
 	if ( document.readyState === 'loading' ) {
