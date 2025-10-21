@@ -8,9 +8,11 @@
     "lint:css": "npm run lint:css:style && npm run lint:css:size",
     "lint:css:style": "stylelint 'src/**/*.css' 'patterns/**/*.css' 'parts/**/*.css' 'assets/**/*.css'",
     "lint:css:size": "node ./scripts/check-css-size.cjs",
-    "lint:js": "wp-scripts lint-js"
+    "lint:js": "wp-scripts lint-js",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@wordpress/scripts": "^27.0.0",
     "autoprefixer": "^10.4.20",
     "cssnano": "^6.1.2",

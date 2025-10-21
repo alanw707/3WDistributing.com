@@ -63,6 +63,26 @@
   animation: threew-hero-grid-shift 36s linear infinite;
 }
 
+.threew-hero__background-stripes {
+  position: absolute;
+  inset: -25% -15% auto -15%;
+  height: 140%;
+  background:
+    linear-gradient(115deg, rgba(24, 184, 215, 0.1) 0%, rgba(24, 184, 215, 0) 45%),
+    repeating-linear-gradient(
+      120deg,
+      rgba(24, 184, 215, 0.08) 0px,
+      rgba(24, 184, 215, 0.08) 8px,
+      rgba(24, 184, 215, 0) 8px,
+      rgba(24, 184, 215, 0) 32px
+    );
+  background-blend-mode: screen;
+  opacity: 0.35;
+  filter: blur(0.5px) saturate(120%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 25%, #000 75%, rgba(0, 0, 0, 0) 100%);
+  animation: threew-hero-stripes 18s linear infinite;
+}
+
 .threew-hero__background-streak {
   position: absolute;
   width: clamp(14rem, 35vw, 24rem);
@@ -179,6 +199,21 @@
   }
   100% {
     transform: translate3d(-10px, 4px, 0) scale(1.02);
+  }
+}
+
+@keyframes threew-hero-stripes {
+  0% {
+    background-position: 0 0, 0 0;
+    transform: translate3d(0, 0, 0) skewX(-4deg);
+  }
+  50% {
+    background-position: 180px -120px, -160px 140px;
+    transform: translate3d(6px, -4px, 0) skewX(-2deg);
+  }
+  100% {
+    background-position: 360px -240px, -320px 280px;
+    transform: translate3d(-4px, 6px, 0) skewX(-4deg);
   }
 }
 

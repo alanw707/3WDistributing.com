@@ -10,3 +10,6 @@ import './scripts/header';
 
 // Hero interactions
 import './scripts/hero-motion';
+
+// SEO intro (accordion) interactions
+import './scripts/seo-intro';

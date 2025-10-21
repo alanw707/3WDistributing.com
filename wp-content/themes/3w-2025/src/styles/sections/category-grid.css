@@ -17,6 +17,26 @@
   align-content: start;
 }
 
+.threew-category-grid__link {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+.threew-category-grid__link:focus-visible {
+  outline: 2px solid rgba(24, 184, 215, 0.55);
+  outline-offset: 4px;
+}
+
+.threew-category-grid__content {
+  display: grid;
+  gap: 0.5rem;
+  height: 100%;
+  align-content: start;
+}
+
 @media (min-width: 48rem) {
   .threew-category-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

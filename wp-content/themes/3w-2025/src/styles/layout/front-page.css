@@ -26,3 +26,8 @@
   z-index: -1;
   opacity: 0.9;
 }
+
+/* Remove the visual seam between hero and SEO intro */
+.threew-front-page > .threew-hero + .threew-seo-intro {
+  margin-top: calc(-1 * clamp(1.25rem, 3vw, 2.5rem));
+}

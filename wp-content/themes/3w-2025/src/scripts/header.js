@@ -115,7 +115,21 @@
 			header.dataset.navOpen = isOpen ? 'true' : 'false';
 			toggle.setAttribute( 'aria-expanded', String( isOpen ) );
 			header.classList.toggle( 'threew-header--open', isOpen );
-			document.body.classList.toggle( 'threew-body--nav-open', isOpen );
+			if ( isOpen ) {
+				const headerHeight = Math.round(
+					header.getBoundingClientRect().height
+				);
+				header.style.setProperty(
+					'--threew-header-open-offset',
+					`${ headerHeight }px`
+				);
+				document.documentElement.classList.add( 'threew-body--nav-open' );
+				document.body.classList.add( 'threew-body--nav-open' );
+			} else {
+				header.style.removeProperty( '--threew-header-open-offset' );
+				document.documentElement.classList.remove( 'threew-body--nav-open' );
+				document.body.classList.remove( 'threew-body--nav-open' );
+			}
 			if ( overlay ) {
 				overlay.classList.toggle( 'is-active', isOpen );
 				overlay.toggleAttribute( 'aria-hidden', ! isOpen );

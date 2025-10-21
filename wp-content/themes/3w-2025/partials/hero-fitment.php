@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="threew-hero__background-photo"></span>
 		<span class="threew-hero__background-texture"></span>
 		<span class="threew-hero__background-grid"></span>
+		<span class="threew-hero__background-stripes"></span>
 		<span class="threew-hero__background-glow threew-hero__background-glow--left"></span>
 		<span class="threew-hero__background-glow threew-hero__background-glow--right"></span>
 		<span class="threew-hero__background-orb"></span>

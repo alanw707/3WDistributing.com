@@ -96,6 +96,43 @@
   scroll-margin-top: clamp(5rem, 12vw, 7.5rem);
 }
 
+.threew-fitment-card__meta {
+  margin: clamp(0.75rem, 2.4vw, 1.2rem) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(0.6rem, 2vw, 0.9rem);
+}
+
+.threew-fitment-card__meta li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.85rem;
+  background: rgba(5, 18, 34, 0.55);
+  border: 1px solid rgba(24, 184, 215, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.08);
+}
+
+.threew-fitment-card__meta strong {
+  margin: 0;
+  font-family: var(--wp--preset--font-family--numeric);
+  font-size: clamp(1.15rem, 4vw, 1.5rem);
+  letter-spacing: 0.08em;
+  color: rgba(238, 243, 255, 0.96);
+}
+
+.threew-fitment-card__meta span {
+  display: block;
+  margin: 0;
+  font-size: var(--wp--preset--font-size--body-sm);
+  color: rgba(238, 243, 255, 0.75);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .threew-hero__panel-body .wp-block-3w-fitment-selector {
   color: var(--wp--preset--color--surface-alt);
 }
@@ -267,6 +304,17 @@
 @media (min-width: 48rem) {
   .threew-hero__panel-metrics {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .threew-fitment-card__meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .threew-fitment-card__meta li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    text-align: left;
   }
 
   .threew-fitment-inline-assurances {

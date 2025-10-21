@@ -12,6 +12,31 @@
   transition: box-shadow 0.3s ease;
 }
 
+.threew-header--open {
+  position: fixed;
+  inset: 0 0 auto 0;
+  width: 100%;
+  z-index: 60;
+}
+
+.threew-header--open + * {
+  margin-top: var(--threew-header-open-offset, 0);
+}
+
+.threew-header--open + * {
+  margin-top: var(--threew-header-open-offset, 0);
+}
+
+@media (min-width: 64rem) {
+  .threew-header--open {
+    position: sticky;
+  }
+
+  .threew-header--open + * {
+    margin-top: 0;
+  }
+}
+
 .threew-header__utility {
   display: flex;
   flex-direction: column;

@@ -1,20 +1,66 @@
+/* Motorsport v4: subtle asphalt grid + telemetry sweep */
 .threew-seo-intro {
   padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
-  background: linear-gradient(120deg, rgba(4, 12, 25, 0.95) 0%, rgba(8, 22, 42, 0.92) 60%, rgba(12, 30, 51, 0.88) 100%);
+  background:
+    radial-gradient(120% 120% at 12% -10%, rgba(24, 184, 215, 0.14) 0%, transparent 55%),
+    radial-gradient(160% 140% at 90% 0%, rgba(15, 54, 96, 0.16) 0%, transparent 70%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(5, 18, 36, 0.38) 0px,
+      rgba(5, 18, 36, 0.38) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(9, 26, 46, 0.42) 0px,
+      rgba(9, 26, 46, 0.42) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    linear-gradient(180deg, rgba(6, 14, 28, 0.85) 0%, rgba(4, 10, 22, 0.82) 52%, rgba(2, 6, 14, 0.78) 100%),
+    image-set(
+      url('../../assets/images/seo-section-bg-source.jpg') type('image/jpeg')
+    );
+  background-size: auto, auto, 100% 18px, 18px 100%, auto, cover;
+  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat, no-repeat;
+  background-position: center top, center top, center top, center top, center top, center center;
+  background-color: #050d1a;
   color: rgba(238, 243, 255, 0.9);
   position: relative;
   overflow: hidden;
 }
 
+/* Static glaze at top edge */
 .threew-seo-intro::before {
   content: '';
   position: absolute;
-  inset: -20% 10% auto -5%;
-  height: 80%;
-  background: radial-gradient(circle at center, rgba(24, 184, 215, 0.24) 0%, transparent 70%);
-  opacity: 0.6;
-  filter: blur(80px);
+  inset: 0 0 auto 0;
+  height: 30%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
+}
+
+/* Scanning telemetry sweep (runs when accordion animates) */
+.threew-seo-intro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, rgba(24, 184, 215, 0.16) 0%, rgba(24, 184, 215, 0) 55%),
+    radial-gradient(70% 180% at 40% 50%, rgba(24, 184, 215, 0.12) 0%, transparent 65%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 9px
+    );
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: threew-seo-scan 12s ease-in-out infinite;
+  animation-play-state: paused;
 }
 
 .threew-seo-intro__inner {
@@ -59,10 +105,179 @@
 
 @media (max-width: 768px) {
   .threew-seo-intro {
-    padding-inline: clamp(1.25rem, 6vw, 2rem);
+    padding-inline: clamp(1rem, 5vw, 1.75rem);
   }
 
   .threew-seo-intro__title {
     letter-spacing: 0.08em;
+    font-size: clamp(1.45rem, 6.5vw, 1.7rem);
   }
+}
+
+/* Collapsible variant + motorsport-inspired accents */
+.threew-seo-intro--collapsible {
+  /* negative margin now handled in front-page layout rule; border removed */
+}
+
+.threew-seo-accordion {
+  /* reset native details spacing */
+  border: 1px solid rgba(24, 184, 215, 0.18);
+  border-radius: 1rem;
+  background: rgba(8, 20, 38, 0.32);
+  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.06), 0 16px 40px rgba(4, 12, 25, 0.35);
+  overflow: clip;
+}
+
+.threew-seo-accordion__summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: clamp(0.9rem, 2.5vw, 1.1rem) clamp(1rem, 3.5vw, 1.25rem);
+  cursor: pointer;
+  position: relative;
+}
+
+.threew-seo-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* One-shot sheen */
+.threew-seo-accordion__summary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0) 55%
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+.threew-seo-accordion__summary:hover::after,
+.threew-seo-accordion__summary:focus-visible::after,
+.threew-seo-accordion[open] .threew-seo-accordion__summary::after {
+  animation: threew-seo-sheen 900ms ease-out forwards;
+  opacity: 1;
+}
+
+.threew-seo-accordion__hint {
+  font-size: var(--wp--preset--font-size--body-sm);
+  color: rgba(238, 243, 255, 0.65);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.threew-seo-accordion__chevron {
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: rgba(238, 243, 255, 0.9);
+  transition: transform 0.3s ease;
+}
+
+.threew-seo-accordion[open] .threew-seo-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+.threew-seo-accordion__content {
+  overflow: hidden;
+  padding: 0 clamp(1rem, 3.5vw, 1.25rem) clamp(1rem, 3.5vw, 1.25rem);
+  max-height: 0;
+  opacity: 0.0;
+  transition: max-height 0.32s cubic-bezier(.3,.7,.2,1), opacity 0.24s ease, transform 0.32s cubic-bezier(.3,.7,.2,1);
+  will-change: max-height;
+}
+
+.threew-seo-accordion[open] .threew-seo-accordion__content {
+  max-height: 4000px; /* large enough to fit content */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* During JS-driven animations, add a touch more lift */
+.threew-seo-accordion.is-opening .threew-seo-accordion__content,
+.threew-seo-accordion.is-closing .threew-seo-accordion__content {
+  will-change: max-height, transform, opacity;
+}
+
+@media (max-width: 782px) {
+  .threew-seo-intro {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .threew-seo-accordion__summary {
+    padding: clamp(0.8rem, 4vw, 1rem) clamp(0.9rem, 5vw, 1.1rem);
+    grid-template-columns: 1fr auto;
+  }
+
+  .threew-seo-accordion__hint {
+    display: none;
+  }
+
+  .threew-seo-accordion__chevron {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 36rem) {
+  .threew-seo-accordion__summary {
+    gap: 0.55rem;
+  }
+
+  .threew-seo-intro__title {
+    font-size: clamp(1.3rem, 7vw, 1.5rem);
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .threew-seo-accordion__chevron,
+  .threew-seo-accordion__summary::after,
+  .threew-seo-accordion__content {
+    transition: none;
+  }
+  .threew-seo-intro::after {
+    animation: none;
+  }
+}
+
+@keyframes threew-seo-sheen {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0.0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0.0;
+  }
+}
+@keyframes threew-seo-scan {
+  0% {
+    background-position: -140% 0, center, 0 0;
+    opacity: 0.18;
+  }
+  30% {
+    opacity: 0.42;
+  }
+  65% {
+    background-position: 55% 0, center, 0 0;
+    opacity: 0.45;
+  }
+  100% {
+    background-position: 140% 0, center, 0 0;
+    opacity: 0.22;
+  }
+}
+.threew-seo-intro.is-animating::after {
+  animation-play-state: running;
 }
