@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<section class="threew-trust-strip">
+<section class="threew-trust-strip has-carbon-texture">
 	<div class="threew-trust-strip__item">
 		<span class="threew-trust-strip__icon" aria-hidden="true">
 			<svg

@@ -13,6 +13,7 @@ get_header();
 	get_template_part( 'partials/hero-fitment' );
 	get_template_part( 'partials/seo-intro' );
 	get_template_part( 'partials/trust-strip' );
+	get_template_part( 'partials/vendor-strip' );
 	get_template_part( 'partials/category-grid' );
 	get_template_part( 'partials/blog-featured' );
 	?>

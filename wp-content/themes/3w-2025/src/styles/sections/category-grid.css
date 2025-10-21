@@ -1,40 +1,170 @@
-/* Responsive baseline for category spotlight tiles */
 .threew-category-grid {
   display: grid;
-  gap: clamp(1rem, 4vw, 2rem);
+  gap: clamp(1.25rem, 4vw, 2.25rem);
   grid-template-columns: minmax(0, 1fr);
 }
 
 .threew-category-grid__tile {
-  display: grid;
-  gap: 0.75rem;
-  padding: clamp(1.25rem, 4vw, 2rem);
-  border-radius: clamp(1rem, 3vw, 1.5rem);
-  background: var(--wp--preset--color--surface-alt);
-  border: 1px solid rgba(20, 24, 31, 0.08);
-  box-shadow: 0 14px 32px rgba(12, 30, 51, 0.12);
-  text-align: center;
-  align-content: start;
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(15rem, 35vw, 18.5rem);
+  border-radius: clamp(1.25rem, 3vw, 1.85rem);
+  overflow: hidden;
+  border: 1px solid var(--tile-border, rgba(24, 184, 215, 0.22));
+  box-shadow: 0 32px 68px rgba(4, 12, 25, 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(12, 30, 51, 0.88) 0%,
+    rgba(6, 18, 32, 0.96) 90%
+  );
+  color: var(--wp--preset--color--ink-inverse);
+  transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
+}
+
+.threew-category-grid__tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--tile-image);
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.15) contrast(1.05);
+  opacity: 0.52;
+  transition: transform 0.55s ease, opacity 0.55s ease;
+  z-index: -2;
+}
+
+.threew-category-grid__tile::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(
+      75% 70% at 85% 18%,
+      var(--tile-highlight, rgba(24, 184, 215, 0.45)) 0%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(12, 30, 51, 0.78) 0%,
+      rgba(12, 30, 51, 0.96) 100%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 22px,
+      rgba(255, 255, 255, 0.04) 22px,
+      rgba(255, 255, 255, 0.04) 34px
+    );
+  opacity: 0.92;
+  transition: transform 0.55s ease, opacity 0.55s ease;
+  z-index: -1;
+}
+
+.threew-category-grid__tile:hover,
+.threew-category-grid__tile:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 44px 88px rgba(4, 12, 25, 0.6);
+  border-color: rgba(238, 243, 255, 0.26);
+}
+
+.threew-category-grid__tile:hover::before,
+.threew-category-grid__tile:focus-within::before {
+  transform: scale(1.08);
+  opacity: 0.78;
+}
+
+.threew-category-grid__tile:hover::after,
+.threew-category-grid__tile:focus-within::after {
+  transform: scale(1.05);
+  opacity: 1;
 }
 
 .threew-category-grid__link {
+  position: relative;
   display: block;
   height: 100%;
   border-radius: inherit;
   color: inherit;
   text-decoration: none;
+  padding: clamp(1.5rem, 4vw, 2.35rem);
 }
 
 .threew-category-grid__link:focus-visible {
-  outline: 2px solid rgba(24, 184, 215, 0.55);
-  outline-offset: 4px;
+  outline: 2px solid rgba(24, 184, 215, 0.6);
+  outline-offset: 6px;
 }
 
 .threew-category-grid__content {
+  position: relative;
   display: grid;
-  gap: 0.5rem;
+  gap: clamp(0.55rem, 2vw, 0.85rem);
   height: 100%;
-  align-content: start;
+  z-index: 1;
+  align-content: flex-end;
+}
+
+.threew-category-grid__content h3 {
+  margin: 0;
+  font-family: 'Rajdhani', 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+}
+
+.threew-category-grid__summary {
+  margin: 0;
+  color: rgba(238, 243, 255, 0.74);
+  max-width: 28ch;
+}
+
+.threew-category-grid__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--wp--preset--color--secondary);
+  transition: transform 0.35s ease, color 0.35s ease;
+}
+
+.threew-category-grid__tile:hover .threew-category-grid__cta,
+.threew-category-grid__tile:focus-within .threew-category-grid__cta {
+  transform: translateX(4px);
+  color: var(--wp--preset--color--accent);
+}
+
+.threew-category-grid__tile--lighting {
+  --tile-image: url('../../assets/images/category-lighting.jpg');
+  --tile-highlight: rgba(24, 184, 215, 0.62);
+}
+
+.threew-category-grid__tile--aero {
+  --tile-image: url('../../assets/images/category-aero.jpg');
+  --tile-highlight: rgba(29, 107, 205, 0.52);
+}
+
+.threew-category-grid__tile--performance {
+  --tile-image: url('../../assets/images/category-performance.jpg');
+  --tile-highlight: rgba(216, 68, 50, 0.42);
+  --tile-border: rgba(216, 68, 50, 0.26);
+}
+
+.threew-category-grid__tile--wheels {
+  --tile-image: url('../../assets/images/category-wheels.jpg');
+  --tile-highlight: rgba(24, 184, 215, 0.48);
+}
+
+.threew-category-grid__tile--interior {
+  --tile-image: url('../../assets/images/category-interior.jpg');
+  --tile-highlight: rgba(29, 107, 205, 0.46);
+}
+
+.threew-category-grid__tile--clearance {
+  --tile-image: url('../../assets/images/category-clearance.jpg');
+  --tile-highlight: rgba(216, 68, 50, 0.5);
+  --tile-border: rgba(216, 68, 50, 0.28);
 }
 
 @media (min-width: 48rem) {
@@ -42,8 +172,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .threew-category-grid__tile {
-    text-align: left;
+  .threew-category-grid__content {
+    align-content: flex-start;
   }
 }
 
