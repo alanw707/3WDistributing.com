@@ -9,6 +9,18 @@
  */
 
 import apiFetch from '@wordpress/api-fetch';
+import { __, sprintf } from '@wordpress/i18n';
+
+const STEP_LABELS = [
+	__( 'Vehicle year', 'threew-2025' ),
+	__( 'Manufacturer', 'threew-2025' ),
+	__( 'Model', 'threew-2025' ),
+	__( 'Trim', 'threew-2025' ),
+];
+
+// translators: 1: current step number (1-4). 2: translated label for the current step.
+const STEP_STATUS_TEMPLATE = __( 'Step %1$d of 4: %2$s', 'threew-2025' );
+const STEP_STATUS_DEFAULT = __( 'Start with vehicle year', 'threew-2025' );
 
 class FitmentSelector {
 	constructor( container ) {
@@ -20,9 +32,15 @@ class FitmentSelector {
 		this.submitButton = container.querySelector(
 			'.threew-fitment-block__submit'
 		);
+		this.resetButton = container.querySelector(
+			'.threew-fitment-block__reset'
+		);
 		this.wrapper = container.closest( '.threew-fitment-block' );
 		this.progressSteps = Array.from(
 			this.wrapper?.querySelectorAll( '[data-fitment-step]' ) || []
+		);
+		this.progressStatus = this.wrapper?.querySelector(
+			'[data-fitment-step-status]'
 		);
 
 		this.state = {
@@ -91,7 +109,28 @@ class FitmentSelector {
 
 		// Mark as interactive (remove disabled state from save.js)
 		this.container.setAttribute( 'data-fitment-interactive', 'ready' );
+		this.updateSubmitButton();
 		this.syncProgress();
+	}
+
+	/**
+	 * Toggle loading state visuals on a select element.
+	 *
+	 * @param {HTMLSelectElement} select    Target select element.
+	 * @param {boolean}           isLoading Whether loading indicator is active.
+	 */
+	setLoadingState( select, isLoading ) {
+		if ( ! select ) {
+			return;
+		}
+
+		if ( isLoading ) {
+			select.classList.add( 'is-loading' );
+			select.setAttribute( 'aria-busy', 'true' );
+		} else {
+			select.classList.remove( 'is-loading' );
+			select.removeAttribute( 'aria-busy' );
+		}
 	}
 
 	/**
@@ -140,9 +179,26 @@ class FitmentSelector {
 	}
 
 	/**
+	 * Remove any stored vehicle selection from localStorage.
+	 */
+	clearVehicle() {
+		try {
+			const storage = this.getStorage();
+			if ( ! storage ) {
+				return;
+			}
+
+			storage.removeItem( 'threew_selected_vehicle' );
+		} catch ( error ) {
+			// Silently fail; clearing is a progressive enhancement.
+		}
+	}
+
+	/**
 	 * Populate year dropdown from API
 	 */
 	async populateYears() {
+		this.setLoadingState( this.yearSelect, true );
 		try {
 			const years = await apiFetch( {
 				path: '/threew/v1/fitment/years',
@@ -153,6 +209,8 @@ class FitmentSelector {
 			this.showError(
 				'Unable to load vehicle years. Please refresh the page.'
 			);
+		} finally {
+			this.setLoadingState( this.yearSelect, false );
 		}
 	}
 
@@ -162,6 +220,7 @@ class FitmentSelector {
 	 * @param {string} year Selected vehicle year.
 	 */
 	async populateMakes( year ) {
+		this.setLoadingState( this.makeSelect, true );
 		try {
 			const makes = await apiFetch( {
 				path: `/threew/v1/fitment/makes?year=${ year }`,
@@ -170,6 +229,8 @@ class FitmentSelector {
 			this.makeSelect.disabled = false;
 		} catch ( error ) {
 			this.showError( 'Unable to load vehicle makes.' );
+		} finally {
+			this.setLoadingState( this.makeSelect, false );
 		}
 	}
 
@@ -180,6 +241,7 @@ class FitmentSelector {
 	 * @param {string} make Selected vehicle make.
 	 */
 	async populateModels( year, make ) {
+		this.setLoadingState( this.modelSelect, true );
 		try {
 			const models = await apiFetch( {
 				path: `/threew/v1/fitment/models?year=${ year }&make=${ encodeURIComponent(
@@ -190,6 +252,8 @@ class FitmentSelector {
 			this.modelSelect.disabled = false;
 		} catch ( error ) {
 			this.showError( 'Unable to load vehicle models.' );
+		} finally {
+			this.setLoadingState( this.modelSelect, false );
 		}
 	}
 
@@ -201,6 +265,7 @@ class FitmentSelector {
 	 * @param {string} model Selected vehicle model.
 	 */
 	async populateTrims( year, make, model ) {
+		this.setLoadingState( this.trimSelect, true );
 		try {
 			const trims = await apiFetch( {
 				path: `/threew/v1/fitment/trims?year=${ year }&make=${ encodeURIComponent(
@@ -211,6 +276,8 @@ class FitmentSelector {
 			this.trimSelect.disabled = false;
 		} catch ( error ) {
 			this.showError( 'Unable to load vehicle trims.' );
+		} finally {
+			this.setLoadingState( this.trimSelect, false );
 		}
 	}
 
@@ -226,8 +293,7 @@ class FitmentSelector {
 			return;
 		}
 
-		// Insert a disabled placeholder that shows in the closed state
-		// but is hidden from the dropdown list via CSS.
+		// Insert a disabled placeholder that shows in the closed state.
 		select.innerHTML = `<option value="" disabled selected>Select ${ placeholder }</option>`;
 		options.forEach( ( option ) => {
 			const optionEl = document.createElement( 'option' );
@@ -252,6 +318,7 @@ class FitmentSelector {
 		select.innerHTML = `<option value="" disabled selected>Select ${ placeholder }</option>`;
 		select.disabled = true;
 		select.value = '';
+		this.setLoadingState( select, false );
 	}
 
 	/**
@@ -298,6 +365,18 @@ class FitmentSelector {
 				stepEl.removeAttribute( 'aria-current' );
 			}
 		} );
+
+		if ( this.progressStatus ) {
+			const hasSelection = values.some( ( value ) => Boolean( value ) );
+			const message = hasSelection
+				? sprintf(
+						STEP_STATUS_TEMPLATE,
+						activeIndex + 1,
+						STEP_LABELS[ activeIndex ]
+				  )
+				: STEP_STATUS_DEFAULT;
+			this.progressStatus.textContent = message;
+		}
 	}
 
 	/**
@@ -320,9 +399,13 @@ class FitmentSelector {
 			'change',
 			this.handleTrimChange.bind( this )
 		);
-		this.submitButton?.addEventListener(
-			'click',
+		this.container?.addEventListener(
+			'submit',
 			this.handleSubmit.bind( this )
+		);
+		this.container?.addEventListener(
+			'reset',
+			this.handleReset.bind( this )
 		);
 	}
 
@@ -411,6 +494,44 @@ class FitmentSelector {
 	}
 
 	/**
+	 * Handle manual reset from the clear vehicle control.
+	 *
+	 * @param {Event} event Reset event from the form element.
+	 */
+	handleReset( event ) {
+		event.preventDefault();
+
+		this.state = {
+			year: '',
+			make: '',
+			model: '',
+			trim: '',
+		};
+
+		if ( this.yearSelect ) {
+			this.yearSelect.value = '';
+			this.yearSelect.disabled = false;
+			this.setLoadingState( this.yearSelect, false );
+		}
+
+		this.resetSelect( this.makeSelect, 'Manufacturer' );
+		this.resetSelect( this.modelSelect, 'Model' );
+		this.resetSelect( this.trimSelect, 'Trim' );
+
+		this.updateSubmitButton();
+		this.clearVehicle();
+		if ( typeof window !== 'undefined' ) {
+			window.dispatchEvent(
+				new CustomEvent( 'threew-vehicle-selected', {
+					detail: { ...this.state },
+				} )
+			);
+		}
+		this.syncProgress();
+		this.yearSelect?.focus();
+	}
+
+	/**
 	 * Update submit button state based on required selections
 	 */
 	updateSubmitButton() {
@@ -421,6 +542,16 @@ class FitmentSelector {
 		// Require at least Year, Make, Model (trim is optional)
 		const isValid = this.state.year && this.state.make && this.state.model;
 		this.submitButton.disabled = ! isValid;
+
+		if ( this.resetButton ) {
+			const hasAnySelection = Boolean(
+				this.state.year ||
+					this.state.make ||
+					this.state.model ||
+					this.state.trim
+			);
+			this.resetButton.disabled = ! hasAnySelection;
+		}
 	}
 
 	/**

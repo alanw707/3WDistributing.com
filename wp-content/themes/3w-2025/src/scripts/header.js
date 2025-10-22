@@ -123,11 +123,15 @@
 					'--threew-header-open-offset',
 					`${ headerHeight }px`
 				);
-				document.documentElement.classList.add( 'threew-body--nav-open' );
+				document.documentElement.classList.add(
+					'threew-body--nav-open'
+				);
 				document.body.classList.add( 'threew-body--nav-open' );
 			} else {
 				header.style.removeProperty( '--threew-header-open-offset' );
-				document.documentElement.classList.remove( 'threew-body--nav-open' );
+				document.documentElement.classList.remove(
+					'threew-body--nav-open'
+				);
 				document.body.classList.remove( 'threew-body--nav-open' );
 			}
 			if ( overlay ) {

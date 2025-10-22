@@ -15,7 +15,7 @@
   }
 
   .threew-hero__content {
-    gap: clamp(0.65rem, 3vw, 1.35rem);
+    gap: clamp(0.55rem, 2.5vw, 1.1rem);
   }
 
   .threew-hero__actions {
@@ -25,18 +25,12 @@
 
   .threew-hero__metrics {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    padding: clamp(0.9rem, 4vw, 1.5rem);
   }
 
   /* Fitment card: hide numbered progress and ensure single-column grid under tablet */
   .threew-fitment-block__progress {
     /* stylelint-disable-next-line declaration-no-important */
     display: none !important;
-  }
-
-  .threew-fitment-block__form {
-    /* stylelint-disable-next-line declaration-no-important */
-    grid-template-columns: minmax(0, 1fr) !important;
   }
 
   /* Slightly reduce outer padding on the fitment card and hide helper */
@@ -87,9 +81,9 @@
 
   /* Tame hero headline scale/spacing on small screens */
   .threew-hero__content h1 {
-    font-size: clamp(1.75rem, 8.5vw, 2.35rem);
-    letter-spacing: 0.04em;
-    line-height: 1.15;
+    font-size: clamp(1.65rem, 7.5vw, 2.2rem);
+    letter-spacing: 0.03em;
+    line-height: 1.12;
   }
 
   /* Fitment card: tighten heading/subheading and improve touch target spacing */
@@ -114,7 +108,13 @@
   }
 
   .threew-hero__metrics {
-    gap: 1rem;
+    gap: 0.75rem;
+    flex-direction: column;
+  }
+
+  .threew-hero__metric {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .threew-hero__background-grid {
@@ -135,12 +135,6 @@
   .threew-front-page {
     padding: 0 clamp(1rem, 6vw, 2rem)
       clamp(2.5rem, 10vw, 3.25rem);
-  }
-
-  /* Tighten hero supporting cards */
-  .threew-hero__supporting-item {
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.75rem;
   }
 
   /* Fitment block: reduce outer padding and flatten nested cards */

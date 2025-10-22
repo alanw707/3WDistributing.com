@@ -106,7 +106,7 @@
 
 .threew-category-grid__content h3 {
   margin: 0;
-  font-family: 'Rajdhani', 'Orbitron', sans-serif;
+  font-family: Rajdhani, Orbitron, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: clamp(1.2rem, 2.6vw, 1.6rem);

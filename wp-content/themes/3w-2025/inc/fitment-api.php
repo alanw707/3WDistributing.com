@@ -371,7 +371,7 @@ function render_fitment_selector( $attributes = array() ) {
 	$defaults = array(
 		'headline'    => __( 'Build your upgrade package', 'threew-2025' ),
 		'subheadline' => __( 'Choose your vehicle to see in-stock performance parts.', 'threew-2025' ),
-		'ctaLabel'    => __( 'Show compatible parts', 'threew-2025' ),
+		'ctaLabel'    => __( 'Search parts', 'threew-2025' ),
 	);
 
 	$attributes = wp_parse_args( $attributes, $defaults );
@@ -384,59 +384,71 @@ function render_fitment_selector( $attributes = array() ) {
 			<h3 class="threew-fitment-block__headline"><?php echo esc_html( $attributes['headline'] ); ?></h3>
 			<p class="threew-fitment-block__subheadline"><?php echo esc_html( $attributes['subheadline'] ); ?></p>
 		</div>
-		<div class="threew-fitment-block__progress" aria-hidden="true">
-			<div class="threew-fitment-progress__step is-active" data-fitment-step="year">
-				<span class="threew-fitment-progress__index">1</span>
-				<span class="threew-fitment-progress__label"><?php esc_html_e( 'Vehicle year', 'threew-2025' ); ?></span>
-			</div>
-			<div class="threew-fitment-progress__connector" aria-hidden="true"></div>
-			<div class="threew-fitment-progress__step" data-fitment-step="make">
-				<span class="threew-fitment-progress__index">2</span>
-				<span class="threew-fitment-progress__label"><?php esc_html_e( 'Manufacturer', 'threew-2025' ); ?></span>
-			</div>
-			<div class="threew-fitment-progress__connector" aria-hidden="true"></div>
-			<div class="threew-fitment-progress__step" data-fitment-step="model">
-				<span class="threew-fitment-progress__index">3</span>
-				<span class="threew-fitment-progress__label"><?php esc_html_e( 'Model', 'threew-2025' ); ?></span>
-			</div>
-			<div class="threew-fitment-progress__connector" aria-hidden="true"></div>
-			<div class="threew-fitment-progress__step" data-fitment-step="trim">
-				<span class="threew-fitment-progress__index">4</span>
-				<span class="threew-fitment-progress__label"><?php esc_html_e( 'Trim', 'threew-2025' ); ?></span>
-			</div>
-		</div>
-			<div class="threew-fitment-block__form-shell" role="group" aria-label="<?php esc_attr_e( 'Vehicle fitment selector', 'threew-2025' ); ?>">
-				<div class="threew-fitment-block__form" data-fitment-interactive="pending">
+
+		<nav class="threew-fitment-block__progress" aria-label="<?php esc_attr_e( 'Vehicle selection steps', 'threew-2025' ); ?>" aria-live="polite">
+			<ol class="threew-fitment-progress__list">
+				<li class="threew-fitment-progress__step is-active" data-fitment-step="year">
+					<span class="threew-fitment-progress__index">1</span>
+					<span class="threew-fitment-progress__label"><?php esc_html_e( 'Vehicle year', 'threew-2025' ); ?></span>
+				</li>
+				<li class="threew-fitment-progress__step" data-fitment-step="make">
+					<span class="threew-fitment-progress__index">2</span>
+					<span class="threew-fitment-progress__label"><?php esc_html_e( 'Manufacturer', 'threew-2025' ); ?></span>
+				</li>
+				<li class="threew-fitment-progress__step" data-fitment-step="model">
+					<span class="threew-fitment-progress__index">3</span>
+					<span class="threew-fitment-progress__label"><?php esc_html_e( 'Model', 'threew-2025' ); ?></span>
+				</li>
+				<li class="threew-fitment-progress__step" data-fitment-step="trim">
+					<span class="threew-fitment-progress__index">4</span>
+					<span class="threew-fitment-progress__label"><?php esc_html_e( 'Trim', 'threew-2025' ); ?></span>
+				</li>
+			</ol>
+			<p class="threew-fitment-progress__status" data-fitment-step-status>
+				<?php esc_html_e( 'Start with vehicle year', 'threew-2025' ); ?>
+			</p>
+		</nav>
+
+		<div class="threew-fitment-block__form-shell">
+			<form class="threew-fitment-block__form" data-fitment-interactive="pending" aria-describedby="threew-fitment-helper" novalidate>
+				<div class="threew-fitment-block__fields">
 					<div class="threew-fitment-block__field">
 						<label for="threew-fitment-year"><?php esc_html_e( 'Year', 'threew-2025' ); ?></label>
-					<select id="threew-fitment-year" disabled>
-						<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
-					</select>
-				</div>
+						<select id="threew-fitment-year" disabled>
+							<option value="" disabled selected><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+						</select>
+					</div>
 					<div class="threew-fitment-block__field">
 						<label for="threew-fitment-make"><?php esc_html_e( 'Manufacturer', 'threew-2025' ); ?></label>
-					<select id="threew-fitment-make" disabled>
-						<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
-					</select>
+						<select id="threew-fitment-make" disabled>
+							<option value="" disabled selected><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+						</select>
+					</div>
+					<div class="threew-fitment-block__field">
+						<label for="threew-fitment-model"><?php esc_html_e( 'Model', 'threew-2025' ); ?></label>
+						<select id="threew-fitment-model" disabled>
+							<option value="" disabled selected><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+						</select>
+					</div>
+					<div class="threew-fitment-block__field">
+						<label for="threew-fitment-trim"><?php esc_html_e( 'Trim', 'threew-2025' ); ?></label>
+						<select id="threew-fitment-trim" disabled>
+							<option value="" disabled selected><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
+						</select>
+					</div>
 				</div>
-				<div class="threew-fitment-block__field">
-					<label for="threew-fitment-model"><?php esc_html_e( 'Model', 'threew-2025' ); ?></label>
-					<select id="threew-fitment-model" disabled>
-						<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
-					</select>
+
+				<div class="threew-fitment-block__actions">
+					<button class="threew-fitment-block__submit" type="submit" disabled>
+						<?php echo esc_html( $attributes['ctaLabel'] ); ?>
+					</button>
+					<button class="threew-fitment-block__reset" type="reset" disabled>
+						<?php esc_html_e( 'Clear vehicle', 'threew-2025' ); ?>
+					</button>
 				</div>
-				<div class="threew-fitment-block__field">
-					<label for="threew-fitment-trim"><?php esc_html_e( 'Trim', 'threew-2025' ); ?></label>
-					<select id="threew-fitment-trim" disabled>
-						<option value=""><?php esc_html_e( 'Select', 'threew-2025' ); ?></option>
-					</select>
-				</div>
-				<button class="threew-fitment-block__submit" type="button" disabled>
-					<?php echo esc_html( $attributes['ctaLabel'] ); ?>
-				</button>
-			</div>
-			<p class="threew-fitment-block__helper">
-				<?php esc_html_e( 'Start with vehicle year, then follow the prompts through manufacturer, model, and trim.', 'threew-2025' ); ?>
+			</form>
+			<p class="threew-fitment-block__helper" id="threew-fitment-helper">
+				<?php esc_html_e( 'Start with vehicle year, then follow manufacturer, model, and trim.', 'threew-2025' ); ?>
 			</p>
 		</div>
 	</div>

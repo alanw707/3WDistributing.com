@@ -65,13 +65,13 @@
 
 .threew-hero__background-stripes {
   position: absolute;
-  inset: -25% -15% auto -15%;
+  inset: -25% -15% auto;
   height: 140%;
   background:
     linear-gradient(115deg, rgba(24, 184, 215, 0.1) 0%, rgba(24, 184, 215, 0) 45%),
     repeating-linear-gradient(
       120deg,
-      rgba(24, 184, 215, 0.08) 0px,
+      rgba(24, 184, 215, 0.08) 0,
       rgba(24, 184, 215, 0.08) 8px,
       rgba(24, 184, 215, 0) 8px,
       rgba(24, 184, 215, 0) 32px

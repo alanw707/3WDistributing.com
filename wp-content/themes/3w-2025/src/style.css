@@ -1,6 +1,7 @@
 @import url('./styles/base/tokens.css');
 @import url('./styles/base/global.css');
 @import url('./styles/components/header.css');
+@import url('./styles/components/header-drawer.css');
 @import url('./styles/components/header-desktop.css');
 @import url('./styles/components/header-admin.css');
 @import url('./styles/layout/front-page.css');

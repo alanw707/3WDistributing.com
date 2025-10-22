@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useMemo, useState } from '@wordpress/element';
 import {
 	InspectorControls,
@@ -53,6 +53,8 @@ const getTrims = ( year, make, model ) =>
 		? INVENTORY[ year ][ make ][ model ] || []
 		: [];
 
+const STEP_IDS = [ 'year', 'make', 'model', 'trim' ];
+
 export default function Edit( { attributes, setAttributes } ) {
 	const { headline, subheadline, ctaLabel } = attributes;
 	const blockProps = useBlockProps( { className: 'threew-fitment-block' } );
@@ -86,6 +88,45 @@ export default function Edit( { attributes, setAttributes } ) {
 		setModel( event.target.value );
 		setTrim( '' );
 	};
+
+	const handleReset = () => {
+		setYear( '' );
+		setMake( '' );
+		setModel( '' );
+		setTrim( '' );
+	};
+
+	const stepValues = [ year, make, model, trim ];
+
+	let activeIndex = 0;
+	if ( ! stepValues[ 0 ] ) {
+		activeIndex = 0;
+	} else if ( ! stepValues[ 1 ] ) {
+		activeIndex = 1;
+	} else if ( ! stepValues[ 2 ] ) {
+		activeIndex = 2;
+	} else if ( ! stepValues[ 3 ] ) {
+		activeIndex = 3;
+	} else {
+		activeIndex = stepValues.length - 1;
+	}
+
+	const stepLabels = [
+		__( 'Vehicle year', 'threew-2025' ),
+		__( 'Manufacturer', 'threew-2025' ),
+		__( 'Model', 'threew-2025' ),
+		__( 'Trim', 'threew-2025' ),
+	];
+
+	const hasSelection = stepValues.some( Boolean );
+	const statusMessage = hasSelection
+		? sprintf(
+				/* translators: 1: current step number (1-4). 2: translated label for the current step. */
+				__( 'Step %1$d of 4: %2$s', 'threew-2025' ),
+				activeIndex + 1,
+				stepLabels[ activeIndex ]
+		  )
+		: __( 'Start with vehicle year', 'threew-2025' );
 
 	return (
 		<>
@@ -129,173 +170,168 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</div>
 
-				<div
+				<nav
 					className="threew-fitment-block__progress"
-					aria-hidden="true"
-				>
-					<div
-						className="threew-fitment-progress__step is-active"
-						data-fitment-step="year"
-					>
-						<span className="threew-fitment-progress__index">
-							1
-						</span>
-						<span className="threew-fitment-progress__label">
-							{ __( 'Vehicle year', 'threew-2025' ) }
-						</span>
-					</div>
-					<span
-						className="threew-fitment-progress__connector"
-						aria-hidden="true"
-					/>
-					<div
-						className="threew-fitment-progress__step"
-						data-fitment-step="make"
-					>
-						<span className="threew-fitment-progress__index">
-							2
-						</span>
-						<span className="threew-fitment-progress__label">
-							{ __( 'Manufacturer', 'threew-2025' ) }
-						</span>
-					</div>
-					<span
-						className="threew-fitment-progress__connector"
-						aria-hidden="true"
-					/>
-					<div
-						className="threew-fitment-progress__step"
-						data-fitment-step="model"
-					>
-						<span className="threew-fitment-progress__index">
-							3
-						</span>
-						<span className="threew-fitment-progress__label">
-							{ __( 'Model', 'threew-2025' ) }
-						</span>
-					</div>
-					<span
-						className="threew-fitment-progress__connector"
-						aria-hidden="true"
-					/>
-					<div
-						className="threew-fitment-progress__step"
-						data-fitment-step="trim"
-					>
-						<span className="threew-fitment-progress__index">
-							4
-						</span>
-						<span className="threew-fitment-progress__label">
-							{ __( 'Trim', 'threew-2025' ) }
-						</span>
-					</div>
-				</div>
-
-				<div
-					className="threew-fitment-block__form-shell"
-					role="group"
 					aria-label={ __(
-						'Vehicle fitment selector',
+						'Vehicle selection steps',
 						'threew-2025'
 					) }
+					aria-live="polite"
 				>
-					<div
+					<ol className="threew-fitment-progress__list">
+						{ STEP_IDS.map( ( step, index ) => {
+							const hasValue = Boolean( stepValues[ index ] );
+							const isActive = index === activeIndex;
+							const classes = [
+								'threew-fitment-progress__step',
+								hasValue ? 'is-complete' : '',
+								isActive ? 'is-active' : '',
+							]
+								.filter( Boolean )
+								.join( ' ' );
+
+							return (
+								<li
+									key={ step }
+									className={ classes }
+									data-fitment-step={ step }
+									aria-current={
+										isActive ? 'step' : undefined
+									}
+								>
+									<span className="threew-fitment-progress__index">
+										{ index + 1 }
+									</span>
+									<span className="threew-fitment-progress__label">
+										{ stepLabels[ index ] }
+									</span>
+								</li>
+							);
+						} ) }
+					</ol>
+					<p className="threew-fitment-progress__status">
+						{ statusMessage }
+					</p>
+				</nav>
+
+				<div className="threew-fitment-block__form-shell">
+					<form
 						className="threew-fitment-block__form"
-						data-fitment-interactive="pending"
+						data-fitment-interactive="ready"
+						aria-describedby="threew-fitment-helper"
+						onSubmit={ ( event ) => event.preventDefault() }
+						onReset={ handleReset }
+						noValidate
 					>
-						<div className="threew-fitment-block__field">
-							<label htmlFor="threew-fitment-year">
-								{ __( 'Year', 'threew-2025' ) }
-							</label>
-							<select
-								id="threew-fitment-year"
-								value={ year }
-								onChange={ handleYearChange }
-							>
-								<option value="" disabled selected>
-									{ __( 'Select', 'threew-2025' ) }
-								</option>
-								{ getYears().map( ( y ) => (
-									<option key={ y } value={ y }>
-										{ y }
+						<div className="threew-fitment-block__fields">
+							<div className="threew-fitment-block__field">
+								<label htmlFor="threew-fitment-year">
+									{ __( 'Year', 'threew-2025' ) }
+								</label>
+								<select
+									id="threew-fitment-year"
+									value={ year }
+									onChange={ handleYearChange }
+								>
+									<option value="" disabled>
+										{ __( 'Select', 'threew-2025' ) }
 									</option>
-								) ) }
-							</select>
+									{ getYears().map( ( y ) => (
+										<option key={ y } value={ y }>
+											{ y }
+										</option>
+									) ) }
+								</select>
+							</div>
+
+							<div className="threew-fitment-block__field">
+								<label htmlFor="threew-fitment-make">
+									{ __( 'Manufacturer', 'threew-2025' ) }
+								</label>
+								<select
+									id="threew-fitment-make"
+									value={ make }
+									onChange={ handleMakeChange }
+									disabled={ ! makes.length }
+								>
+									<option value="" disabled>
+										{ __( 'Select', 'threew-2025' ) }
+									</option>
+									{ makes.map( ( mk ) => (
+										<option key={ mk } value={ mk }>
+											{ mk }
+										</option>
+									) ) }
+								</select>
+							</div>
+
+							<div className="threew-fitment-block__field">
+								<label htmlFor="threew-fitment-model">
+									{ __( 'Model', 'threew-2025' ) }
+								</label>
+								<select
+									id="threew-fitment-model"
+									value={ model }
+									onChange={ handleModelChange }
+									disabled={ ! models.length }
+								>
+									<option value="" disabled>
+										{ __( 'Select', 'threew-2025' ) }
+									</option>
+									{ models.map( ( md ) => (
+										<option key={ md } value={ md }>
+											{ md }
+										</option>
+									) ) }
+								</select>
+							</div>
+
+							<div className="threew-fitment-block__field">
+								<label htmlFor="threew-fitment-trim">
+									{ __( 'Trim', 'threew-2025' ) }
+								</label>
+								<select
+									id="threew-fitment-trim"
+									value={ trim }
+									onChange={ ( event ) =>
+										setTrim( event.target.value )
+									}
+									disabled={ ! trims.length }
+								>
+									<option value="" disabled>
+										{ __( 'Select', 'threew-2025' ) }
+									</option>
+									{ trims.map( ( tr ) => (
+										<option key={ tr } value={ tr }>
+											{ tr }
+										</option>
+									) ) }
+								</select>
+							</div>
 						</div>
 
-						<div className="threew-fitment-block__field">
-							<label htmlFor="threew-fitment-make">
-								{ __( 'Manufacturer', 'threew-2025' ) }
-							</label>
-							<select
-								id="threew-fitment-make"
-								value={ make }
-								onChange={ handleMakeChange }
-								disabled={ ! makes.length }
+						<div className="threew-fitment-block__actions">
+							<button
+								className="threew-fitment-block__submit"
+								type="submit"
+								disabled={ ! ( year && make && model ) }
 							>
-								<option value="" disabled selected>
-									{ __( 'Select', 'threew-2025' ) }
-								</option>
-								{ makes.map( ( mk ) => (
-									<option key={ mk } value={ mk }>
-										{ mk }
-									</option>
-								) ) }
-							</select>
-						</div>
-
-						<div className="threew-fitment-block__field">
-							<label htmlFor="threew-fitment-model">
-								{ __( 'Model', 'threew-2025' ) }
-							</label>
-							<select
-								id="threew-fitment-model"
-								value={ model }
-								onChange={ handleModelChange }
-								disabled={ ! models.length }
+								{ ctaLabel ||
+									__( 'Search Parts', 'threew-2025' ) }
+							</button>
+							<button
+								className="threew-fitment-block__reset"
+								type="reset"
+								disabled={ ! hasSelection }
 							>
-								<option value="" disabled selected>
-									{ __( 'Select', 'threew-2025' ) }
-								</option>
-								{ models.map( ( md ) => (
-									<option key={ md } value={ md }>
-										{ md }
-									</option>
-								) ) }
-							</select>
+								{ __( 'Clear vehicle', 'threew-2025' ) }
+							</button>
 						</div>
-
-						<div className="threew-fitment-block__field">
-							<label htmlFor="threew-fitment-trim">
-								{ __( 'Trim', 'threew-2025' ) }
-							</label>
-							<select
-								id="threew-fitment-trim"
-								value={ trim }
-								onChange={ ( event ) =>
-									setTrim( event.target.value )
-								}
-								disabled={ ! trims.length }
-							>
-								<option value="" disabled selected>
-									{ __( 'Select', 'threew-2025' ) }
-								</option>
-								{ trims.map( ( tr ) => (
-									<option key={ tr } value={ tr }>
-										{ tr }
-									</option>
-								) ) }
-							</select>
-						</div>
-
-						<button
-							className="threew-fitment-block__submit"
-							type="button"
-						>
-							{ ctaLabel || __( 'Search Parts', 'threew-2025' ) }
-						</button>
-					</div>
-					<p className="threew-fitment-block__helper">
+					</form>
+					<p
+						className="threew-fitment-block__helper"
+						id="threew-fitment-helper"
+					>
 						{ __(
 							'Start with vehicle year, then follow manufacturer, model, and trim.',
 							'threew-2025'

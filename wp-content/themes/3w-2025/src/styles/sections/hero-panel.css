@@ -7,41 +7,29 @@
   max-width: 100%;
   width: 100%;
   margin-inline: auto;
-  margin-top: clamp(1rem, 4vw, 1.5rem);
-  padding: clamp(0.5rem, 2vw, 1rem) clamp(0.75rem, 3vw, 1.5rem) clamp(0.75rem, 3vw, 1.5rem);
+  margin-top: clamp(0.35rem, 2vw, 0.75rem);
+  padding: clamp(0.2rem, 1.2vw, 0.45rem) clamp(0.35rem, 1.8vw, 0.8rem)
+    clamp(0.3rem, 1.4vw, 0.6rem);
   order: 2;
+  border-radius: clamp(0.75rem, 1.8vw, 1.1rem);
 }
 
 .threew-hero__panel::before {
-  content: '';
-  position: absolute;
-  inset: -20% -36% -34% 16%;
-  background: linear-gradient(
-    115deg,
-    rgba(24, 184, 215, 0) 0%,
-    rgba(24, 184, 215, 0.32) 45%,
-    rgba(24, 184, 215, 0.05) 100%
-  );
-  filter: blur(52px);
-  opacity: 0.7;
-  transform: rotate(-4deg);
-  pointer-events: none;
-  mix-blend-mode: screen;
-  animation: threew-hero-light-bar 28s ease-in-out infinite;
+  display: none;
 }
 
 .threew-hero__panel-shell {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.85rem, 2.2vw, 1.5rem);
-  padding: clamp(1.2rem, 2.4vw, 1.65rem);
-  border-radius: clamp(1.25rem, 2.6vw, 1.7rem);
-  background: rgba(5, 18, 34, 0.9);
-  border: 1px solid rgba(24, 184, 215, 0.22);
-  box-shadow: 0 26px 48px rgba(4, 12, 25, 0.5);
-  backdrop-filter: blur(16px);
-  overflow: hidden;
+  gap: clamp(0.45rem, 1.4vw, 0.85rem);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  overflow: visible;
   transform: translateZ(0);
   animation: none;
   width: 100%;
@@ -55,81 +43,77 @@
 
 .threew-hero__panel-header {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.35rem;
   text-align: center;
 }
 
-.threew-hero__panel-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  width: fit-content;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
+.threew-hero__panel-eyebrow {
+  margin: 0;
   font-size: var(--wp--preset--font-size--body-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(238, 243, 255, 0.78);
-  background: rgba(12, 30, 51, 0.65);
-  border: 1px solid rgba(24, 184, 215, 0.35);
+  color: rgba(238, 243, 255, 0.68);
 }
 
 .threew-hero__panel-heading {
   margin: 0;
-  font-size: clamp(1.28rem, 1.9vw, 1.6rem);
-  letter-spacing: 0.06em;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .threew-hero__panel-subheading {
   margin: 0;
   color: rgba(238, 243, 255, 0.72);
-  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  font-size: clamp(0.82rem, 1.4vw, 0.92rem);
+  line-height: 1.4;
 }
 
 .threew-hero__panel-body {
   margin: 0;
-  border-radius: 1rem;
-  background: rgba(3, 12, 26, 0.55);
-  border: 1px solid rgba(24, 184, 215, 0.2);
-  padding: clamp(0.85rem, 2.2vw, 1.35rem);
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  padding: 0;
   scroll-margin-top: clamp(5rem, 12vw, 7.5rem);
 }
 
 .threew-fitment-card__meta {
-  margin: clamp(0.75rem, 2.4vw, 1.2rem) 0 0;
+  margin: clamp(0.55rem, 1.8vw, 0.9rem) 0 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  gap: clamp(0.6rem, 2vw, 0.9rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.45rem, 1.6vw, 0.75rem);
 }
 
 .threew-fitment-card__meta li {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.65rem;
-  padding: 0.65rem 0.85rem;
-  border-radius: 0.85rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
   background: rgba(5, 18, 34, 0.55);
   border: 1px solid rgba(24, 184, 215, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.05);
+  flex: 1 1 clamp(9rem, 28%, 11.5rem);
+  min-height: 2.5rem;
 }
 
 .threew-fitment-card__meta strong {
   margin: 0;
   font-family: var(--wp--preset--font-family--numeric);
-  font-size: clamp(1.15rem, 4vw, 1.5rem);
+  font-size: clamp(1.05rem, 3.6vw, 1.35rem);
   letter-spacing: 0.08em;
   color: rgba(238, 243, 255, 0.96);
 }
 
 .threew-fitment-card__meta span {
-  display: block;
+  display: inline-block;
   margin: 0;
-  font-size: var(--wp--preset--font-size--body-sm);
-  color: rgba(238, 243, 255, 0.75);
-  letter-spacing: 0.05em;
+  font-size: clamp(0.68rem, 2.1vw, 0.8rem);
+  color: rgba(238, 243, 255, 0.8);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -137,21 +121,16 @@
   color: var(--wp--preset--color--surface-alt);
 }
 
-.threew-hero__panel-footer {
-  display: flex;
-  justify-content: center;
-}
-
 .threew-hero__panel-link {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.55rem 0.95rem;
+  padding: 0.5rem 0.85rem;
   border-radius: 999px;
   border: 1px solid rgba(24, 184, 215, 0.4);
   color: rgba(238, 243, 255, 0.82);
   font-size: var(--wp--preset--font-size--body-sm);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -177,71 +156,38 @@
   height: 1.25rem;
 }
 
-.threew-hero__panel-metrics {
-  display: grid;
-  gap: clamp(0.75rem, 2vw, 1.25rem);
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+.threew-hero__panel-link--inline {
+  align-self: flex-start;
+  margin-top: clamp(0.15rem, 0.6vw, 0.4rem);
 }
 
-.threew-hero__metric {
-  display: flex;
-  gap: 0.6rem;
-  align-items: flex-start;
-  padding: 0.65rem 0.8rem;
-  border-radius: 0.9rem;
-  background: rgba(8, 20, 38, 0.32);
-  border: 1px solid rgba(24, 184, 215, 0.2);
+@media (min-width: 48rem) {
+  .threew-hero__panel-header {
+    text-align: left;
+  }
 }
 
-.threew-hero__metric-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(1.75rem, 3vw, 2.05rem);
-  height: clamp(1.75rem, 3vw, 2.05rem);
-  border-radius: 0.75rem;
-  background: rgba(24, 184, 215, 0.15);
-  border: 1px solid rgba(24, 184, 215, 0.32);
-  color: rgba(238, 243, 255, 0.9);
-  box-shadow: 0 14px 28px rgba(4, 12, 25, 0.35);
-  animation: threew-hero-pulse 6s ease-in-out infinite;
-}
+@media (min-width: 64rem) {
+  .threew-hero__panel {
+    margin-top: 0;
+    align-self: start;
+  }
 
-.threew-hero__metric-icon svg {
-  width: 1.35rem;
-  height: 1.35rem;
-}
-
-.threew-hero__metric-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.threew-hero__metric-value {
-  margin: 0;
-  font-family: var(--wp--preset--font-family--numeric);
-  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
-  letter-spacing: 0.08em;
-}
-
-.threew-hero__metric-label {
-  margin: 0;
-  font-size: var(--wp--preset--font-size--body-sm);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(238, 243, 255, 0.72);
+  .threew-hero__panel-shell {
+    max-width: clamp(360px, 34vw, 520px);
+    padding: clamp(0.65rem, 1.3vw, 1.1rem);
+  }
 }
 
 .threew-fitment-placeholder {
   display: grid;
-  gap: 1rem;
+  gap: 0.75rem;
   color: rgba(238, 243, 255, 0.86);
 }
 
 .threew-fitment-placeholder__meta {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.25rem;
 }
 
 .threew-fitment-placeholder__eyebrow {
@@ -254,11 +200,13 @@
 .threew-fitment-placeholder__meta p {
   margin: 0;
   color: rgba(238, 243, 255, 0.75);
+  font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+  line-height: 1.45;
 }
 
 .threew-fitment-placeholder__cta {
   justify-self: start;
-  padding: 0.55rem 1.35rem;
+  padding: 0.45rem 1.15rem;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -269,56 +217,20 @@
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.threew-fitment-inline-assurances {
-  display: grid;
-  gap: clamp(0.6rem, 2vw, 1.1rem);
-  margin: clamp(0.75rem, 2.2vw, 1.25rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.threew-fitment-inline-assurances li {
-  display: grid;
-  gap: 0.25rem;
-  padding: clamp(0.55rem, 2vw, 0.9rem) clamp(0.75rem, 3vw, 1.2rem);
-  border-radius: clamp(0.85rem, 2.4vw, 1.2rem);
-  background: rgba(10, 32, 58, 0.55);
-  border: 1px solid rgba(24, 184, 215, 0.18);
-  box-shadow: inset 0 1px 0 rgba(238, 243, 255, 0.05);
-}
-
-.threew-fitment-inline-title {
-  font-size: clamp(0.75rem, 1.5vw, 0.88rem);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(238, 243, 255, 0.86);
-  margin: 0;
-}
-
-.threew-fitment-inline-sub {
-  font-size: clamp(0.72rem, 1.4vw, 0.82rem);
-  color: rgba(238, 243, 255, 0.7);
-  margin: 0;
-}
 
 @media (min-width: 48rem) {
-  .threew-hero__panel-metrics {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .threew-hero__panel-header {
+    text-align: left;
+    align-items: flex-start;
   }
 
   .threew-fitment-card__meta {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: space-between;
   }
 
   .threew-fitment-card__meta li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    text-align: left;
-  }
-
-  .threew-fitment-inline-assurances {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    flex: 1 1 calc(33.33% - clamp(0.4rem, 1.2vw, 0.65rem));
+    justify-content: center;
   }
 }
 
@@ -326,55 +238,51 @@
   .threew-hero__panel {
     margin-inline: auto;
     margin-top: 0;
-    padding: clamp(0.35rem, 1.2vw, 0.85rem) clamp(0.35rem, 1.2vw, 0.85rem) clamp(0.55rem, 1.4vw, 1rem);
-    max-width: clamp(420px, 38vw, 560px);
+    padding: clamp(0.3rem, 1vw, 0.6rem) clamp(0.3rem, 1vw, 0.65rem)
+      clamp(0.45rem, 1.2vw, 0.85rem);
+    max-width: clamp(500px, 45vw, 640px);
     order: initial;
-  }
-
-  .threew-fitment-inline-assurances {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 /* Mobile: flatten panel layers to avoid nested rounded cards */
 @media (max-width: 782px) {
   .threew-hero__panel {
-    padding: clamp(0.35rem, 2.5vw, 0.75rem);
-  }
-
-  .threew-hero__panel::before {
-    display: none;
+    padding: clamp(0.25rem, 2vw, 0.65rem);
+    border-radius: clamp(0.65rem, 2vw, 0.9rem);
   }
 
   .threew-hero__panel-shell {
-    padding: clamp(0.5rem, 2.5vw, 0.75rem);
-    border-radius: 0.9rem;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    backdrop-filter: none;
+    padding: 0;
+    border-radius: 0;
   }
 
   .threew-hero__panel-body {
-    background: transparent;
-    border: 0;
     padding: 0;
+  }
+
+  .threew-fitment-card__meta {
+    gap: clamp(0.45rem, 3vw, 0.65rem);
+  }
+
+  .threew-fitment-card__meta li {
+    flex: 1 1 calc(50% - clamp(0.45rem, 3vw, 0.65rem));
   }
 }
 
-/* Desktop: tone down rounded layers on the fitment panel */
+/* Desktop: keep shell lightweight to avoid layered cards */
 @media (min-width: 64rem) {
+  .threew-hero__panel {
+    border-radius: clamp(0.75rem, 1.6vw, 1.05rem);
+    padding: clamp(0.3rem, 1vw, 0.6rem) clamp(0.3rem, 1vw, 0.7rem)
+      clamp(0.45rem, 1.2vw, 0.8rem);
+  }
+
   .threew-hero__panel-shell {
-    border-radius: 0.75rem;
-    background: rgba(5, 18, 34, 0.75);
-    border: 1px solid rgba(24, 184, 215, 0.18);
-    box-shadow: 0 18px 32px rgba(4, 12, 25, 0.42);
+    padding: 0;
   }
 
   .threew-hero__panel-body {
-    background: transparent;
-    border: 0;
-    padding: clamp(0.5rem, 1.2vw, 0.85rem);
-    border-radius: 0.5rem;
+    padding: 0;
   }
 }

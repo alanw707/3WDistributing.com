@@ -6,14 +6,14 @@
     radial-gradient(160% 140% at 90% 0%, rgba(15, 54, 96, 0.16) 0%, transparent 70%),
     repeating-linear-gradient(
       0deg,
-      rgba(5, 18, 36, 0.38) 0px,
+      rgba(5, 18, 36, 0.38) 0,
       rgba(5, 18, 36, 0.38) 1px,
       transparent 1px,
       transparent 18px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(9, 26, 46, 0.42) 0px,
+      rgba(9, 26, 46, 0.42) 0,
       rgba(9, 26, 46, 0.42) 1px,
       transparent 1px,
       transparent 18px
@@ -35,7 +35,7 @@
 .threew-seo-intro::before {
   content: '';
   position: absolute;
-  inset: 0 0 auto 0;
+  inset: 0 0 auto;
   height: 30%;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
@@ -51,7 +51,7 @@
     radial-gradient(70% 180% at 40% 50%, rgba(24, 184, 215, 0.12) 0%, transparent 65%),
     repeating-linear-gradient(
       0deg,
-      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 0,
       rgba(255, 255, 255, 0.05) 1px,
       transparent 1px,
       transparent 9px
@@ -243,6 +243,7 @@
   .threew-seo-accordion__content {
     transition: none;
   }
+
   .threew-seo-intro::after {
     animation: none;
   }
@@ -253,31 +254,38 @@
     transform: translateX(-120%);
     opacity: 0.0;
   }
+
   20% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(120%);
     opacity: 0.0;
   }
 }
+
 @keyframes threew-seo-scan {
   0% {
     background-position: -140% 0, center, 0 0;
     opacity: 0.18;
   }
+
   30% {
     opacity: 0.42;
   }
+
   65% {
     background-position: 55% 0, center, 0 0;
     opacity: 0.45;
   }
+
   100% {
     background-position: 140% 0, center, 0 0;
     opacity: 0.22;
   }
 }
+
 .threew-seo-intro.is-animating::after {
   animation-play-state: running;
 }
