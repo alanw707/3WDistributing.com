@@ -9,8 +9,8 @@
 
 <!-- wp:group {"className":"threew-trust-strip","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
 <div class="wp-block-group threew-trust-strip">
-	<!-- wp:group {"className":"threew-trust-strip__item","layout":{"type":"flex","flexWrap":"nowrap","gap":"1rem","verticalAlignment":"top"}} -->
-	<div class="wp-block-group threew-trust-strip__item">
+	<!-- wp:group {"className":"threew-trust-strip__item threew-trust-strip__item--featured","layout":{"type":"flex","flexWrap":"nowrap","gap":"1rem","verticalAlignment":"top"}} -->
+	<div class="wp-block-group threew-trust-strip__item threew-trust-strip__item--featured">
 		<!-- wp:html -->
 		<span class="threew-trust-strip__icon" aria-hidden="true">
 			<svg class="threew-trust-strip__icon-graphic" viewBox="0 0 48 48" role="presentation" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

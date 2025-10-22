@@ -3,7 +3,7 @@
   display: grid;
   gap: clamp(1.25rem, 3vw, 2.5rem);
   padding: 0;
-  background: linear-gradient(150deg, #f4f7fb 0%, #fff 60%, #f1f7ff 100%);
+  background: linear-gradient(150deg, #040d1c 0%, #07172b 26%, #0b223b 48%, #ecf3ff 100%);
   overflow-x: hidden;
 }
 
@@ -27,7 +27,7 @@
   opacity: 0.9;
 }
 
-/* Remove the visual seam between hero and SEO intro */
+/* Introduce breathing room between hero and SEO intro */
 .threew-front-page > .threew-hero + .threew-seo-intro {
-  margin-top: calc(-1 * clamp(1.25rem, 3vw, 2.5rem));
+  margin-top: clamp(1.5rem, 4vw, 3rem);
 }

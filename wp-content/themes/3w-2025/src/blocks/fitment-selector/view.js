@@ -145,7 +145,25 @@ class FitmentSelector {
 
 			const saved = storage.getItem( 'threew_selected_vehicle' );
 			if ( saved ) {
-				this.state = JSON.parse( saved );
+				const parsed = JSON.parse( saved );
+				const hasCompleteSelection =
+					parsed &&
+					parsed.year &&
+					parsed.make &&
+					parsed.model &&
+					parsed.trim;
+
+				if ( hasCompleteSelection ) {
+					this.state = parsed;
+				} else {
+					storage.removeItem( 'threew_selected_vehicle' );
+					this.state = {
+						year: '',
+						make: '',
+						model: '',
+						trim: '',
+					};
+				}
 			}
 		} catch ( error ) {
 			this.showError( 'Unable to load saved vehicle preferences.' );
@@ -324,17 +342,22 @@ class FitmentSelector {
 	/**
 	 * Update progress indicator to reflect current step state
 	 */
-	syncProgress() {
+		syncProgress() {
 		if ( ! this.progressSteps.length ) {
 			return;
 		}
 
-		const values = [
-			this.state.year,
-			this.state.make,
-			this.state.model,
-			this.state.trim,
-		];
+		const yearValue = this.yearSelect?.value || '';
+		const makeValue = this.makeSelect?.value || '';
+		const modelValue = this.modelSelect?.value || '';
+		const trimValue = this.trimSelect?.value || '';
+
+		this.state.year = yearValue;
+		this.state.make = makeValue;
+		this.state.model = modelValue;
+		this.state.trim = trimValue;
+
+		const values = [ yearValue, makeValue, modelValue, trimValue ];
 		let activeIndex = 0;
 
 		if ( ! values[ 0 ] ) {
@@ -358,6 +381,13 @@ class FitmentSelector {
 			);
 			const isActive = index === activeIndex;
 			stepEl.classList.toggle( 'is-active', isActive );
+
+			const indexBadge = stepEl.querySelector(
+				'.threew-fitment-progress__index'
+			);
+			if ( indexBadge ) {
+				indexBadge.textContent = String( index + 1 );
+			}
 
 			if ( isActive ) {
 				stepEl.setAttribute( 'aria-current', 'step' );
@@ -416,6 +446,9 @@ class FitmentSelector {
 	 */
 	async handleYearChange( event ) {
 		const year = event.target.value;
+		if ( this.yearSelect && this.yearSelect.value !== year ) {
+			this.yearSelect.value = year;
+		}
 		this.state.year = year;
 		this.state.make = '';
 		this.state.model = '';
@@ -442,6 +475,9 @@ class FitmentSelector {
 	 */
 	async handleMakeChange( event ) {
 		const make = event.target.value;
+		if ( this.makeSelect && this.makeSelect.value !== make ) {
+			this.makeSelect.value = make;
+		}
 		this.state.make = make;
 		this.state.model = '';
 		this.state.trim = '';
@@ -466,6 +502,9 @@ class FitmentSelector {
 	 */
 	async handleModelChange( event ) {
 		const model = event.target.value;
+		if ( this.modelSelect && this.modelSelect.value !== model ) {
+			this.modelSelect.value = model;
+		}
 		this.state.model = model;
 		this.state.trim = '';
 
@@ -487,7 +526,11 @@ class FitmentSelector {
 	 * @param {Event} event Change event from the trim dropdown.
 	 */
 	handleTrimChange( event ) {
-		this.state.trim = event.target.value;
+		const trim = event.target.value;
+		if ( this.trimSelect && this.trimSelect.value !== trim ) {
+			this.trimSelect.value = trim;
+		}
+		this.state.trim = trim;
 		this.updateSubmitButton();
 		this.saveVehicle();
 		this.syncProgress();

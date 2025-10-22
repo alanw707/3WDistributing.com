@@ -1,95 +1,206 @@
-/* Motorsport v4: subtle asphalt grid + telemetry sweep */
+/* Motorsport welcome v2: cinematic gradient + neon telemetry */
 .threew-seo-intro {
-  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(3rem, 7vw, 5.25rem) clamp(1.5rem, 5vw, 4rem);
   background:
-    radial-gradient(120% 120% at 12% -10%, rgba(24, 184, 215, 0.14) 0%, transparent 55%),
-    radial-gradient(160% 140% at 90% 0%, rgba(15, 54, 96, 0.16) 0%, transparent 70%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(5, 18, 36, 0.38) 0,
-      rgba(5, 18, 36, 0.38) 1px,
-      transparent 1px,
-      transparent 18px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(9, 26, 46, 0.42) 0,
-      rgba(9, 26, 46, 0.42) 1px,
-      transparent 1px,
-      transparent 18px
-    ),
-    linear-gradient(180deg, rgba(6, 14, 28, 0.85) 0%, rgba(4, 10, 22, 0.82) 52%, rgba(2, 6, 14, 0.78) 100%),
+    radial-gradient(140% 160% at 15% -20%, rgba(24, 184, 215, 0.22) 0%, rgba(24, 184, 215, 0) 60%),
+    radial-gradient(140% 120% at 85% 10%, rgba(29, 107, 205, 0.26) 0%, rgba(29, 107, 205, 0) 65%),
+    linear-gradient(180deg, rgba(6, 14, 28, 0.95) 0%, rgba(5, 12, 24, 0.96) 35%, rgba(4, 9, 21, 0.98) 100%),
     image-set(
       url('../../assets/images/seo-section-bg-source.jpg') type('image/jpeg')
     );
-  background-size: auto, auto, 100% 18px, 18px 100%, auto, cover;
-  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat, no-repeat;
-  background-position: center top, center top, center top, center top, center top, center center;
-  background-color: #050d1a;
-  color: rgba(238, 243, 255, 0.9);
+  background-size: cover, cover, 100% 100%, cover;
+  background-position: center top, right top, center, center;
+  background-blend-mode: screen, screen, normal, overlay;
+  color: var(--wp--preset--color--ink-inverse);
   position: relative;
+  isolation: isolate;
   overflow: hidden;
 }
 
-/* Static glaze at top edge */
 .threew-seo-intro::before {
   content: '';
   position: absolute;
-  inset: 0 0 auto;
-  height: 30%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  inset: -20% -10% -10% -25%;
+  background: radial-gradient(80% 120% at 30% 35%, rgba(24, 184, 215, 0.18) 0%, rgba(24, 184, 215, 0) 80%);
+  filter: blur(36px);
+  opacity: 0.5;
   pointer-events: none;
+  z-index: 0;
+  animation: threew-seo-glow 22s ease-in-out infinite;
 }
 
-/* Scanning telemetry sweep (runs when accordion animates) */
 .threew-seo-intro::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(115deg, rgba(24, 184, 215, 0.16) 0%, rgba(24, 184, 215, 0) 55%),
-    radial-gradient(70% 180% at 40% 50%, rgba(24, 184, 215, 0.12) 0%, transparent 65%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.05) 0,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px,
-      transparent 9px
-    );
-  opacity: 0.35;
-  mix-blend-mode: screen;
+    linear-gradient(180deg, rgba(8, 24, 44, 0.2) 0%, rgba(8, 24, 44, 0.88) 75%),
+    linear-gradient(120deg, rgba(24, 184, 215, 0.12) 0%, rgba(24, 184, 215, 0) 55%);
+  mix-blend-mode: multiply;
   pointer-events: none;
-  animation: threew-seo-scan 12s ease-in-out infinite;
-  animation-play-state: paused;
+  z-index: 0;
 }
 
 .threew-seo-intro__inner {
   position: relative;
-  max-width: 960px;
+  isolation: isolate;
+  z-index: 1;
+  max-width: min(74rem, 92vw);
   margin-inline: auto;
   display: grid;
-  gap: clamp(1.5rem, 4vw, 2.5rem);
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+  padding: clamp(2.25rem, 5vw, 3.25rem);
+  border-radius: var(--threew-radius-xl);
+  background: linear-gradient(155deg, rgba(10, 26, 46, 0.92) 0%, rgba(5, 18, 36, 0.9) 60%, rgba(4, 14, 30, 0.95) 100%);
+  box-shadow:
+    0 32px 60px rgba(2, 7, 16, 0.65),
+    inset 0 0 0 1px rgba(24, 184, 215, 0.08);
+}
+
+
+.threew-seo-intro__highlight {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.9rem, 2.8vw, 1.85rem);
+  padding: clamp(1.1rem, 3vw, 1.7rem) clamp(1.25rem, 4vw, 2.5rem);
+  border-radius: var(--threew-radius-xl);
+  border: 1px solid rgba(24, 184, 215, 0.24);
+  background:
+    linear-gradient(118deg, rgba(24, 184, 215, 0.16) 0%, rgba(16, 61, 108, 0.48) 42%, rgba(4, 14, 30, 0.85) 100%);
+  box-shadow:
+    0 24px 40px rgba(3, 9, 20, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.threew-seo-intro__highlight::before {
+  content: '';
+  position: absolute;
+  inset: -140% -30% -140% 30%;
+  background: linear-gradient(120deg, rgba(24, 184, 215, 0) 0%, rgba(24, 184, 215, 0.45) 50%, rgba(24, 184, 215, 0) 100%);
+  opacity: 0.3;
+  transform: skewX(-12deg);
+  animation: threew-seo-highlight-sweep 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.threew-seo-intro__highlight-label {
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: var(--threew-font-size-eyebrow);
+  color: rgba(24, 184, 215, 0.86);
+  flex: 1 1 auto;
+  min-width: 12rem;
+}
+
+.threew-seo-intro__highlight-stats {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  flex: 2 1 min(32rem, 100%);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 3vw, 1.6rem);
+}
+
+.threew-seo-intro__highlight-stats li {
+  display: grid;
+  gap: 0.35rem;
+  padding: clamp(0.75rem, 2.5vw, 1.1rem);
+  border-radius: clamp(0.75rem, 2vw, 1.2rem);
+  background: linear-gradient(140deg, rgba(24, 184, 215, 0.08) 0%, rgba(6, 20, 38, 0.6) 100%);
+  border: 1px solid rgba(24, 184, 215, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.threew-seo-intro__highlight-value {
+  font-size: clamp(1.15rem, 3.2vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(238, 243, 255, 0.95);
+}
+
+.threew-seo-intro__highlight-key {
+  font-size: var(--threew-font-size-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(238, 243, 255, 0.68);
+}
+
+.threew-seo-intro__highlight-caption {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  padding-left: clamp(0.75rem, 2vw, 1.25rem);
+  border-left: 1px solid rgba(24, 184, 215, 0.24);
+  font-size: var(--threew-font-size-meta);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(238, 243, 255, 0.7);
+}
+
+
+.threew-seo-intro__inner::before {
+  content: '';
+  position: absolute;
+  inset: clamp(0.9rem, 2vw, 1.4rem);
+  border-radius: calc(var(--threew-radius-xl) - clamp(0.9rem, 2vw, 1.4rem));
+  border: 1px solid rgba(24, 184, 215, 0.18);
+  background: linear-gradient(120deg, rgba(24, 184, 215, 0.12) 0%, rgba(24, 184, 215, 0) 65%);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.threew-seo-intro__inner::after {
+  content: '';
+  position: absolute;
+  inset: clamp(0.9rem, 2vw, 1.4rem);
+  border-radius: calc(var(--threew-radius-xl) - clamp(0.9rem, 2vw, 1.4rem));
+  background:
+    linear-gradient(115deg, rgba(24, 184, 215, 0.32) 0%, rgba(24, 184, 215, 0) 55%),
+    radial-gradient(85% 130% at 70% 40%, rgba(29, 107, 205, 0.18) 0%, rgba(29, 107, 205, 0) 75%),
+    repeating-linear-gradient(
+      105deg,
+      rgba(24, 184, 215, 0.2) 0,
+      rgba(24, 184, 215, 0.2) 2px,
+      transparent 2px,
+      transparent 18px
+    );
+  mix-blend-mode: lighten;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.12;
+  animation: threew-seo-scan 18s ease-in-out infinite;
+  animation-play-state: paused;
 }
 
 .threew-seo-intro__title {
   margin: 0;
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.6rem, 3.1vw, 2.25rem);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.07em;
+  color: var(--wp--preset--color--ink-inverse);
 }
 
 .threew-seo-intro__copy {
   display: grid;
   gap: clamp(1rem, 3vw, 1.75rem);
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
 .threew-seo-intro__copy h3 {
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-  color: rgba(24, 184, 215, 0.9);
+  letter-spacing: 0.1em;
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  color: rgba(24, 184, 215, 0.88);
 }
 
 .threew-seo-intro__copy p {
@@ -100,17 +211,14 @@
 .threew-seo-intro__cta {
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: rgba(24, 184, 215, 0.95);
+  color: rgba(24, 184, 215, 0.9);
+  text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
-  .threew-seo-intro {
-    padding-inline: clamp(1rem, 5vw, 1.75rem);
-  }
-
   .threew-seo-intro__title {
-    letter-spacing: 0.08em;
-    font-size: clamp(1.45rem, 6.5vw, 1.7rem);
+    letter-spacing: 0.07em;
+    font-size: clamp(1.35rem, 5.8vw, 1.55rem);
   }
 }
 
@@ -121,11 +229,16 @@
 
 .threew-seo-accordion {
   /* reset native details spacing */
-  border: 1px solid rgba(24, 184, 215, 0.18);
-  border-radius: 1rem;
-  background: rgba(8, 20, 38, 0.32);
-  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.06), 0 16px 40px rgba(4, 12, 25, 0.35);
+  border: 1px solid rgba(24, 184, 215, 0.22);
+  border-radius: var(--threew-radius-xl);
+  background: linear-gradient(150deg, rgba(6, 20, 38, 0.92) 0%, rgba(4, 14, 30, 0.94) 60%, rgba(3, 9, 22, 0.96) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(24, 184, 215, 0.1),
+    0 26px 60px rgba(2, 9, 20, 0.65);
   overflow: clip;
+  backdrop-filter: blur(18px);
+  position: relative;
+  z-index: 1;
 }
 
 .threew-seo-accordion__summary {
@@ -133,10 +246,13 @@
   display: grid;
   grid-template-columns: 1fr auto auto;
   align-items: center;
-  gap: 0.75rem;
-  padding: clamp(0.9rem, 2.5vw, 1.1rem) clamp(1rem, 3.5vw, 1.25rem);
+  gap: clamp(0.65rem, 2vw, 0.9rem);
+  padding: clamp(1.1rem, 2.8vw, 1.5rem) clamp(1.25rem, 3.5vw, 1.75rem);
   cursor: pointer;
   position: relative;
+  background: linear-gradient(130deg, rgba(24, 184, 215, 0.08) 0%, rgba(16, 63, 112, 0.12) 45%, rgba(6, 20, 38, 0) 100%);
+  border-bottom: 1px solid rgba(24, 184, 215, 0.1);
+  color: rgba(238, 243, 255, 0.92);
 }
 
 .threew-seo-accordion__summary::-webkit-details-marker {
@@ -165,9 +281,19 @@
   opacity: 1;
 }
 
+.threew-seo-accordion__summary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(24, 184, 215, 0.35);
+  border-radius: calc(var(--threew-radius-xl) - clamp(0.6rem, 2vw, 1rem));
+}
+
+.threew-seo-accordion[open] .threew-seo-accordion__summary {
+  border-bottom-color: transparent;
+}
+
 .threew-seo-accordion__hint {
   font-size: var(--wp--preset--font-size--body-sm);
-  color: rgba(238, 243, 255, 0.65);
+  color: rgba(238, 243, 255, 0.64);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -176,7 +302,7 @@
   display: inline-flex;
   width: 1.25rem;
   height: 1.25rem;
-  color: rgba(238, 243, 255, 0.9);
+  color: rgba(24, 184, 215, 0.85);
   transition: transform 0.3s ease;
 }
 
@@ -186,9 +312,12 @@
 
 .threew-seo-accordion__content {
   overflow: hidden;
-  padding: 0 clamp(1rem, 3.5vw, 1.25rem) clamp(1rem, 3.5vw, 1.25rem);
+  padding: clamp(0.25rem, 1vw, 0.5rem) clamp(1.25rem, 3.5vw, 1.75rem) clamp(1.25rem, 3.5vw, 1.75rem);
   max-height: 0;
   opacity: 0.0;
+  transform: translateY(8px);
+  background: linear-gradient(180deg, rgba(5, 20, 38, 0.96) 0%, rgba(4, 16, 34, 0.92) 100%);
+  border-top: 1px solid rgba(24, 184, 215, 0.08);
   transition: max-height 0.32s cubic-bezier(.3,.7,.2,1), opacity 0.24s ease, transform 0.32s cubic-bezier(.3,.7,.2,1);
   will-change: max-height;
 }
@@ -207,14 +336,38 @@
 
 @media (max-width: 782px) {
   .threew-seo-intro {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    padding: clamp(2.25rem, 8vw, 3.5rem) clamp(1rem, 6vw, 1.75rem);
+  }
+
+  .threew-seo-intro__highlight {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .threew-seo-intro__highlight-stats {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .threew-seo-intro__highlight-caption {
+    margin-left: 0;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .threew-seo-intro__inner {
+    padding: clamp(1.75rem, 6vw, 2.5rem);
+    border-radius: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .threew-seo-intro__inner::after {
+    inset: clamp(0.5rem, 3vw, 1rem);
+    border-radius: calc(clamp(1rem, 4vw, 1.5rem) - clamp(0.5rem, 2.5vw, 1rem));
   }
 
   .threew-seo-accordion__summary {
-    padding: clamp(0.8rem, 4vw, 1rem) clamp(0.9rem, 5vw, 1.1rem);
     grid-template-columns: 1fr auto;
+    padding: clamp(0.95rem, 4.5vw, 1.25rem) clamp(1rem, 6vw, 1.5rem);
   }
 
   .threew-seo-accordion__hint {
@@ -227,6 +380,10 @@
 }
 
 @media (max-width: 36rem) {
+  .threew-seo-intro__highlight-stats {
+    grid-template-columns: 1fr;
+  }
+
   .threew-seo-accordion__summary {
     gap: 0.55rem;
   }
@@ -244,8 +401,53 @@
     transition: none;
   }
 
-  .threew-seo-intro::after {
+  .threew-seo-intro__highlight::before,
+  .threew-seo-intro::before,
+  .threew-seo-intro__inner::after {
     animation: none;
+  }
+}
+
+@keyframes threew-seo-glow {
+  0% {
+    transform: translate3d(-6%, -4%, 0) scale(1.05);
+    opacity: 0.45;
+  }
+
+  40% {
+    transform: translate3d(4%, 6%, 0) scale(1.1);
+    opacity: 0.58;
+  }
+
+  75% {
+    transform: translate3d(-2%, 10%, 0) scale(1.03);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate3d(-6%, -4%, 0) scale(1.05);
+    opacity: 0.45;
+  }
+}
+
+@keyframes threew-seo-highlight-sweep {
+  0% {
+    transform: skewX(-12deg) translateX(-15%);
+    opacity: 0.25;
+  }
+
+  40% {
+    opacity: 0.42;
+  }
+
+  65% {
+    transform: skewX(-12deg) translateX(25%);
+    opacity: 0.36;
+  }
+
+  100% {
+    transform: skewX(-12deg) translateX(60%);
+    opacity: 0.25;
   }
 }
 
@@ -272,20 +474,21 @@
   }
 
   30% {
-    opacity: 0.42;
+    opacity: 0.36;
   }
 
   65% {
     background-position: 55% 0, center, 0 0;
-    opacity: 0.45;
+    opacity: 0.4;
   }
 
   100% {
     background-position: 140% 0, center, 0 0;
-    opacity: 0.22;
+    opacity: 0.2;
   }
 }
 
-.threew-seo-intro.is-animating::after {
+.threew-seo-intro.is-animating .threew-seo-intro__inner::after {
   animation-play-state: running;
+  opacity: 0.32;
 }
