@@ -30,9 +30,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <span class="threew-seo-intro__highlight-key"><?php esc_html_e( 'Average dispatch window', 'threew-2025' ); ?></span>
                 </li>
             </ul>
-            <span class="threew-seo-intro__highlight-caption">
+            <p class="threew-seo-intro__highlight-caption">
                 <?php esc_html_e( 'Track-ready builds crafted since 2003', 'threew-2025' ); ?>
-            </span>
+            </p>
         </div>
         <details class="threew-seo-accordion" data-threew-seo-accordion>
             <summary class="threew-seo-accordion__summary">

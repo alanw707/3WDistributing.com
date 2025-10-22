@@ -10,6 +10,7 @@ yarn-error.log*
 
 # Local tooling
 .serena/
+.codex-ssh/
 
 # WordPress content (track only the custom theme)
 wp-content/*
