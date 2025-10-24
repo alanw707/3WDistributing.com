@@ -130,7 +130,7 @@ $vendors = [
 			</p>
 		</div>
 
-		<div class="threew-vendor-strip__marquee" aria-live="off">
+		<div class="threew-vendor-strip__marquee" aria-live="off" tabindex="0">
 			<div class="threew-vendor-strip__track">
 				<?php foreach ( $vendors as $vendor ) : ?>
 					<figure class="threew-vendor-strip__logo-card">

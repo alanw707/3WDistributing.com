@@ -78,50 +78,32 @@
   position: relative;
   margin-top: clamp(1.75rem, 4vw, 2.75rem);
   overflow: hidden;
-}
-
-.threew-vendor-strip__marquee::before,
-.threew-vendor-strip__marquee::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: clamp(2.5rem, 10vw, 5.5rem);
-  pointer-events: none;
-  z-index: 2;
-  background: linear-gradient(
-    to right,
-    rgba(12, 30, 51, 0.95) 0%,
-    rgba(12, 30, 51, 0.6) 35%,
-    rgba(12, 30, 51, 0) 100%
-  );
-}
-
-.threew-vendor-strip__marquee::before {
-  left: 0;
-}
-
-.threew-vendor-strip__marquee::after {
-  right: 0;
-  transform: scaleX(-1);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .threew-vendor-strip__track {
   display: flex;
   gap: clamp(1.5rem, 4vw, 2.75rem);
+  flex-wrap: nowrap;
+  align-items: stretch;
   width: max-content;
-  will-change: transform;
-  animation: threew-vendor-marquee 68s linear infinite;
+  animation: threew-vendor-marquee 60s linear infinite;
+  animation-play-state: paused;
 }
 
 .threew-vendor-strip__marquee:hover .threew-vendor-strip__track,
 .threew-vendor-strip__marquee:focus-within .threew-vendor-strip__track {
-  animation-play-state: paused;
+  animation-play-state: running;
+}
+
+.threew-vendor-strip__marquee.is-active .threew-vendor-strip__track,
+.threew-vendor-strip__marquee.is-autoplay .threew-vendor-strip__track {
+  animation-play-state: running;
 }
 
 .threew-vendor-strip__logo-card {
   position: relative;
-  flex: 0 0 auto;
+  flex: 0 0 clamp(12rem, 26vw, 16rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,22 +179,22 @@
 }
 
 @keyframes threew-vendor-marquee {
-  from {
+  0% {
     transform: translateX(0);
   }
 
-  to {
+  100% {
     transform: translateX(-50%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .threew-vendor-strip__track {
+  .threew-vendor-strip__track,
+  .threew-vendor-strip__marquee:hover .threew-vendor-strip__track,
+  .threew-vendor-strip__marquee:focus-within .threew-vendor-strip__track,
+  .threew-vendor-strip__marquee.is-active .threew-vendor-strip__track,
+  .threew-vendor-strip__marquee.is-autoplay .threew-vendor-strip__track {
     animation: none;
-  }
-
-  .threew-vendor-strip__marquee {
-    overflow-x: auto;
-    scrollbar-width: thin;
+    animation-play-state: paused;
   }
 }

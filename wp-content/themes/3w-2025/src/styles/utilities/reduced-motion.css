@@ -7,19 +7,4 @@
   [data-hero-support] {
     transition: none;
   }
-
-  .threew-hero__background-photo,
-  .threew-hero__background-texture,
-  .threew-hero__background-grid,
-  .threew-hero__background-glow,
-  .threew-hero__background-orb,
-  .threew-hero__panel::before,
-  .threew-hero__metric-icon {
-    animation: none;
-  }
-
-  [data-hero-support] {
-    opacity: 1;
-    transform: none;
-  }
 }

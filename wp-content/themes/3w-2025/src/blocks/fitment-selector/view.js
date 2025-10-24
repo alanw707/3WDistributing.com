@@ -342,7 +342,7 @@ class FitmentSelector {
 	/**
 	 * Update progress indicator to reflect current step state
 	 */
-		syncProgress() {
+	syncProgress() {
 		if ( ! this.progressSteps.length ) {
 			return;
 		}

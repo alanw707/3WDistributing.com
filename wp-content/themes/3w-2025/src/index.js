@@ -13,3 +13,6 @@ import './scripts/hero-motion';
 
 // SEO intro (accordion) interactions
 import './scripts/seo-intro';
+
+// Vendor strip marquee controls
+import './scripts/vendor-strip';

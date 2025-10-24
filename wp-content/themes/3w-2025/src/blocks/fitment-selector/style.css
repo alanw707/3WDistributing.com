@@ -175,16 +175,11 @@
 	background: rgba(8, 24, 44, 0.68);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 	backdrop-filter: blur(8px);
-	transform: translate3d(0, 12px, 0);
-	opacity: 0;
-	transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.35s ease;
+	transform: none;
+	opacity: 1;
+	transition: box-shadow 0.35s ease;
 	overflow: visible;
 	isolation: isolate;
-}
-
-.threew-fitment-block__form[data-fitment-interactive='ready'] {
-	transform: translate3d(0, 0, 0);
-	opacity: 1;
 }
 
 .threew-fitment-block__form[data-fitment-interactive='ready']:hover {
@@ -354,25 +349,8 @@
 
 /* Loading state for selects */
 .threew-fitment-block__field select.is-loading {
-	background-image:
-		linear-gradient(
-			90deg,
-			rgba(255, 255, 255, 0.08) 25%,
-			rgba(255, 255, 255, 0.15) 50%,
-			rgba(255, 255, 255, 0.08) 75%
-		);
-	background-size: 200% 100%;
-	animation: loading-shimmer 1.5s infinite;
-}
-
-/* stylelint-disable rule-empty-line-before */
-@keyframes loading-shimmer {
-	0% {
-		background-position: 200% 0;
-	}
-	100% {
-		background-position: -200% 0;
-	}
+	background-image: none;
+	background-color: rgba(255, 255, 255, 0.12);
 }
 
 /* Focus states for accessibility */
@@ -407,39 +385,15 @@
 	filter: brightness(1.03);
 }
 
-@keyframes threew-fitment-glow {
-	0%,
-	100% {
-		transform: translate3d(-10px, 0, 0) scale(1);
-		opacity: 0.45;
-	}
-	50% {
-		transform: translate3d(6px, 4px, 0) scale(1.05);
-		opacity: 0.65;
-	}
-}
-
 @media (prefers-reduced-motion: reduce) {
 	.threew-fitment-block {
 		backdrop-filter: none;
 	}
 
-	.threew-fitment-block::before,
 	.threew-fitment-block__form {
-		animation: none;
-		transform: none;
 		transition-duration: 0.001ms;
 	}
-
-	.threew-fitment-block__form[data-fitment-interactive='ready'] {
-		opacity: 1;
-	}
-
-	.threew-fitment-block__form {
-		opacity: 1;
-	}
 }
-/* stylelint-enable rule-empty-line-before */
 
 @media (max-width: 40rem) {
 	.threew-fitment-block__progress {

@@ -12,32 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <section class="threew-seo-intro threew-seo-intro--collapsible" aria-labelledby="threew-seo-heading">
     <div class="threew-seo-intro__inner">
-        <div class="threew-seo-intro__highlight">
-            <span class="threew-seo-intro__highlight-label">
-                <?php esc_html_e( 'Motorsport concierge', 'threew-2025' ); ?>
-            </span>
-            <ul class="threew-seo-intro__highlight-stats" aria-label="<?php esc_attr_e( 'Key performance indicators', 'threew-2025' ); ?>">
-                <li>
-                    <span class="threew-seo-intro__highlight-value">1,200+</span>
-                    <span class="threew-seo-intro__highlight-key"><?php esc_html_e( 'Ready-to-ship combos', 'threew-2025' ); ?></span>
-                </li>
-                <li>
-                    <span class="threew-seo-intro__highlight-value">80+</span>
-                    <span class="threew-seo-intro__highlight-key"><?php esc_html_e( 'Global marques onboard', 'threew-2025' ); ?></span>
-                </li>
-                <li>
-                    <span class="threew-seo-intro__highlight-value">48 hr</span>
-                    <span class="threew-seo-intro__highlight-key"><?php esc_html_e( 'Average dispatch window', 'threew-2025' ); ?></span>
-                </li>
-            </ul>
-            <p class="threew-seo-intro__highlight-caption">
-                <?php esc_html_e( 'Track-ready builds crafted since 2003', 'threew-2025' ); ?>
-            </p>
-        </div>
         <details class="threew-seo-accordion" data-threew-seo-accordion>
             <summary class="threew-seo-accordion__summary">
                 <h2 id="threew-seo-heading" class="threew-seo-intro__title">
-                    <?php esc_html_e( 'Welcome to 3W Distribution – Your Premier BRABUS Dealer', 'threew-2025' ); ?>
+                    <?php
+                    echo wp_kses(
+                        __( 'Welcome to 3W Distribution <span class="threew-seo-title-nowrap">Your Premier BRABUS Dealer</span>', 'threew-2025' ),
+                        array(
+                            'span' => array(
+                                'class' => array(),
+                            ),
+                        )
+                    );
+                    ?>
                 </h2>
                 <span class="threew-seo-accordion__hint">
                     <?php esc_html_e( 'About our expertise', 'threew-2025' ); ?>

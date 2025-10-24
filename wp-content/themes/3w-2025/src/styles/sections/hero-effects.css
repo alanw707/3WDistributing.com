@@ -23,7 +23,6 @@
   filter: saturate(120%) contrast(105%);
   mix-blend-mode: lighten;
   opacity: 0.82;
-  animation: threew-hero-parallax 28s ease-in-out infinite alternate;
 }
 
 .threew-hero__background-texture {
@@ -48,7 +47,6 @@
   mix-blend-mode: soft-light;
   mask-image: radial-gradient(85% 85% at 45% 55%, #000 45%, transparent 100%);
   filter: contrast(115%);
-  animation: threew-hero-texture-shift 40s linear infinite;
 }
 
 .threew-hero__background-grid {
@@ -60,7 +58,6 @@
   background-size: 100% 140px, 160px 100%;
   opacity: 0.32;
   mask-image: radial-gradient(80% 80% at 50% 40%, #000 35%, transparent 100%);
-  animation: threew-hero-grid-shift 36s linear infinite;
 }
 
 .threew-hero__background-stripes {
@@ -80,7 +77,6 @@
   opacity: 0.35;
   filter: blur(0.5px) saturate(120%);
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 25%, #000 75%, rgba(0, 0, 0, 0) 100%);
-  animation: threew-hero-stripes 18s linear infinite;
 }
 
 .threew-hero__background-streak {
@@ -129,7 +125,6 @@
   filter: blur(140px);
   opacity: 0.45;
   mix-blend-mode: screen;
-  animation: threew-hero-glow 28s ease-in-out infinite;
 }
 
 .threew-hero__background-glow--left {
@@ -145,7 +140,6 @@
   width: clamp(22rem, 38vw, 32rem);
   height: clamp(22rem, 38vw, 32rem);
   background: var(--wp--preset--color--primary);
-  animation-delay: 4s;
 }
 
 .threew-hero__background-orb {
@@ -162,124 +156,4 @@
   );
   opacity: 0.5;
   filter: blur(90px);
-  animation: threew-hero-orb 32s ease-in-out infinite;
 }
-
-/* stylelint-disable rule-empty-line-before */
-@keyframes threew-hero-parallax {
-  0% {
-    background-position: 20% 40%, 80% 12%, center;
-    transform: scale(1) rotate(0deg);
-  }
-  50% {
-    background-position: 28% 42%, 78% 14%, center;
-    transform: scale(1.02) rotate(0.6deg);
-  }
-  100% {
-    background-position: 24% 38%, 82% 10%, center;
-    transform: scale(1.01) rotate(-0.6deg);
-  }
-}
-
-@keyframes threew-hero-grid-shift {
-  0% {
-    background-position: 0 0, 0 0;
-  }
-  100% {
-    background-position: 0 140px, 160px 0;
-  }
-}
-
-@keyframes threew-hero-texture-shift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1.02);
-  }
-  50% {
-    transform: translate3d(8px, -6px, 0) scale(1.04);
-  }
-  100% {
-    transform: translate3d(-10px, 4px, 0) scale(1.02);
-  }
-}
-
-@keyframes threew-hero-stripes {
-  0% {
-    background-position: 0 0, 0 0;
-    transform: translate3d(0, 0, 0) skewX(-4deg);
-  }
-  50% {
-    background-position: 180px -120px, -160px 140px;
-    transform: translate3d(6px, -4px, 0) skewX(-2deg);
-  }
-  100% {
-    background-position: 360px -240px, -320px 280px;
-    transform: translate3d(-4px, 6px, 0) skewX(-4deg);
-  }
-}
-
-@keyframes threew-hero-glow {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translate3d(12px, -10px, 0) scale(1.05);
-    opacity: 0.55;
-  }
-  100% {
-    transform: translate3d(-8px, 6px, 0) scale(1);
-    opacity: 0.4;
-  }
-}
-
-@keyframes threew-hero-orb {
-  0% {
-    transform: translate(-50%, 0) scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(-45%, -3%) scale(1.08);
-    opacity: 0.65;
-  }
-  100% {
-    transform: translate(-55%, 2%) scale(0.98);
-    opacity: 0.45;
-  }
-}
-
-@keyframes threew-hero-panel-rise {
-  0%,
-  100% {
-    transform: translateZ(0) translateY(0);
-    box-shadow: 0 28px 48px rgba(4, 12, 25, 0.45);
-  }
-  50% {
-    transform: translateZ(0) translateY(-6px);
-    box-shadow: 0 34px 60px rgba(4, 12, 25, 0.6);
-  }
-}
-
-@keyframes threew-hero-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 14px 28px rgba(4, 12, 25, 0.35);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 18px 34px rgba(4, 12, 25, 0.45);
-  }
-}
-
-@keyframes threew-hero-light-bar {
-  0%,
-  100% {
-    transform: rotate(-6deg) translate3d(-8%, 0, 0);
-    opacity: 0.75;
-  }
-  50% {
-    transform: rotate(-8deg) translate3d(6%, -4%, 0);
-    opacity: 0.95;
-  }
-}
-/* stylelint-enable rule-empty-line-before */
