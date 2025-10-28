@@ -7,6 +7,67 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (!defined('THREEW_SHOP_BASE_URL')) {
+    define('THREEW_SHOP_BASE_URL', 'https://shop.3wdistributing.com/');
+}
+
+/**
+ * Build the canonical shop URL, optionally seeded with catalog filters.
+ *
+ * @param string|array $search     Optional search term or array of terms.
+ * @param array        $query_args Additional query parameters to merge.
+ * @param string       $path       Optional path (e.g. product-category slug).
+ *
+ * @return string Fully-qualified shop URL.
+ */
+function threew_2025_get_shop_url($search = '', array $query_args = [], $path = '') {
+    $base = rtrim(THREEW_SHOP_BASE_URL, '/') . '/';
+
+    if ($path !== '') {
+        $path = ltrim($path, '/');
+        $base .= $path;
+        if (substr($base, -1) !== '/') {
+            $base .= '/';
+        }
+    }
+
+    if (is_array($search)) {
+        $search = array_filter(array_map('trim', $search));
+        $search = array_map(static function ($term) {
+            if ($term === '') {
+                return $term;
+            }
+
+            if ($term[0] === '"' || $term[0] === "'" || strpos($term, ' ') === false) {
+                return $term;
+            }
+
+            return '"' . $term . '"';
+        }, $search);
+        $search = implode(' ', $search);
+    }
+
+    $params = [];
+
+    if ($search !== '' && $search !== null) {
+        $params['s'] = $search;
+        $params['post_type'] = 'product';
+    }
+
+    if (!empty($query_args)) {
+        $params = array_merge($params, $query_args);
+        if (!array_key_exists('post_type', $params)) {
+            $params['post_type'] = 'product';
+        }
+    }
+
+    if (empty($params)) {
+        return $base;
+    }
+
+    return add_query_arg($params, $base);
+}
+
 /**
  * Theme setup.
  */
@@ -104,6 +165,14 @@ add_action('wp_enqueue_scripts', function () {
             $fitment_view_asset['dependencies'],
             $fitment_view_asset['version'],
             true
+        );
+
+        wp_localize_script(
+            'threew-fitment-view',
+            'threewShopConfig',
+            [
+                'baseUrl' => threew_2025_get_shop_url(),
+            ]
         );
     }
 });

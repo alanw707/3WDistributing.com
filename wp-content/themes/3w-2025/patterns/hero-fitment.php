@@ -33,7 +33,7 @@
 			<p class="threew-hero__lede has-surface-alt-color has-text-color has-body-lg-font-size">Discover track-proven aero, wheels, exhaust, and interior enhancements tailored to coveted marques.</p>
 
 			<div class="threew-hero__actions">
-				<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/line-card' ) ); ?>">
+				<a class="wp-block-button__link wp-element-button" href="#threew-fitment-selector">
 					<span class="threew-hero__cta">
 						<span class="threew-hero__cta-icon" aria-hidden="true">
 							<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -41,10 +41,10 @@
 								<path d="M11 6l5 4-5 4" />
 							</svg>
 						</span>
-						<span>Explore Line Card</span>
+						<span>Find Parts</span>
 					</span>
 				</a>
-				<a class="wp-block-button__link wp-element-button is-style-outline" href="<?php echo esc_url( home_url( '/shop' ) ); ?>">
+			<a class="wp-block-button__link wp-element-button is-style-outline" href="<?php echo esc_url( threew_2025_get_shop_url() ); ?>">
 					Browse Products
 				</a>
 			</div>
@@ -102,7 +102,7 @@
 						<a class="threew-fitment-placeholder__cta" href="mailto:support@3wdistributing.com">Talk to a specialist →</a>
 					</div>
 				</div>
-				<a class="threew-hero__panel-link threew-hero__panel-link--inline" href="<?php echo esc_url( home_url( '/shop' ) ); ?>">
+			<a class="threew-hero__panel-link threew-hero__panel-link--inline" href="<?php echo esc_url( threew_2025_get_shop_url() ); ?>">
 					<span class="threew-hero__panel-link-icon" aria-hidden="true">
 						<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M3 9.5h7.5" />

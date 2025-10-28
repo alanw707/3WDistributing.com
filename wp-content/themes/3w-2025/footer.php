@@ -32,10 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="threew-footer__col">
 			<h6>Shop</h6>
 			<ul>
-				<li><a href="<?php echo esc_url( home_url( '/shop/lighting' ) ); ?>">Lighting</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/shop/aero-body-kits' ) ); ?>">Aero &amp; Body Kits</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/shop/wheels-suspension' ) ); ?>">Wheels &amp; Suspension</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/shop/engine-performance' ) ); ?>">Engine &amp; Performance</a></li>
+				<li><a href="<?php echo esc_url( threew_2025_get_shop_url( 'lighting' ) ); ?>">Lighting</a></li>
+				<li><a href="<?php echo esc_url( threew_2025_get_shop_url( 'aero' ) ); ?>">Aero &amp; Body Kits</a></li>
+				<li><a href="<?php echo esc_url( threew_2025_get_shop_url( 'wheels' ) ); ?>">Wheels &amp; Suspension</a></li>
+				<li><a href="<?php echo esc_url( threew_2025_get_shop_url( 'performance' ) ); ?>">Engine &amp; Performance</a></li>
 			</ul>
 		</div>
 

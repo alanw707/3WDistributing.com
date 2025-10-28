@@ -15,13 +15,13 @@
 		<div class="wp-block-column">
 		<!-- wp:html -->
 		<article class="threew-category-grid__tile threew-category-grid__tile--lighting">
-			<a class="threew-category-grid__link" href="/shop/lighting" aria-label="Browse Lighting products">
-				<div class="threew-category-grid__content">
-					<h4 class="wp-block-heading has-surface-alt-color has-text-color">Lighting</h4>
-					<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">LED headlamps, fog, halos</p>
-					<span class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color">Shop lighting &rarr;</span>
+			<div class="threew-category-grid__inner">
+				<h4 class="wp-block-heading has-surface-alt-color has-text-color">Lighting</h4>
+				<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">LED headlamps, fog, halos</p>
+				<div class="threew-category-grid__cta-group">
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'lighting' ) ); ?>">Shop lighting &rarr;</a>
 				</div>
-			</a>
+			</div>
 		</article>
 		<!-- /wp:html -->
 		</div>
@@ -31,13 +31,13 @@
 		<div class="wp-block-column">
 		<!-- wp:html -->
 		<article class="threew-category-grid__tile threew-category-grid__tile--aero">
-			<a class="threew-category-grid__link" href="/shop/aero" aria-label="Browse Aero &amp; Body Kits products">
-				<div class="threew-category-grid__content">
-					<h4 class="wp-block-heading has-surface-alt-color has-text-color">Aero &amp; Body Kits</h4>
-					<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Splitters, diffusers, spoilers</p>
-					<span class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color">Shop aero &rarr;</span>
+			<div class="threew-category-grid__inner">
+				<h4 class="wp-block-heading has-surface-alt-color has-text-color">Aero &amp; Body Kits</h4>
+				<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Splitters, diffusers, spoilers</p>
+				<div class="threew-category-grid__cta-group">
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'aero' ) ); ?>">Shop aero &rarr;</a>
 				</div>
-			</a>
+			</div>
 		</article>
 		<!-- /wp:html -->
 		</div>
@@ -47,13 +47,13 @@
 		<div class="wp-block-column">
 		<!-- wp:html -->
 		<article class="threew-category-grid__tile threew-category-grid__tile--performance">
-			<a class="threew-category-grid__link" href="/shop/performance" aria-label="Browse Engine &amp; Performance products">
-				<div class="threew-category-grid__content">
-					<h4 class="wp-block-heading has-surface-alt-color has-text-color">Engine &amp; Performance</h4>
-					<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Intakes, ECU, exhaust</p>
-					<span class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color">Shop performance &rarr;</span>
+			<div class="threew-category-grid__inner">
+				<h4 class="wp-block-heading has-surface-alt-color has-text-color">Engine &amp; Performance</h4>
+				<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Intakes, ECU, exhaust</p>
+				<div class="threew-category-grid__cta-group">
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'performance' ) ); ?>">Shop performance &rarr;</a>
 				</div>
-			</a>
+			</div>
 		</article>
 		<!-- /wp:html -->
 		</div>
@@ -67,13 +67,14 @@
 		<div class="wp-block-column">
 		<!-- wp:html -->
 		<article class="threew-category-grid__tile threew-category-grid__tile--wheels">
-			<a class="threew-category-grid__link" href="/shop/wheels" aria-label="Browse Wheels &amp; Suspension products">
-				<div class="threew-category-grid__content">
-					<h4 class="wp-block-heading has-surface-alt-color has-text-color">Wheels &amp; Suspension</h4>
-					<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Forged wheels, coilovers</p>
-					<span class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color">Shop wheels &rarr;</span>
+			<div class="threew-category-grid__inner">
+				<h4 class="wp-block-heading has-surface-alt-color has-text-color">Wheels &amp; Suspension</h4>
+				<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Forged wheels, coilovers</p>
+				<div class="threew-category-grid__cta-group">
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'wheels' ) ); ?>">Shop wheels &rarr;</a>
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'suspension' ) ); ?>">Shop suspension &rarr;</a>
 				</div>
-			</a>
+			</div>
 		</article>
 		<!-- /wp:html -->
 		</div>
@@ -83,13 +84,13 @@
 		<div class="wp-block-column">
 		<!-- wp:html -->
 		<article class="threew-category-grid__tile threew-category-grid__tile--interior">
-			<a class="threew-category-grid__link" href="/shop/interior" aria-label="Browse Interior &amp; Tech products">
-				<div class="threew-category-grid__content">
-					<h4 class="wp-block-heading has-surface-alt-color has-text-color">Interior &amp; Tech</h4>
-					<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Carbon trim, digital clusters</p>
-					<span class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color">Shop interior &rarr;</span>
+			<div class="threew-category-grid__inner">
+				<h4 class="wp-block-heading has-surface-alt-color has-text-color">Interior &amp; Tech</h4>
+				<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Carbon trim, digital clusters</p>
+				<div class="threew-category-grid__cta-group">
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'interior' ) ); ?>">Shop interior &rarr;</a>
 				</div>
-			</a>
+			</div>
 		</article>
 		<!-- /wp:html -->
 		</div>
@@ -99,13 +100,13 @@
 		<div class="wp-block-column">
 		<!-- wp:html -->
 		<article class="threew-category-grid__tile threew-category-grid__tile--clearance">
-			<a class="threew-category-grid__link" href="/shop/clearance" aria-label="Browse Clearance products">
-				<div class="threew-category-grid__content">
-					<h4 class="wp-block-heading has-surface-alt-color has-text-color">Clearance</h4>
-					<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Limited inventory deals</p>
-					<span class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color">Shop clearance &rarr;</span>
+			<div class="threew-category-grid__inner">
+				<h4 class="wp-block-heading has-surface-alt-color has-text-color">Clearance</h4>
+				<p class="threew-category-grid__summary has-body-md-font-size has-surface-alt-color has-text-color">Limited inventory deals</p>
+				<div class="threew-category-grid__cta-group">
+					<a class="threew-category-grid__cta has-body-sm-font-size has-surface-alt-color has-text-color" href="<?php echo esc_url( threew_2025_get_shop_url( 'clearance' ) ); ?>">Shop clearance &rarr;</a>
 				</div>
-			</a>
+			</div>
 		</article>
 		<!-- /wp:html -->
 		</div>

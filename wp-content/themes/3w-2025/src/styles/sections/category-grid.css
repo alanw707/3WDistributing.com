@@ -1,13 +1,16 @@
+
 .threew-category-grid {
   display: grid;
-  gap: clamp(1.25rem, 4vw, 2.25rem);
+  gap: clamp(0.75rem, 3vw, 1.5rem);
   grid-template-columns: minmax(0, 1fr);
+  padding-block: clamp(0.6rem, 2.5vw, 1.4rem);
+  padding-inline: clamp(0.5rem, 2.75vw, 1.5rem);
 }
 
 .threew-category-grid__tile {
   position: relative;
   isolation: isolate;
-  min-height: clamp(15rem, 35vw, 18.5rem);
+  min-height: clamp(12.5rem, 40vw, 19rem);
   border-radius: clamp(1.25rem, 3vw, 1.85rem);
   overflow: hidden;
   border: 1px solid var(--tile-border, rgba(24, 184, 215, 0.22));
@@ -80,31 +83,21 @@
   opacity: 1;
 }
 
-.threew-category-grid__link {
+.threew-category-grid__inner {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 3vw, 1.15rem);
   height: 100%;
   border-radius: inherit;
   color: inherit;
-  text-decoration: none;
-  padding: clamp(1.5rem, 4vw, 2.35rem);
-}
-
-.threew-category-grid__link:focus-visible {
-  outline: 2px solid rgba(24, 184, 215, 0.6);
-  outline-offset: 6px;
-}
-
-.threew-category-grid__content {
-  position: relative;
-  display: grid;
-  gap: clamp(0.55rem, 2vw, 0.85rem);
-  height: 100%;
+  padding: clamp(1.5rem, 5vw, 2.6rem);
   z-index: 1;
-  align-content: flex-end;
+  text-decoration: none;
 }
 
-.threew-category-grid__content h3 {
+.threew-category-grid__inner h3 {
   margin: 0;
   font-family: Rajdhani, Orbitron, sans-serif;
   text-transform: uppercase;
@@ -118,14 +111,21 @@
   max-width: 28ch;
 }
 
+.threew-category-grid__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
 .threew-category-grid__cta {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin-top: auto;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--wp--preset--color--secondary);
+  text-decoration: none;
   transition: transform 0.35s ease, color 0.35s ease;
 }
 
@@ -169,16 +169,33 @@
 
 @media (min-width: 48rem) {
   .threew-category-grid {
+    gap: clamp(1.35rem, 3.8vw, 2.35rem);
+    padding: clamp(1.5rem, 5vw, 2.75rem);
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .threew-category-grid__content {
-    align-content: flex-start;
+  .threew-category-grid__tile {
+    min-height: clamp(15.5rem, 30vw, 20rem);
+  }
+
+  .threew-category-grid__inner {
+    padding: clamp(1.65rem, 4.5vw, 2.9rem);
+    justify-content: flex-start;
   }
 }
 
 @media (min-width: 64rem) {
   .threew-category-grid {
+    gap: clamp(1.75rem, 4.2vw, 2.7rem);
+    padding: clamp(2rem, 5vw, 3.25rem);
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .threew-category-grid__tile {
+    min-height: clamp(18rem, 26vw, 22rem);
+  }
+
+  .threew-category-grid__inner {
+    padding: clamp(2.1rem, 4vw, 3.4rem);
   }
 }

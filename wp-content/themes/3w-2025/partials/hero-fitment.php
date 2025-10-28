@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</p>
 
 				<div class="threew-hero__actions">
-					<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/line-card' ) ); ?>">
+					<a class="wp-block-button__link wp-element-button" href="#threew-fitment-selector">
 						<span class="threew-hero__cta">
 							<span class="threew-hero__cta-icon" aria-hidden="true">
 								<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -49,11 +49,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<path d="M11 6l5 4-5 4" />
 								</svg>
 							</span>
-							<span><?php esc_html_e( 'Explore Line Card', 'threew-2025' ); ?></span>
+							<span><?php esc_html_e( 'Find Parts', 'threew-2025' ); ?></span>
 						</span>
 					</a>
-						<a class="wp-block-button__link wp-element-button is-style-outline" href="<?php echo esc_url( home_url( '/shop' ) ); ?>">
-							<?php esc_html_e( 'Browse Products', 'threew-2025' ); ?>
+					<a class="wp-block-button__link wp-element-button is-style-outline" href="<?php echo esc_url( threew_2025_get_shop_url() ); ?>">
+						<?php esc_html_e( 'Browse Products', 'threew-2025' ); ?>
 					</a>
 				</div>
 
@@ -136,15 +136,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 						?>
 					</div>
 
-					<a class="threew-hero__panel-link threew-hero__panel-link--inline" href="<?php echo esc_url( home_url( '/shop' ) ); ?>">
-						<span class="threew-hero__panel-link-icon" aria-hidden="true">
-							<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-								<path d="M3 9.5h7.5" />
-								<path d="M7.5 5L12 9.5 7.5 14" />
-							</svg>
-						</span>
-							<span><?php esc_html_e( 'Browse All Products', 'threew-2025' ); ?></span>
-					</a>
+				<a class="threew-hero__panel-link threew-hero__panel-link--inline" href="<?php echo esc_url( threew_2025_get_shop_url() ); ?>">
+					<span class="threew-hero__panel-link-icon" aria-hidden="true">
+						<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M3 9.5h7.5" />
+							<path d="M7.5 5L12 9.5 7.5 14" />
+						</svg>
+					</span>
+					<span><?php esc_html_e( 'Browse All Products', 'threew-2025' ); ?></span>
+				</a>
 				</div>
 			</div>
 		</div>

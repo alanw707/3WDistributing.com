@@ -133,8 +133,8 @@
 
   /* Remove leading padding so hero meets the header edge-to-edge */
   .threew-front-page {
-    padding: 0 clamp(1rem, 6vw, 2rem)
-      clamp(2.5rem, 10vw, 3.25rem);
+    padding: 0 clamp(0.6rem, 3.2vw, 1.5rem)
+      clamp(2.25rem, 9vw, 3rem);
   }
 
   /* Fitment block: reduce outer padding and flatten nested cards */

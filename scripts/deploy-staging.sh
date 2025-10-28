@@ -20,6 +20,14 @@ set -euo pipefail
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 THEME_DIR="$REPO_ROOT/wp-content/themes/3w-2025"
 
+# Load optional environment overrides from .env so CI/local runs can stay hands-free.
+if [[ -f "$REPO_ROOT/.env" ]]; then
+  # shellcheck source=/dev/null
+  set -a
+  source "$REPO_ROOT/.env"
+  set +a
+fi
+
 if ! command -v npm >/dev/null 2>&1; then
   echo "npm is required. Install Node.js/npm before running this script." >&2
   exit 1
@@ -34,7 +42,7 @@ FTP_HOST=${THREEW_FTP_HOST:-147.79.122.118}
 DEPLOY_SCHEME=${THREEW_DEPLOY_SCHEME:-ftps}
 SSL_VERIFY=${THREEW_SSL_VERIFY:-yes}
 FTP_USER=${THREEW_FTP_USER:-u659513315.thrwdiststaging}
-REMOTE_THEME_DIR=${1:-${THREEW_REMOTE_THEME_DIR:-domains/3wdistributing.com/public_html/staging/wp-content/themes/3w-2025}}
+REMOTE_THEME_DIR=${1:-${THREEW_REMOTE_THEME_DIR:-wp-content/themes/3w-2025}}
 FTP_PASS=${THREEW_FTP_PASS:-}
 SSH_KEY_PATH=${THREEW_SSH_KEY_PATH:-}
 

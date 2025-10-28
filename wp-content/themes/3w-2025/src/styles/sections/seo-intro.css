@@ -69,6 +69,13 @@
   white-space: nowrap;
 }
 
+@media (max-width: 36rem) {
+  .threew-seo-title-nowrap {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
 .threew-seo-intro__copy {
   display: grid;
   gap: clamp(1rem, 3vw, 1.75rem);
@@ -175,6 +182,7 @@
 }
 
 .threew-seo-accordion__hint {
+  display: none;
   font-size: var(--wp--preset--font-size--body-sm);
   color: rgba(238, 243, 255, 0.64);
   letter-spacing: 0.08em;
@@ -208,6 +216,7 @@
   }
 
   .threew-seo-accordion__hint {
+    display: inline-flex;
     grid-column: auto;
     order: 2;
     justify-self: end;
@@ -230,6 +239,12 @@
   .threew-seo-intro__title {
     letter-spacing: 0.07em;
     font-size: clamp(1.35rem, 5.8vw, 1.55rem);
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .threew-seo-intro__title .threew-seo-title-nowrap {
+    display: block;
   }
 
   .threew-seo-intro__inner {

@@ -623,8 +623,25 @@ class FitmentSelector {
 			params.append( 'vehicle_trim', trim );
 		}
 
-		// Navigate to shop with fitment filters
-		window.location.href = `/shop?${ params.toString() }`;
+		// Navigate to external shop with fitment filters
+		const shopBase =
+			window.threewShopConfig?.baseUrl ||
+			'https://shop.3wdistributing.com/';
+		let targetUrl;
+
+		try {
+			targetUrl = new URL( shopBase );
+		} catch ( error ) {
+			targetUrl = new URL( 'https://shop.3wdistributing.com/' );
+		}
+
+		targetUrl.searchParams.set( 'post_type', 'product' );
+
+		params.forEach( ( value, key ) => {
+			targetUrl.searchParams.set( key, value );
+		} );
+
+		window.location.href = targetUrl.toString();
 	}
 
 	/**

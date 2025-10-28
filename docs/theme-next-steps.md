@@ -14,9 +14,9 @@
 - Confirm priority modules for MVP launch (fitment selector, category grid, blog integration).
 
 ## Iteration Checklist
-- [ ] Collect stakeholder feedback (palette, typography, module priorities).
-- [ ] Adjust tokens and pattern inventory based on comments.
-- [ ] Update `theme.json` and block pattern specs accordingly.
+- [x] Collect stakeholder feedback (palette, typography, module priorities).
+- [x] Adjust tokens and pattern inventory based on comments.
+- [x] Update `theme.json` and block pattern specs accordingly.
 
 ## Communication Plan
 - Share condensed PDF/Notion deck derived from the docs.
