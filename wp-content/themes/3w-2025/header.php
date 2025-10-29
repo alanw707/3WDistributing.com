@@ -79,20 +79,21 @@ $utility_menu = wp_nav_menu(
 					?>
 				</nav>
 
-				<form role="search" method="get" class="wp-block-search wp-block-search__button-inside threew-header__search" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<form role="search" method="get" class="wp-block-search wp-block-search__button-inside threew-header__search" action="<?php echo esc_url( threew_2025_get_shop_url() ); ?>">
 					<label class="wp-block-search__label screen-reader-text" for="threew-header-search">
 						<?php esc_html_e( 'Search for:', 'threew-2025' ); ?>
 					</label>
 					<div class="wp-block-search__inside-wrapper">
-						<input
-							id="threew-header-search"
-							class="wp-block-search__input"
-							type="search"
-							name="s"
-							placeholder="<?php esc_attr_e( 'Search for products', 'threew-2025' ); ?>"
-							aria-label="<?php esc_attr_e( 'Search products', 'threew-2025' ); ?>"
-							value="<?php echo esc_attr( get_search_query() ); ?>"
-						/>
+					<input
+						id="threew-header-search"
+						class="wp-block-search__input"
+						type="search"
+						name="s"
+						placeholder="<?php esc_attr_e( 'Search for products', 'threew-2025' ); ?>"
+						aria-label="<?php esc_attr_e( 'Search products', 'threew-2025' ); ?>"
+						value="<?php echo esc_attr( get_search_query() ); ?>"
+					/>
+					<input type="hidden" name="post_type" value="product" />
 						<button type="submit" class="wp-block-search__button" aria-label="<?php esc_attr_e( 'Search', 'threew-2025' ); ?>">
 							<?php esc_html_e( 'Search', 'threew-2025' ); ?>
 						</button>
