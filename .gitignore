@@ -29,6 +29,7 @@ wp-content/cache/
 
 # Playwright artifacts
 test-results/
+scripts/logs/
 
 # OS metadata
 .DS_Store

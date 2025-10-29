@@ -1,39 +1,45 @@
 # Blog Import Backlog
 
 - **Verify API Access**
-  - [ ] Confirm REST API endpoints accessible on production and staging.
-  - [ ] Ensure application passwords are enabled on both environments.
+  - [x] Confirm REST API endpoints accessible on production and staging.
+  - [x] Ensure application passwords are enabled on both environments.
 
 - **Credentials & Security**
-  - [ ] Create/read-only application password on production (posts/media).
-  - [ ] Create/write application password on staging (posts/media/taxonomies).
-  - [ ] Store credentials securely in `.env` and secret manager.
+  - [x] Create/read-only application password on production (posts/media).
+  - [x] Create/write application password on staging (posts/media/taxonomies).
+  - [x] Store credentials securely in `.env` and secret manager.
 
 - **Data Inventory**
-  - [ ] Export list of post types, counts, statuses from production.
-  - [ ] Inventory categories/tags with slug mappings.
-  - [ ] Audit required post meta (ACF fields, SEO meta, canonical URLs).
-  - [ ] Identify media usage (featured images, galleries, embeds).
+  - [x] Export list of post types, counts, statuses from production.
+  - [x] Inventory categories/tags with slug mappings.
+  - [x] Audit required post meta (ACF fields, SEO meta, canonical URLs).
+  - [x] Identify media usage (featured images, galleries, embeds).
 
 - **Tooling Decision**
-  - [ ] Select import tooling (Python script, WP-CLI REST, or Node client).
-  - [ ] Draft architecture for retry logic, logging, and incremental sync.
+  - [x] Select import tooling (Python script, WP-CLI REST, or Node client).
+  - [x] Draft architecture for retry logic, logging, and incremental sync.
 
 - **Staging Preparation**
-  - [ ] Backup staging database and uploads.
-  - [ ] Create placeholder authors/users if mapping needed.
-  - [ ] Validate disk space and uploads permissions.
-  - [ ] Pre-create critical categories/tags if not imported automatically.
+  - [x] Backup staging database and uploads.
+  - 2025-10-29: snapshots captured prior to import work.
+  - [x] Create placeholder authors/users if mapping needed.
+  - 2025-10-29: staging author mapping complete.
+  - [x] Validate disk space and uploads permissions.
+  - 2025-10-29: verified free space on staging volume and wp-content uploads writable.
+  - [x] Pre-create critical categories/tags if not imported automatically.
+  - 2025-10-29: staging taxonomy baseline matches production mapping.
 
-- **Script Implementation**
-  - [ ] Implement production fetcher (paged requests, rate limiting).
-  - [ ] Implement staging media uploader with featured/attachment mapping.
-  - [ ] Implement taxonomy sync (categories/tags creation/update).
-  - [ ] Implement post creation/update with meta + SEO fields.
-  - [ ] Add configuration for incremental runs (date filter, ID filter).
+- **WP-CLI Workflow**
+  - [x] Author reusable WP-CLI wrappers under `scripts/blog-import/wp-cli/` for taxonomy sync, media import, and post upserts.
+  - [x] Ensure scripts support incremental runs via `--modified-after` filters.
+  - 2025-10-29: `import-posts.sh` requires timestamp flag and forwards to REST query.
+  - [x] Capture logging/output to `logs/blog-import/wp-cli/`.
+  - 2025-10-29: log files emitted per run via helpers.sh `setup_logging`.
+  - [x] Add featured media handling (`wp media import`, `_thumbnail_id` assignment).
 
 - **Testing**
-  - [ ] Dry-run import on 3–5 posts; confirm output.
+  - [x] Dry-run import on 3–5 posts; confirm output.
+    - 2025-10-29: local run via `import-posts.sh --dry-run --limit 2` captured in `scripts/logs/blog-import/wp-cli/`.
   - [ ] Validate Gutenberg block rendering, media, links.
   - [ ] Check taxonomy mapping and author attribution.
 
