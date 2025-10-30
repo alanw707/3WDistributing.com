@@ -168,6 +168,7 @@
 
   .threew-blog-index {
     padding: clamp(2.25rem, 10vw, 3.25rem) 0;
+    grid-template-columns: 1fr;
   }
 
   .threew-blog-index__hero {
@@ -178,8 +179,6 @@
   .threew-blog-list {
     padding-left: var(--threew-header-padding-x);
     padding-right: var(--threew-header-padding-x);
-    max-width: none;
-    width: 100%;
   }
 
   .threew-blog-card__content {

@@ -444,6 +444,7 @@
   .threew-blog-index {
     padding: 1.5rem 0 2.5rem;
     gap: 1.5rem;
+    grid-template-columns: 1fr;
   }
 
   .threew-blog-index__hero {
@@ -463,8 +464,6 @@
     align-items: stretch;
     padding-left: var(--threew-header-padding-x);
     padding-right: var(--threew-header-padding-x);
-    max-width: none;
-    width: 100%;
   }
 
   .threew-blog-list__item {
