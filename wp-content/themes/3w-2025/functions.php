@@ -245,7 +245,7 @@ function threew_handle_contact_form() {
 
 	// Basic validation
 	if (empty($name) || empty($email) || empty($message)) {
-		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()));
+		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()) . '#contact');
 		exit;
 	}
 
@@ -285,7 +285,7 @@ function threew_handle_contact_form() {
 		));
 
 		// Always show success in local dev
-		wp_redirect(add_query_arg('contact_status', 'success', wp_get_referer()));
+		wp_redirect(add_query_arg('contact_status', 'success', wp_get_referer()) . '#contact');
 		exit;
 	}
 
@@ -294,9 +294,9 @@ function threew_handle_contact_form() {
 
 	// Redirect with status
 	if ($sent) {
-		wp_redirect(add_query_arg('contact_status', 'success', wp_get_referer()));
+		wp_redirect(add_query_arg('contact_status', 'success', wp_get_referer()) . '#contact');
 	} else {
-		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()));
+		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()) . '#contact');
 	}
 	exit;
 }

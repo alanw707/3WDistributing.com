@@ -83,7 +83,7 @@ get_header();
 	</section>
 
 	<!-- CTA and Contact Section -->
-	<section class="threew-about-contact">
+	<section class="threew-about-contact" id="contact">
 		<div class="threew-about-contact__inner">
 			<div class="threew-about-contact__cta">
 				<p>We work tirelessly to earn your trust and loyalty, and we're constantly evolving to meet your needs.</p>
