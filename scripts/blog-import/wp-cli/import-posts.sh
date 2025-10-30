@@ -69,8 +69,21 @@ if [[ -z "${PROD_USER}" || -z "${PROD_PASS}" ]]; then
 fi
 
 PROD_BASE_URL="${PROD_WP_BASE_URL:-https://www.3wdistributing.com}"
-if [[ "${TARGET}" != "local" ]]; then
-  log_info "Target '${TARGET}' not yet supported; defaulting workflow to local Docker environment."
+
+if [[ "${TARGET}" == "staging" ]]; then
+  log_info "Target: staging (using REST API)"
+  # Verify staging credentials are available
+  if [[ -z "${STAGE_WP_APP_USER:-}" || -z "${STAGE_WP_APP_PASSWORD:-}" ]]; then
+    echo "Missing staging credentials; ensure STAGE_WP_APP_USER and STAGE_WP_APP_PASSWORD are set." >&2
+    exit 1
+  fi
+elif [[ "${TARGET}" != "local" ]]; then
+  log_info "Unknown target '${TARGET}'; defaulting to local Docker environment."
+  TARGET="local"
+fi
+
+if [[ "${TARGET}" == "local" ]]; then
+  log_info "Target: local (using WP-CLI via Docker)"
 fi
 
 AUTH_HEADER="Authorization: Basic $(printf '%s:%s' "${PROD_USER}" "${PROD_PASS}" | base64)"
@@ -108,6 +121,7 @@ fi
 declare -A CATEGORY_MAP=()
 declare -A TAG_SLUG_MAP=()
 declare -A TAG_NAME_MAP=()
+declare -A TAG_ID_MAP=()
 declare -A MEDIA_MAP=()
 
 sync_categories() {
@@ -132,11 +146,27 @@ sync_categories() {
       desc="$(jq -r '.description // ""' <<<"${category_row}")"
       [[ -z "${name}" ]] && name="${slug}"
       local target_id
-      target_id="$(wp_cli term get category "${slug}" --by=slug --field=term_id 2>/dev/null || true)"
-      if [[ -z "${target_id}" ]]; then
-        target_id="$(wp_cli term create category "${name}" --slug="${slug}" --description="${desc}" --porcelain)"
-        log_info "Created category '${name}' (#${target_id})"
+
+      if [[ "${TARGET}" == "staging" ]]; then
+        # Use REST API for staging
+        local existing_term
+        existing_term="$(wp_rest_get_term "categories" "${slug}")"
+        target_id="$(jq -r '.[0].id // empty' <<<"${existing_term}")"
+        if [[ -z "${target_id}" ]]; then
+          local created_term
+          created_term="$(wp_rest_create_term "categories" "${name}" "${slug}" "${desc}")"
+          target_id="$(jq -r '.id // empty' <<<"${created_term}")"
+          log_info "Created category '${name}' (#${target_id})"
+        fi
+      else
+        # Use WP-CLI for local
+        target_id="$(wp_cli term get category "${slug}" --by=slug --field=term_id 2>/dev/null || true)"
+        if [[ -z "${target_id}" ]]; then
+          target_id="$(wp_cli term create category "${name}" --slug="${slug}" --description="${desc}" --porcelain)"
+          log_info "Created category '${name}' (#${target_id})"
+        fi
       fi
+
       CATEGORY_MAP["${prod_id}"]="${target_id}"
     done < <(jq -c '.[]' "${response}")
     ((page++))
@@ -164,13 +194,30 @@ sync_tags() {
       name="$(jq -r '.name // empty' <<<"${tag_row}")"
       [[ -z "${name}" ]] && name="${slug}"
       local target_id
-      target_id="$(wp_cli term get post_tag "${slug}" --by=slug --field=term_id 2>/dev/null || true)"
-      if [[ -z "${target_id}" ]]; then
-        target_id="$(wp_cli term create post_tag "${name}" --slug="${slug}" --porcelain)"
-        log_info "Created tag '${name}' (#${target_id})"
+
+      if [[ "${TARGET}" == "staging" ]]; then
+        # Use REST API for staging
+        local existing_term
+        existing_term="$(wp_rest_get_term "tags" "${slug}")"
+        target_id="$(jq -r '.[0].id // empty' <<<"${existing_term}")"
+        if [[ -z "${target_id}" ]]; then
+          local created_term
+          created_term="$(wp_rest_create_term "tags" "${name}" "${slug}" "")"
+          target_id="$(jq -r '.id // empty' <<<"${created_term}")"
+          log_info "Created tag '${name}' (#${target_id})"
+        fi
+      else
+        # Use WP-CLI for local
+        target_id="$(wp_cli term get post_tag "${slug}" --by=slug --field=term_id 2>/dev/null || true)"
+        if [[ -z "${target_id}" ]]; then
+          target_id="$(wp_cli term create post_tag "${name}" --slug="${slug}" --porcelain)"
+          log_info "Created tag '${name}' (#${target_id})"
+        fi
       fi
+
       TAG_SLUG_MAP["${prod_id}"]="${slug}"
       TAG_NAME_MAP["${prod_id}"]="${name}"
+      TAG_ID_MAP["${prod_id}"]="${target_id}"
     done < <(jq -c '.[]' "${response}")
     ((page++))
   done
@@ -201,20 +248,48 @@ fetch_media() {
   fi
   local title
   title="$(jq -r '.title.rendered // ""' "${response}")"
-  local existing_attachment
-  existing_attachment="$(wp_cli post list --post_type=attachment --meta_key=_import_source_url --meta_value="${source_url}" --field=ID --format=ids | head -n1 | tr -d $'\r')"
-  local attachment_id="${existing_attachment}"
-  if [[ -z "${attachment_id}" ]]; then
-    attachment_id="$(wp_cli media import "${source_url}" --title="${title}" --porcelain | tail -n1 | tr -d $'\r')"
-    if [[ -n "${attachment_id}" ]]; then
-      wp_cli post meta update "${attachment_id}" _import_source_url "${source_url}" >/dev/null
-      log_info "Imported media ${source_url} (#${attachment_id})"
+  local attachment_id
+
+  if [[ "${TARGET}" == "staging" ]]; then
+    # Use REST API for staging
+    # First try to find existing media by checking source_url in filename
+    local media_search
+    media_search="$(wp_rest_get_media_by_source "${source_url}")"
+    attachment_id="$(jq -r '.[0].id // empty' <<<"${media_search}")"
+
+    if [[ -z "${attachment_id}" ]]; then
+      # Create new media via REST API
+      local created_media
+      created_media="$(wp_rest_create_media_from_url "${source_url}" "${title}")"
+      attachment_id="$(jq -r '.id // empty' <<<"${created_media}")"
+      if [[ -n "${attachment_id}" ]]; then
+        # Store source URL in meta for future lookups
+        wp_rest_update_post_meta "${attachment_id}" "_import_source_url" "${source_url}" >/dev/null 2>&1
+        log_info "Imported media ${source_url} (#${attachment_id})"
+      else
+        log_info "Warning: failed to import media ${source_url}"
+      fi
     else
-      log_info "Warning: failed to import media ${source_url}"
+      log_info "Reusing media ${source_url} (#${attachment_id})"
     fi
   else
-    log_info "Reusing media ${source_url} (#${attachment_id})"
+    # Use WP-CLI for local
+    local existing_attachment
+    existing_attachment="$(wp_cli post list --post_type=attachment --meta_key=_import_source_url --meta_value="${source_url}" --field=ID --format=ids | head -n1 | tr -d $'\r')"
+    attachment_id="${existing_attachment}"
+    if [[ -z "${attachment_id}" ]]; then
+      attachment_id="$(wp_cli media import "${source_url}" --title="${title}" --porcelain | tail -n1 | tr -d $'\r')"
+      if [[ -n "${attachment_id}" ]]; then
+        wp_cli post meta update "${attachment_id}" _import_source_url "${source_url}" >/dev/null
+        log_info "Imported media ${source_url} (#${attachment_id})"
+      else
+        log_info "Warning: failed to import media ${source_url}"
+      fi
+    else
+      log_info "Reusing media ${source_url} (#${attachment_id})"
+    fi
   fi
+
   if [[ -n "${attachment_id}" ]]; then
     MEDIA_MAP["${media_id}"]="${attachment_id}"
     echo "${attachment_id}"
@@ -227,7 +302,16 @@ set_featured_image() {
   if [[ -z "${attachment_id}" ]]; then
     return
   fi
-  wp_cli post meta update "${post_id}" _thumbnail_id "${attachment_id}" >/dev/null
+
+  if [[ "${TARGET}" == "staging" ]]; then
+    # Use REST API for staging - featured_media is a top-level property
+    local json_data
+    json_data=$(jq -n --arg media_id "${attachment_id}" '{featured_media: ($media_id | tonumber)}')
+    wp_rest_staging "POST" "posts/${post_id}" -d "${json_data}" >/dev/null
+  else
+    # Use WP-CLI for local
+    wp_cli post meta update "${post_id}" _thumbnail_id "${attachment_id}" >/dev/null
+  fi
 }
 
 created_count=0
@@ -266,51 +350,112 @@ for post_row in "${post_items[@]}"; do
   done
 
   declare -a tag_names=()
+  declare -a tag_ids=()
   for prod_tag_id in "${prod_tag_ids[@]}"; do
     tag_name="${TAG_NAME_MAP[${prod_tag_id}]:-}"
+    target_tag_id="${TAG_ID_MAP[${prod_tag_id}]:-}"
     if [[ -n "${tag_name}" ]]; then
       tag_names+=("${tag_name}")
-    else
+    fi
+    if [[ -n "${target_tag_id}" ]]; then
+      tag_ids+=("${target_tag_id}")
+    fi
+    if [[ -z "${tag_name}" ]]; then
       log_info "Warning: missing tag mapping for ID ${prod_tag_id}"
     fi
   done
 
-  existing_id="$(wp_cli post list --post_type=post --name="${slug}" --field=ID --format=ids 2>/dev/null | head -n1 | tr -d '\r')"
+  existing_id=""
+  post_id=""
 
-  declare -a common_flags=()
-  common_flags+=(--post_status="${status}")
-  common_flags+=(--post_title="${title}")
-  common_flags+=(--post_name="${slug}")
-  if [[ -n "${date_published}" && "${date_published}" != "null" ]]; then
-    common_flags+=(--post_date="${date_published}")
-  fi
-  if [[ -n "${content}" && "${content}" != "null" ]]; then
-    common_flags+=(--post_content="${content}")
-  fi
-  if [[ -n "${excerpt}" && "${excerpt}" != "null" ]]; then
-    common_flags+=(--post_excerpt="${excerpt}")
-  fi
-  if (( ${#category_ids[@]} )); then
-    cat_csv="$(IFS=,; echo "${category_ids[*]}")"
-    common_flags+=(--post_category="${cat_csv}")
-  fi
-  if (( ${#tag_names[@]} )); then
-    tags_csv="$(IFS=,; echo "${tag_names[*]}")"
-    common_flags+=(--tags_input="${tags_csv}")
-  fi
+  if [[ "${TARGET}" == "staging" ]]; then
+    # Use REST API for staging
+    existing_post="$(wp_rest_get_post "${slug}")"
+    existing_id="$(jq -r '.[0].id // empty' <<<"${existing_post}")"
 
-  if [[ -z "${existing_id}" ]]; then
-    create_args=(post create --post_type=post "${common_flags[@]}" --porcelain)
-    new_id="$(wp_cli "${create_args[@]}")"
-    log_info "Created post '${slug}' (#${new_id})"
-    ((created_count+=1))
-    post_id="${new_id}"
+    # Build JSON data for post
+    categories_json=""
+    tags_json=""
+    if (( ${#category_ids[@]} )); then
+      categories_json="$(printf '%s\n' "${category_ids[@]}" | jq -R . | jq -s 'map(tonumber)')"
+    else
+      categories_json="[]"
+    fi
+    if (( ${#tag_ids[@]} )); then
+      tags_json="$(printf '%s\n' "${tag_ids[@]}" | jq -R . | jq -s 'map(tonumber)')"
+    else
+      tags_json="[]"
+    fi
+
+    json_data=$(jq -n \
+      --arg status "${status}" \
+      --arg title "${title}" \
+      --arg slug "${slug}" \
+      --arg content "${content}" \
+      --arg excerpt "${excerpt}" \
+      --arg date "${date_published}" \
+      --argjson categories "${categories_json}" \
+      --argjson tags "${tags_json}" \
+      '{
+        status: $status,
+        title: $title,
+        slug: $slug,
+        content: $content,
+        excerpt: $excerpt,
+        date: $date,
+        categories: $categories,
+        tags: $tags
+      }' | jq 'with_entries(select(.value != "" and .value != null and .value != []))')
+
+    result="$(wp_rest_upsert_post "${existing_id}" "${json_data}")"
+    post_id="$(jq -r '.id // empty' <<<"${result}")"
+
+    if [[ -z "${existing_id}" ]]; then
+      log_info "Created post '${slug}' (#${post_id})"
+      ((created_count+=1))
+    else
+      log_info "Updated post '${slug}' (#${post_id})"
+      ((updated_count+=1))
+    fi
   else
-    update_args=(post update "${existing_id}" "${common_flags[@]}")
-    wp_cli "${update_args[@]}" >/dev/null
-    log_info "Updated post '${slug}' (#${existing_id})"
-    ((updated_count+=1))
-    post_id="${existing_id}"
+    # Use WP-CLI for local
+    existing_id="$(wp_cli post list --post_type=post --name="${slug}" --field=ID --format=ids 2>/dev/null | head -n1 | tr -d '\r')"
+
+    declare -a common_flags=()
+    common_flags+=(--post_status="${status}")
+    common_flags+=(--post_title="${title}")
+    common_flags+=(--post_name="${slug}")
+    if [[ -n "${date_published}" && "${date_published}" != "null" ]]; then
+      common_flags+=(--post_date="${date_published}")
+    fi
+    if [[ -n "${content}" && "${content}" != "null" ]]; then
+      common_flags+=(--post_content="${content}")
+    fi
+    if [[ -n "${excerpt}" && "${excerpt}" != "null" ]]; then
+      common_flags+=(--post_excerpt="${excerpt}")
+    fi
+    if (( ${#category_ids[@]} )); then
+      cat_csv="$(IFS=,; echo "${category_ids[*]}")"
+      common_flags+=(--post_category="${cat_csv}")
+    fi
+    if (( ${#tag_names[@]} )); then
+      tags_csv="$(IFS=,; echo "${tag_names[*]}")"
+      common_flags+=(--tags_input="${tags_csv}")
+    fi
+
+    if [[ -z "${existing_id}" ]]; then
+      create_args=(post create --post_type=post "${common_flags[@]}" --porcelain)
+      new_id="$(wp_cli "${create_args[@]}")"
+      log_info "Created post '${slug}' (#${new_id})"
+      ((created_count+=1))
+      post_id="${new_id}"
+    else
+      update_args=(post update "${existing_id}" "${common_flags[@]}")
+      wp_cli "${update_args[@]}" >/dev/null
+      log_info "Updated post '${slug}' (#${existing_id})"
+      ((updated_count+=1))
+      post_id="${existing_id}"
+    fi
   fi
 
   if [[ "${featured_media_id}" -gt 0 ]]; then
