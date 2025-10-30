@@ -1,0 +1,480 @@
+/* ========================================
+   About Page Styles - Motorsport Design v2
+   ======================================== */
+
+/* ===== HERO SECTION ===== */
+.threew-about-hero {
+  padding: clamp(3.5rem, 8vw, 6rem) var(--threew-header-padding-x);
+  background:
+    radial-gradient(100% 140% at 50% 0%, rgba(29, 107, 205, 0.28) 0%, rgba(29, 107, 205, 0) 70%),
+    radial-gradient(100% 120% at 50% 100%, rgba(24, 184, 215, 0.18) 0%, rgba(24, 184, 215, 0) 65%),
+    linear-gradient(180deg, rgba(5, 12, 24, 0.98) 0%, rgba(4, 9, 21, 1) 100%);
+  color: var(--wp--preset--color--ink-inverse);
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+}
+
+.threew-about-hero::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(50% 90% at 50% 50%, rgba(24, 184, 215, 0.15) 0%, rgba(24, 184, 215, 0) 75%);
+  filter: blur(40px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.threew-about-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(74rem, 92vw);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.threew-about-hero__eyebrow {
+  margin: 0;
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-family: var(--wp--preset--font-family--body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(24, 184, 215, 0.95);
+}
+
+.threew-about-hero__title {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-family: var(--wp--preset--font-family--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wp--preset--color--ink-inverse);
+  text-shadow: 0 4px 20px rgba(24, 184, 215, 0.3);
+}
+
+.threew-about-hero__subtitle {
+  margin: 0;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  font-family: var(--wp--preset--font-family--body);
+  line-height: 1.6;
+  color: rgba(238, 243, 255, 0.75);
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+/* ===== MISSION SECTION ===== */
+.threew-about-mission {
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  background:
+    radial-gradient(120% 140% at 20% 10%, rgba(24, 184, 215, 0.18) 0%, rgba(24, 184, 215, 0) 55%),
+    radial-gradient(120% 120% at 80% 30%, rgba(29, 107, 205, 0.22) 0%, rgba(29, 107, 205, 0) 60%),
+    linear-gradient(180deg, rgba(4, 9, 21, 1) 0%, rgba(5, 12, 24, 0.96) 50%, rgba(4, 9, 21, 0.98) 100%);
+  position: relative;
+  isolation: isolate;
+}
+
+.threew-about-mission::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(24, 184, 215, 0.08) 0%, rgba(24, 184, 215, 0) 45%);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.threew-about-mission__inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(64rem, 92vw);
+  margin-inline: auto;
+}
+
+.threew-about-mission__content {
+  padding: clamp(2.5rem, 5.5vw, 3.75rem);
+  border-radius: var(--threew-radius-xl);
+  background: linear-gradient(155deg, rgba(10, 26, 46, 0.92) 0%, rgba(5, 18, 36, 0.9) 60%, rgba(4, 14, 30, 0.95) 100%);
+  box-shadow:
+    0 32px 60px rgba(2, 7, 16, 0.65),
+    inset 0 0 0 1px rgba(24, 184, 215, 0.12);
+  position: relative;
+  isolation: isolate;
+}
+
+.threew-about-mission__content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(115deg, rgba(24, 184, 215, 0.15) 0%, rgba(24, 184, 215, 0) 50%),
+    repeating-linear-gradient(
+      105deg,
+      rgba(24, 184, 215, 0.12) 0,
+      rgba(24, 184, 215, 0.12) 2px,
+      transparent 2px,
+      transparent 20px
+    );
+  mix-blend-mode: lighten;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.threew-about-mission__content p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  line-height: 1.7;
+  color: rgba(238, 243, 255, 0.85);
+  text-align: center;
+}
+
+/* ===== CORE VALUES SECTION ===== */
+.threew-about-values {
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+  background: linear-gradient(180deg, rgba(4, 9, 21, 0.98) 0%, rgba(5, 12, 24, 0.95) 100%);
+  position: relative;
+}
+
+.threew-about-values__inner {
+  max-width: min(82rem, 92vw);
+  margin-inline: auto;
+}
+
+.threew-about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+@media (min-width: 64rem) {
+  .threew-about-values__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Value Card Component */
+.threew-value-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(2rem, 4.5vw, 2.75rem);
+  border-radius: var(--threew-radius-xl);
+  background: linear-gradient(155deg, rgba(12, 30, 51, 0.88) 0%, rgba(8, 22, 42, 0.85) 60%, rgba(6, 18, 38, 0.9) 100%);
+  box-shadow:
+    0 24px 48px rgba(2, 7, 16, 0.55),
+    inset 0 0 0 1px rgba(24, 184, 215, 0.15);
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.threew-value-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(24, 184, 215, 0.12) 0%, rgba(24, 184, 215, 0) 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.threew-value-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 32px 64px rgba(2, 7, 16, 0.65),
+    inset 0 0 0 1px rgba(24, 184, 215, 0.25);
+}
+
+.threew-value-card:hover::before {
+  opacity: 1;
+}
+
+.threew-value-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(4rem, 10vw, 5rem);
+  height: clamp(4rem, 10vw, 5rem);
+  margin-inline: auto;
+  color: rgba(24, 184, 215, 0.9);
+  position: relative;
+  z-index: 1;
+}
+
+.threew-value-card__icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 12px rgba(24, 184, 215, 0.35));
+}
+
+.threew-value-card__title {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  font-family: var(--wp--preset--font-family--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--wp--preset--color--ink-inverse);
+  position: relative;
+  z-index: 1;
+}
+
+.threew-value-card__description {
+  margin: 0;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(238, 243, 255, 0.75);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CONTACT SECTION ===== */
+.threew-about-contact {
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+  background:
+    radial-gradient(100% 120% at 50% 0%, rgba(29, 107, 205, 0.18) 0%, rgba(29, 107, 205, 0) 60%),
+    linear-gradient(180deg, rgba(5, 12, 24, 0.95) 0%, rgba(4, 9, 21, 0.98) 100%);
+  position: relative;
+}
+
+.threew-about-contact__inner {
+  max-width: min(64rem, 92vw);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+.threew-about-contact__cta {
+  text-align: center;
+  padding: clamp(2rem, 4.5vw, 2.75rem);
+  border-radius: var(--threew-radius-lg);
+  background: linear-gradient(155deg, rgba(10, 26, 46, 0.65) 0%, rgba(5, 18, 36, 0.6) 100%);
+  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.08);
+}
+
+.threew-about-contact__cta p {
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(238, 243, 255, 0.8);
+}
+
+.threew-about-contact__cta p:last-child {
+  margin-bottom: 0;
+}
+
+.threew-about-contact__cta strong {
+  color: rgba(24, 184, 215, 0.95);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.threew-about-contact__form {
+  padding: clamp(2.25rem, 5vw, 3.25rem);
+  border-radius: var(--threew-radius-xl);
+  background: linear-gradient(155deg, rgba(10, 26, 46, 0.92) 0%, rgba(5, 18, 36, 0.9) 60%, rgba(4, 14, 30, 0.95) 100%);
+  box-shadow:
+    0 32px 60px rgba(2, 7, 16, 0.65),
+    inset 0 0 0 1px rgba(24, 184, 215, 0.12);
+}
+
+.threew-about-contact__form-title {
+  margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-family: var(--wp--preset--font-family--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--wp--preset--color--ink-inverse);
+}
+
+/* HTML Contact Form Styling */
+.threew-contact-form {
+  display: grid;
+  gap: clamp(1.5rem, 3.5vw, 2rem);
+}
+
+.threew-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+@media (min-width: 48rem) {
+  .threew-form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.threew-form-field {
+  display: grid;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.threew-form-field--full {
+  grid-column: 1 / -1;
+}
+
+.threew-form-field label {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 600;
+  color: rgba(238, 243, 255, 0.9);
+  letter-spacing: 0.02em;
+}
+
+.threew-form-field label .required {
+  color: rgba(24, 184, 215, 0.9);
+}
+
+.threew-about-contact__form input[type="text"],
+.threew-about-contact__form input[type="email"],
+.threew-about-contact__form input[type="tel"],
+.threew-about-contact__form textarea {
+  width: 100%;
+  padding: clamp(0.85rem, 2.2vw, 1.05rem) clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(0.95rem, 2vw, 1rem);
+  font-family: var(--wp--preset--font-family--body);
+  color: var(--wp--preset--color--ink-inverse);
+  background: rgba(12, 30, 51, 0.55);
+  border: 1px solid rgba(24, 184, 215, 0.2);
+  border-radius: var(--threew-radius-lg);
+  transition: all 0.25s ease;
+}
+
+.threew-about-contact__form input[type="text"]:focus,
+.threew-about-contact__form input[type="email"]:focus,
+.threew-about-contact__form input[type="tel"]:focus,
+.threew-about-contact__form textarea:focus {
+  outline: none;
+  border-color: rgba(24, 184, 215, 0.5);
+  background: rgba(12, 30, 51, 0.75);
+  box-shadow: 0 0 0 3px rgba(24, 184, 215, 0.15);
+}
+
+.threew-about-contact__form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.threew-form-submit {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.threew-btn {
+  padding: clamp(0.95rem, 2.5vw, 1.15rem) clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-family: var(--wp--preset--font-family--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: var(--threew-radius-lg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.threew-btn--primary {
+  color: var(--wp--preset--color--ink-inverse);
+  background: linear-gradient(135deg, rgba(24, 184, 215, 0.85) 0%, rgba(29, 107, 205, 0.8) 100%);
+  border: 1px solid rgba(24, 184, 215, 0.3);
+  box-shadow: 0 8px 20px rgba(24, 184, 215, 0.25);
+}
+
+.threew-btn--primary:hover {
+  background: linear-gradient(135deg, rgba(24, 184, 215, 0.95) 0%, rgba(29, 107, 205, 0.9) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(24, 184, 215, 0.35);
+}
+
+.threew-btn--primary:active {
+  transform: translateY(0);
+}
+
+/* Form validation and messages */
+.threew-form-message {
+  margin-top: clamp(1rem, 2.5vw, 1.5rem);
+  padding: clamp(0.85rem, 2vw, 1.05rem);
+  border-radius: var(--threew-radius-lg);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  text-align: center;
+}
+
+.threew-form-message--success {
+  background: rgba(24, 184, 215, 0.15);
+  border: 1px solid rgba(24, 184, 215, 0.3);
+  color: rgba(24, 184, 215, 0.95);
+}
+
+.threew-form-message--error {
+  background: rgba(216, 68, 50, 0.15);
+  border: 1px solid rgba(216, 68, 50, 0.3);
+  color: rgba(216, 68, 50, 0.95);
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 782px) {
+  .threew-about-hero {
+    padding: clamp(2.5rem, 8vw, 3.5rem) clamp(1rem, 6vw, 1.75rem);
+  }
+
+  .threew-about-hero__title {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+
+  .threew-about-mission {
+    padding: clamp(2rem, 7vw, 3rem) clamp(1rem, 6vw, 1.75rem);
+  }
+
+  .threew-about-mission__content {
+    padding: clamp(1.75rem, 6vw, 2.5rem);
+  }
+
+  .threew-about-values {
+    padding: clamp(2.5rem, 7vw, 4rem) clamp(1rem, 6vw, 1.75rem);
+  }
+
+  .threew-value-card {
+    padding: clamp(1.75rem, 5vw, 2.25rem);
+  }
+
+  .threew-about-contact {
+    padding: clamp(2.5rem, 7vw, 4rem) clamp(1rem, 6vw, 1.75rem);
+  }
+
+  .threew-about-contact__form {
+    padding: clamp(1.75rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 36rem) {
+  .threew-about-hero__title {
+    font-size: clamp(1.75rem, 10vw, 2rem);
+    letter-spacing: 0.06em;
+  }
+
+  .threew-about-mission__content p {
+    font-size: clamp(0.95rem, 4.5vw, 1.05rem);
+  }
+
+  .threew-value-card__title {
+    font-size: clamp(1.25rem, 5.5vw, 1.4rem);
+  }
+
+  .threew-value-card__description {
+    font-size: clamp(0.9rem, 4vw, 0.95rem);
+  }
+}

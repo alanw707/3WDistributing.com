@@ -199,3 +199,104 @@ add_action('enqueue_block_editor_assets', function () {
  * Include fitment API endpoints
  */
 require_once get_theme_file_path('inc/fitment-api.php');
+
+/**
+ * Configure PHPMailer to use Mailpit for local development.
+ */
+add_action('phpmailer_init', function ($phpmailer) {
+	// Configure SMTP for Docker environment (detect by checking if mailpit host is accessible)
+	$use_mailpit = false;
+
+	// Check if we're in Docker by looking for mailpit service
+	if (gethostbyname('mailpit') !== 'mailpit') {
+		$use_mailpit = true;
+	}
+
+	if ($use_mailpit) {
+		$phpmailer->isSMTP();
+		$phpmailer->Host = 'mailpit';
+		$phpmailer->Port = 1025;
+		$phpmailer->SMTPAuth = false;
+		$phpmailer->SMTPAutoTLS = false;
+		$phpmailer->SMTPSecure = '';
+		$phpmailer->From = 'noreply@3wdistributing.com';
+		$phpmailer->FromName = '3W Distribution';
+	}
+}, 10, 1);
+
+/**
+ * Handle contact form submission from About page.
+ */
+add_action('admin_post_nopriv_threew_contact_form_submit', 'threew_handle_contact_form');
+add_action('admin_post_threew_contact_form_submit', 'threew_handle_contact_form');
+
+function threew_handle_contact_form() {
+	// Verify nonce
+	if (!isset($_POST['threew_contact_nonce']) || !wp_verify_nonce($_POST['threew_contact_nonce'], 'threew_contact_form')) {
+		wp_die('Security check failed');
+	}
+
+	// Sanitize form data
+	$name    = isset($_POST['contact_name']) ? sanitize_text_field($_POST['contact_name']) : '';
+	$email   = isset($_POST['contact_email']) ? sanitize_email($_POST['contact_email']) : '';
+	$phone   = isset($_POST['contact_phone']) ? sanitize_text_field($_POST['contact_phone']) : '';
+	$subject = isset($_POST['contact_subject']) ? sanitize_text_field($_POST['contact_subject']) : 'Contact Form Submission';
+	$message = isset($_POST['contact_message']) ? sanitize_textarea_field($_POST['contact_message']) : '';
+
+	// Basic validation
+	if (empty($name) || empty($email) || empty($message)) {
+		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()));
+		exit;
+	}
+
+	// Prepare email
+	$to = get_option('admin_email');
+	$headers = [
+		'Content-Type: text/html; charset=UTF-8',
+		'From: ' . $name . ' <' . $email . '>',
+		'Reply-To: ' . $email,
+	];
+
+	$email_subject = '[3W Distribution] ' . $subject;
+	$email_body = sprintf(
+		'<h2>New Contact Form Submission</h2>
+		<p><strong>Name:</strong> %s</p>
+		<p><strong>Email:</strong> %s</p>
+		<p><strong>Phone:</strong> %s</p>
+		<p><strong>Subject:</strong> %s</p>
+		<p><strong>Message:</strong></p>
+		<p>%s</p>',
+		esc_html($name),
+		esc_html($email),
+		esc_html($phone ?: 'Not provided'),
+		esc_html($subject),
+		nl2br(esc_html($message))
+	);
+
+	// In local development, skip email and just show success
+	if (defined('WP_DEBUG') && WP_DEBUG) {
+		// Log the form submission for local testing
+		error_log(sprintf(
+			'Contact form submitted - Name: %s, Email: %s, Phone: %s, Subject: %s',
+			$name,
+			$email,
+			$phone,
+			$subject
+		));
+
+		// Always show success in local dev
+		wp_redirect(add_query_arg('contact_status', 'success', wp_get_referer()));
+		exit;
+	}
+
+	// Send email (only in staging/production)
+	$sent = wp_mail($to, $email_subject, $email_body, $headers);
+
+	// Redirect with status
+	if ($sent) {
+		wp_redirect(add_query_arg('contact_status', 'success', wp_get_referer()));
+	} else {
+		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()));
+	}
+	exit;
+}
