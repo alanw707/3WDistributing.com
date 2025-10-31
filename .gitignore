@@ -1,6 +1,7 @@
 # Environment
 .env
 .env.local
+.env.shop
 
 # Node
 node_modules/
@@ -31,6 +32,10 @@ wp-content/cache/
 test-results/
 scripts/logs/
 .playwright-mcp/
+
+# Product data files
+scraped-products*.json
+woocommerce-products*.json
 
 # OS metadata
 .DS_Store

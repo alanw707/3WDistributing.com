@@ -201,6 +201,11 @@ add_action('enqueue_block_editor_assets', function () {
 require_once get_theme_file_path('inc/fitment-api.php');
 
 /**
+ * Include fitment import system
+ */
+require_once get_theme_file_path('inc/fitment-import.php');
+
+/**
  * Configure PHPMailer to use Mailpit for local development.
  */
 add_action('phpmailer_init', function ($phpmailer) {

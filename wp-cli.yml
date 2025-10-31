@@ -1,0 +1,18 @@
+# WP-CLI Configuration
+# Enables remote command execution via REST API
+
+# Staging environment alias
+@staging:
+  url: https://staging.3wdistributing.com
+  user: content@auto-blog.com
+  # Run commands like: wp @staging plugin list
+
+# Production environment alias
+@production:
+  url: https://www.3wdistributing.com
+  # user: (configure when needed)
+
+# Local Docker environment
+@local:
+  path: /var/www/html
+  url: http://localhost:8080

@@ -612,18 +612,15 @@ class FitmentSelector {
 			return;
 		}
 
-		// Build shop URL with fitment parameters
-		const params = new URLSearchParams( {
-			vehicle_year: year,
-			vehicle_make: make,
-			vehicle_model: model,
-		} );
-
+		// Build search query string from selections
+		// Format: "Make Model Trim" (e.g., "BMW M5 G90")
+		const searchParts = [ make, model ];
 		if ( trim ) {
-			params.append( 'vehicle_trim', trim );
+			searchParts.push( trim );
 		}
+		const searchQuery = searchParts.join( ' ' );
 
-		// Navigate to external shop with fitment filters
+		// Navigate to external shop with search query
 		const shopBase =
 			window.threewShopConfig?.baseUrl ||
 			'https://shop.3wdistributing.com/';
@@ -635,11 +632,8 @@ class FitmentSelector {
 			targetUrl = new URL( 'https://shop.3wdistributing.com/' );
 		}
 
+		targetUrl.searchParams.set( 's', searchQuery );
 		targetUrl.searchParams.set( 'post_type', 'product' );
-
-		params.forEach( ( value, key ) => {
-			targetUrl.searchParams.set( key, value );
-		} );
 
 		window.location.href = targetUrl.toString();
 	}

@@ -92,6 +92,31 @@ function register_fitment_routes() {
 			),
 		)
 	);
+
+	register_rest_route(
+		'threew/v1',
+		'/fitment/import',
+		array(
+			'methods'             => 'POST',
+			'callback'            => __NAMESPACE__ . '\trigger_import',
+			'permission_callback' => function() {
+				return current_user_can( 'manage_options' );
+			},
+			'args'                => array(
+				'source' => array(
+					'required'          => false,
+					'type'              => 'string',
+					'default'           => 'wp-content/themes/3w-2025/woocommerce-products-all.json',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+				'limit'  => array(
+					'required'          => false,
+					'type'              => 'integer',
+					'sanitize_callback' => 'absint',
+				),
+			),
+		)
+	);
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\register_fitment_routes' );
 
@@ -192,6 +217,79 @@ function get_trims( $request ) {
 }
 
 /**
+ * Trigger fitment data import
+ *
+ * @param WP_REST_Request $request Request object.
+ * @return WP_REST_Response|WP_Error Response object on success, or WP_Error on failure.
+ */
+function trigger_import( $request ) {
+	// Check if WP-CLI is available
+	if ( ! class_exists( 'WP_CLI' ) ) {
+		return new \WP_Error(
+			'wp_cli_unavailable',
+			__( 'WP-CLI is not available on this system.', 'threew-2025' ),
+			array( 'status' => 500 )
+		);
+	}
+
+	$source = $request->get_param( 'source' );
+	$limit  = $request->get_param( 'limit' );
+
+	// Build command arguments
+	$args = array(
+		'source' => $source,
+	);
+
+	if ( $limit ) {
+		$args['limit'] = $limit;
+	}
+
+	// Execute the import command
+	try {
+		ob_start();
+		\WP_CLI::run_command( array( 'fitment', 'import' ), $args );
+		$output = ob_get_clean();
+
+		// Parse output for statistics (simplified)
+		$stats = array(
+			'processed' => 0,
+			'success'   => 0,
+			'skipped'   => 0,
+			'errors'    => 0,
+		);
+
+		// Extract stats from output if available
+		if ( preg_match( '/Processed: (\d+)/', $output, $matches ) ) {
+			$stats['processed'] = (int) $matches[1];
+		}
+		if ( preg_match( '/Success: (\d+)/', $output, $matches ) ) {
+			$stats['success'] = (int) $matches[1];
+		}
+		if ( preg_match( '/Skipped: (\d+)/', $output, $matches ) ) {
+			$stats['skipped'] = (int) $matches[1];
+		}
+		if ( preg_match( '/Errors: (\d+)/', $output, $matches ) ) {
+			$stats['errors'] = (int) $matches[1];
+		}
+
+		return rest_ensure_response(
+			array(
+				'success' => true,
+				'message' => __( 'Import completed successfully.', 'threew-2025' ),
+				'data'    => $stats,
+				'output'  => $output,
+			)
+		);
+	} catch ( \Exception $e ) {
+		return new \WP_Error(
+			'import_failed',
+			$e->getMessage(),
+			array( 'status' => 500 )
+		);
+	}
+}
+
+/**
  * Get fitment inventory data
  *
  * Returns the complete vehicle fitment inventory.
@@ -209,15 +307,22 @@ function get_fitment_inventory() {
 		return $inventory;
 	}
 
-	/**
-	 * Filter fitment inventory data
-	 *
-	 * Allows external plugins or custom code to provide fitment data.
-	 * This is the recommended integration point for fitment data providers.
-	 *
-	 * @param array $inventory Default inventory data
-	 */
-	$inventory = apply_filters( 'threew_fitment_inventory', get_default_inventory() );
+	// Try to get real inventory from wp_options (populated by import script)
+	$real_inventory = get_option( 'threew_fitment_inventory_real' );
+
+	if ( ! empty( $real_inventory ) ) {
+		$inventory = $real_inventory;
+	} else {
+		/**
+		 * Filter fitment inventory data
+		 *
+		 * Allows external plugins or custom code to provide fitment data.
+		 * This is the recommended integration point for fitment data providers.
+		 *
+		 * @param array $inventory Default inventory data
+		 */
+		$inventory = apply_filters( 'threew_fitment_inventory', get_default_inventory() );
+	}
 
 	// Cache for 1 hour
 	wp_cache_set( $cache_key, $inventory, '', HOUR_IN_SECONDS );
