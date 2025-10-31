@@ -40,14 +40,14 @@ cat wp-cli.yml
 cat .env | grep STAGE_WP
 # Should show:
 # STAGE_WP_APP_USER=content@auto-blog.com
-# STAGE_WP_APP_PASSWORD=***REDACTED***
+# STAGE_WP_APP_PASSWORD=<your_staging_password>
 ```
 
 ### 3. Test Remote Connection
 ```bash
 # Test WP-CLI REST API access (will prompt for password)
 wp @staging option get home --prompt=password
-# Enter password when prompted: ***REDACTED***
+# Enter password from .env: $STAGE_WP_APP_PASSWORD
 # Should return: https://staging.3wdistributing.com
 ```
 
@@ -112,7 +112,7 @@ curl -I https://staging.3wdistributing.com/wp-content/themes/3w-2025/woocommerce
 
 **Set password as environment variable** (so we don't get prompted repeatedly):
 ```bash
-export STAGE_PASSWORD="***REDACTED***"
+export STAGE_PASSWORD="$STAGE_WP_APP_PASSWORD"  # From your .env file
 ```
 
 **Run dry-run test** (10 products, no changes):
@@ -125,7 +125,7 @@ wp @staging fitment import \
   --prompt=password
 ```
 
-When prompted for password, enter: `***REDACTED***`
+When prompted for password, use `$STAGE_WP_APP_PASSWORD` from your `.env` file
 
 **Expected output**:
 ```
@@ -273,7 +273,7 @@ Error: Error: Invalid username or password.
 cat .env | grep STAGE_WP
 
 # Test WordPress Application Password in browser
-curl -u "content@auto-blog.com:***REDACTED***" \
+curl -u "content@auto-blog.com:$STAGE_WP_APP_PASSWORD" \
   "https://staging.3wdistributing.com/wp-json/wp/v2/users/me"
 # Should return user data
 
@@ -347,7 +347,7 @@ To avoid password prompts, use environment variable:
 ```bash
 # Set password once
 export WP_CLI_CONFIG_PATH=wp-cli.yml
-export WP_CLI_CONTEXT_@staging_password="***REDACTED***"
+export WP_CLI_CONTEXT_@staging_password="$STAGE_WP_APP_PASSWORD"
 
 # Now run commands without --prompt flag
 wp @staging fitment import --source=wp-content/themes/3w-2025/woocommerce-products-all.json

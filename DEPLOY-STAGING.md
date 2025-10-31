@@ -11,7 +11,7 @@
 - [ ] Product data ready: `ls -lh woocommerce-products-all.json`
 - [ ] Test connection: `wp @staging option get home --prompt=password`
 
-**Password when prompted**: `***REDACTED***`
+**Password when prompted**: Use `STAGE_WP_APP_PASSWORD` from your `.env` file
 
 ## Deploy (Execute in Order)
 
@@ -53,7 +53,7 @@ wp @staging fitment import \
   --prompt=password
 ```
 
-**Password**: `***REDACTED***`
+**Password**: Use `STAGE_WP_APP_PASSWORD` from your `.env` file
 
 ### 4. Full Import (6-8 min)
 ```bash

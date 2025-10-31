@@ -36,7 +36,7 @@ sudo mv wp-cli.phar /usr/local/bin/wp
 wp @staging option get home --prompt=password
 ```
 
-**Password when prompted**: `***REDACTED***`
+**Password when prompted**: Use the value from your `.env` file: `STAGE_WP_APP_PASSWORD`
 
 **Expected output**: `https://staging.3wdistributing.com`
 
