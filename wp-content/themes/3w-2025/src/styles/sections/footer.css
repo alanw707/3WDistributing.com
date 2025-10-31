@@ -3,15 +3,15 @@
   flex-direction: column;
   color: var(--wp--preset--color--surface-alt);
   background: var(--wp--preset--color--primary-dark);
-  padding: 3rem clamp(1.5rem, 5vw, 4rem);
+  padding: 2rem clamp(1.5rem, 5vw, 4rem);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  gap: 2.5rem;
+  gap: 1.5rem;
 }
 
 .threew-footer__top {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1rem, 3vw, 2rem);
 }
 
 .threew-footer__col {
@@ -20,7 +20,7 @@
   gap: 0.75rem;
 }
 
-.threew-footer__col ul {
+.threew-footer__col ul:not(.threew-footer__socials) {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -43,11 +43,13 @@
 
 .threew-footer__socials {
   display: flex;
-  gap: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin: 0;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   padding: 0;
   list-style: none;
+  align-items: center;
 }
 
 .threew-footer__socials a {
@@ -60,12 +62,34 @@
   background: rgba(255, 255, 255, 0.08);
   color: var(--wp--preset--color--surface-alt);
   text-decoration: none;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  transition: all 0.3s ease;
 }
 
 .threew-footer__socials a:hover {
   background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  color: var(--wp--preset--color--secondary);
+}
+
+.threew-footer__socials a svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.threew-footer__socials a:hover svg {
+  transform: scale(1.1);
+}
+
+.threew-footer__socials a span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .threew-footer__bottom {
