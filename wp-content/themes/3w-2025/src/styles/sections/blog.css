@@ -244,6 +244,7 @@
   gap: clamp(2rem, 5vw, 3rem);
   padding: clamp(3rem, 6vw, 4rem) var(--threew-header-padding-x)
     clamp(4rem, 8vw, 5rem);
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .threew-blog-index__hero {
@@ -444,7 +445,7 @@
   .threew-blog-index {
     padding: 1.5rem 0 2.5rem;
     gap: 1.5rem;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
   .threew-blog-index__hero {

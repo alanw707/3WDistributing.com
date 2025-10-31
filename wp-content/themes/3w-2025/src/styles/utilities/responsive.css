@@ -168,12 +168,18 @@
 
   .threew-blog-index {
     padding: clamp(2.25rem, 10vw, 3.25rem) 0;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
   .threew-blog-index__hero {
     padding-left: var(--threew-header-padding-x);
     padding-right: var(--threew-header-padding-x);
+  }
+
+  .threew-blog-index__hero h2 {
+    font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
+    letter-spacing: 0.08em !important;
+    word-break: break-word;
   }
 
   .threew-blog-list {

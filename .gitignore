@@ -30,6 +30,7 @@ wp-content/cache/
 # Playwright artifacts
 test-results/
 scripts/logs/
+.playwright-mcp/
 
 # OS metadata
 .DS_Store
