@@ -16,3 +16,6 @@ import './scripts/seo-intro';
 
 // Vendor strip marquee controls
 import './scripts/vendor-strip';
+
+// Smooth scroll to anchor links
+import './scripts/smooth-scroll';

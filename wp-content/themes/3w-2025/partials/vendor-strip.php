@@ -115,7 +115,7 @@ $vendors = [
 ];
 ?>
 
-<section class="threew-vendor-strip has-carbon-texture" aria-labelledby="threew-vendor-strip-heading">
+<section id="vendors" class="threew-vendor-strip has-carbon-texture" aria-labelledby="threew-vendor-strip-heading">
 	<div class="threew-vendor-strip__inner">
 		<p class="threew-vendor-strip__eyebrow has-body-sm-font-size">
 			<?php esc_html_e( 'Trusted vendor network', 'threew-2025' ); ?>
