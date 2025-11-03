@@ -29,16 +29,16 @@
 }
 
 .threew-footer__about {
-  color: rgba(238, 243, 255, 0.8);
+  color: rgba(246, 248, 249, 0.8);
 }
 
 .threew-footer__top a {
-  color: rgba(238, 243, 255, 0.9);
+  color: rgba(246, 248, 249, 0.9);
   text-decoration: none;
 }
 
 .threew-footer__top a:hover {
-  color: var(--wp--preset--color--secondary);
+  color: var(--wp--preset--color--accent);
 }
 
 .threew-footer__socials {
@@ -68,7 +68,7 @@
 .threew-footer__socials a:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  color: var(--wp--preset--color--secondary);
+  color: var(--wp--preset--color--accent);
 }
 
 .threew-footer__socials a svg {
@@ -96,7 +96,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 1.5rem;
   font-size: var(--wp--preset--font-size--body-sm);
-  color: rgba(238, 243, 255, 0.72);
+  color: rgba(246, 248, 249, 0.72);
 }
 
 .threew-footer__bottom a {

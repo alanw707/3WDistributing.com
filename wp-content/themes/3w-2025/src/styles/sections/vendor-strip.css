@@ -4,17 +4,17 @@
   border-radius: clamp(1.5rem, 4vw, 2.5rem);
   background: linear-gradient(
       135deg,
-      rgba(12, 30, 51, 0.96) 0%,
-      rgba(12, 30, 51, 0.86) 48%,
-      rgba(29, 107, 205, 0.34) 100%
+      var(--wp--preset--color--primary-dark) 0%,
+      var(--wp--preset--color--primary) 45%,
+      rgba(var(--threew-depth-rgb), 0.95) 100%
     ),
     radial-gradient(
       140% 120% at 80% 0%,
-      rgba(24, 184, 215, 0.18) 0%,
+      rgba(var(--threew-secondary-rgb), 0.15) 0%,
       transparent 62%
     );
-  border: 1px solid rgba(24, 184, 215, 0.24);
-  box-shadow: 0 38px 88px rgba(4, 12, 25, 0.55);
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.25);
+  box-shadow: 0 34px 72px rgba(5, 15, 28, 0.6);
   color: var(--wp--preset--color--ink-inverse);
   overflow: hidden;
   isolation: isolate;
@@ -27,15 +27,15 @@
   background:
     linear-gradient(
       120deg,
-      rgba(24, 184, 215, 0.24) 0%,
-      rgba(24, 184, 215, 0) 40%
+      rgba(var(--threew-secondary-rgb), 0.18) 0%,
+      rgba(var(--threew-secondary-rgb), 0) 45%
     ),
     linear-gradient(
       -150deg,
-      rgba(216, 68, 50, 0.22) 0%,
-      rgba(216, 68, 50, 0) 55%
+      rgba(var(--threew-accent-rgb), 0.22) 0%,
+      rgba(var(--threew-accent-rgb), 0) 60%
     );
-  opacity: 0.8;
+  opacity: 0.7;
   pointer-events: none;
   z-index: 0;
 }
@@ -51,6 +51,7 @@
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: var(--wp--preset--color--secondary);
+  font-weight: 600;
   margin: 0;
 }
 
@@ -67,11 +68,13 @@
   letter-spacing: 0.12em;
   font-size: clamp(1.85rem, 4vw, 2.6rem);
   color: var(--wp--preset--color--ink-inverse);
+  font-weight: 700;
 }
 
 .threew-vendor-strip__headline p {
   margin: 0;
-  color: rgba(238, 243, 255, 0.76);
+  color: rgba(246, 248, 249, 0.75);
+  line-height: 1.6;
 }
 
 .threew-vendor-strip__marquee {
@@ -111,19 +114,21 @@
   min-height: clamp(6rem, 18vw, 8.75rem);
   padding: clamp(1.1rem, 3vw, 1.8rem);
   border-radius: clamp(1.5rem, 4vw, 2.75rem);
-  border: 1px solid rgba(238, 243, 255, 0.2);
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.3);
   background: linear-gradient(
     160deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(12, 30, 51, 0.6) 55%,
-    rgba(6, 18, 32, 0.86) 100%
+    rgba(var(--threew-depth-rgb), 0.6) 0%,
+    var(--wp--preset--color--primary) 55%,
+    var(--wp--preset--color--primary-dark) 100%
   );
-  box-shadow: 0 28px 58px rgba(4, 12, 25, 0.55);
+  box-shadow:
+    0 28px 58px rgba(5, 15, 28, 0.7),
+    inset 0 1px 0 rgba(var(--threew-secondary-rgb), 0.15);
   backdrop-filter: blur(16px);
   transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
   isolation: isolate;
 
-  --vendor-glow: rgba(24, 184, 215, 0.32);
+  --vendor-glow: rgba(26, 152, 149, 0.4);
 }
 
 .threew-vendor-strip__logo-card::before {
@@ -131,25 +136,33 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 1px solid rgba(24, 184, 215, 0.24);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(var(--threew-secondary-rgb), 0.15) 0%,
+    transparent 70%
+  );
   opacity: 0;
   transition: opacity 0.35s ease;
   pointer-events: none;
 }
 
 .threew-vendor-strip__logo-card:nth-of-type(3n + 2) {
-  --vendor-glow: rgba(29, 107, 205, 0.34);
+  --vendor-glow: rgba(var(--threew-accent-rgb), 0.45);
+  border-color: rgba(var(--threew-accent-rgb), 0.25);
 }
 
 .threew-vendor-strip__logo-card:nth-of-type(3n + 3) {
-  --vendor-glow: rgba(216, 68, 50, 0.28);
+  --vendor-glow: rgba(var(--threew-accent-strong-rgb), 0.5);
+  border-color: rgba(var(--threew-accent-strong-rgb), 0.25);
 }
 
 .threew-vendor-strip__logo-card:hover,
 .threew-vendor-strip__logo-card:focus-visible {
   transform: translateY(-6px) scale(1.025);
-  box-shadow: 0 36px 78px var(--vendor-glow);
-  border-color: rgba(238, 243, 255, 0.4);
+  box-shadow:
+    0 36px 78px var(--vendor-glow),
+    inset 0 1px 0 rgba(var(--threew-secondary-rgb), 0.25);
+  border-color: var(--wp--preset--color--secondary);
 }
 
 .threew-vendor-strip__logo-card:hover::before,
@@ -169,13 +182,19 @@
   width: clamp(6.5rem, 20vw, 11.5rem);
   max-height: 80%;
   object-fit: contain;
-  filter: drop-shadow(0 10px 18px rgba(2, 8, 16, 0.55));
-  transition: transform 0.35s ease;
+  filter:
+    drop-shadow(0 10px 18px rgba(2, 8, 16, 0.6))
+    drop-shadow(0 2px 6px rgba(var(--threew-secondary-rgb), 0.2));
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
 .threew-vendor-strip__logo-card:hover img,
 .threew-vendor-strip__logo-card:focus-visible img {
   transform: scale(1.05);
+  filter:
+    drop-shadow(0 12px 24px rgba(2, 8, 16, 0.7))
+    drop-shadow(0 4px 12px rgba(var(--threew-secondary-rgb), 0.35))
+    brightness(1.1);
 }
 
 @keyframes threew-vendor-marquee {

@@ -12,7 +12,10 @@
 @import url('./styles/sections/trust-strip.css');
 @import url('./styles/sections/vendor-strip.css');
 @import url('./styles/sections/category-grid.css');
-@import url('./styles/sections/blog.css');
+@import url('./styles/sections/blog/blog-feature.css');
+@import url('./styles/sections/blog/blog-card.css');
+@import url('./styles/sections/blog/blog-index.css');
+@import url('./styles/sections/blog/blog-single.css');
 @import url('./styles/sections/about.css');
 @import url('./styles/sections/footer.css');
 @import url('./styles/sections/textures.css');

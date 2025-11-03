@@ -4,25 +4,27 @@
   "settings": {
     "color": {
       "palette": [
-        { "slug": "primary", "name": "Primary Blue", "color": "#1D6BCD" },
-        { "slug": "primary-dark", "name": "Deep Navy", "color": "#0C1E33" },
-        { "slug": "secondary", "name": "Electric Cyan", "color": "#18B8D7" },
-        { "slug": "accent", "name": "Performance Red", "color": "#D84432" },
-        { "slug": "surface", "name": "Light Smoke", "color": "#F3F6FA" },
-        { "slug": "surface-alt", "name": "Pure White", "color": "#FFFFFF" },
+        { "slug": "primary", "name": "Classic Blue", "color": "#0A1828" },
+        { "slug": "primary-dark", "name": "Nightfall Blue", "color": "#050F1C" },
+        { "slug": "secondary", "name": "Turquoise Current", "color": "#1A9895" },
+        { "slug": "accent", "name": "Satin Gold", "color": "#BFA181" },
+        { "slug": "accent-strong", "name": "Brass Alloy", "color": "#9F8A69" },
+        { "slug": "surface", "name": "Warm Bone", "color": "#F4F2EC" },
+        { "slug": "surface-alt", "name": "Cloud White", "color": "#FFFFFF" },
         { "slug": "ink", "name": "Text Primary", "color": "#14181F" },
-        { "slug": "ink-inverse", "name": "Text Inverse", "color": "#EEF3FF" }
+        { "slug": "ink-inverse", "name": "Text Inverse", "color": "#F6F8F9" },
+        { "slug": "depth", "name": "Slate Depth", "color": "#223447" }
       ],
       "gradients": [
         {
           "slug": "hero",
           "name": "Hero Gradient",
-          "gradient": "linear-gradient(135deg, #0C1E33 0%, #1D6BCD 60%, #18B8D7 100%)"
+          "gradient": "linear-gradient(135deg, #050F1C 0%, #0A1828 50%, #1A9895 82%, #BFA181 100%)"
         },
         {
           "slug": "card-hover",
           "name": "Card Hover",
-          "gradient": "linear-gradient(180deg, rgba(12,30,51,0) 0%, rgba(29,107,205,0.85) 100%)"
+          "gradient": "linear-gradient(180deg, rgba(10,24,40,0) 0%, rgba(26,152,149,0.75) 100%)"
         }
       ]
     },

@@ -3,7 +3,7 @@
   display: grid;
   gap: clamp(1.25rem, 3vw, 2.5rem);
   padding: 0;
-  background: linear-gradient(150deg, #040d1c 0%, #07172b 26%, #0b223b 48%, #ecf3ff 100%);
+  background: linear-gradient(150deg, rgba(244, 242, 236, 0.96) 0%, rgba(var(--threew-depth-rgb), 0.12) 40%, rgba(5, 15, 28, 0.8) 100%);
   overflow-x: hidden;
 }
 
@@ -14,13 +14,13 @@
   background:
     radial-gradient(
       120% 120% at 20% 0%,
-      rgba(29, 107, 205, 0.18) 0%,
-      rgba(29, 107, 205, 0) 55%
+      rgba(244, 242, 236, 0.65) 0%,
+      rgba(244, 242, 236, 0) 58%
     ),
     radial-gradient(
       90% 120% at 85% 5%,
-      rgba(24, 184, 215, 0.16) 0%,
-      rgba(24, 184, 215, 0) 60%
+      rgba(var(--threew-secondary-rgb), 0.16) 0%,
+      rgba(var(--threew-secondary-rgb), 0) 60%
     );
   pointer-events: none;
   z-index: -1;

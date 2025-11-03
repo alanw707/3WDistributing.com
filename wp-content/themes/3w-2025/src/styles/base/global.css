@@ -43,6 +43,7 @@ a {
 a:hover,
 a:focus-visible {
   color: var(--wp--preset--color--secondary);
+  text-decoration-color: var(--wp--preset--color--accent);
 }
 
 img,

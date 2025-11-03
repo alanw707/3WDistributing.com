@@ -21,8 +21,8 @@
   }
 
   .threew-header__utility-menu a {
-    background: transparent;
-    border: 1px solid var(--threew-border-inverse);
+    background: rgba(var(--threew-accent-rgb), 0.12);
+    border: 1px solid rgba(var(--threew-accent-rgb), 0.35);
   }
 
   .threew-header__utility-text {

@@ -13,11 +13,11 @@
   min-height: clamp(12.5rem, 40vw, 19rem);
   border-radius: clamp(1.25rem, 3vw, 1.85rem);
   overflow: hidden;
-  border: 1px solid var(--tile-border, rgba(24, 184, 215, 0.22));
-  box-shadow: 0 32px 68px rgba(4, 12, 25, 0.45);
+  border: 1px solid var(--tile-border, rgba(26, 152, 149, 0.22));
+  box-shadow: 0 32px 68px rgba(5, 15, 28, 0.45);
   background: linear-gradient(
     180deg,
-    rgba(12, 30, 51, 0.88) 0%,
+    rgba(10, 24, 40, 0.88) 0%,
     rgba(6, 18, 32, 0.96) 90%
   );
   color: var(--wp--preset--color--ink-inverse);
@@ -44,13 +44,13 @@
   background:
     radial-gradient(
       75% 70% at 85% 18%,
-      var(--tile-highlight, rgba(24, 184, 215, 0.45)) 0%,
+      var(--tile-highlight, rgba(26, 152, 149, 0.45)) 0%,
       transparent 62%
     ),
     linear-gradient(
       180deg,
-      rgba(12, 30, 51, 0.78) 0%,
-      rgba(12, 30, 51, 0.96) 100%
+      rgba(10, 24, 40, 0.78) 0%,
+      rgba(10, 24, 40, 0.96) 100%
     ),
     repeating-linear-gradient(
       135deg,
@@ -67,8 +67,8 @@
 .threew-category-grid__tile:hover,
 .threew-category-grid__tile:focus-within {
   transform: translateY(-6px);
-  box-shadow: 0 44px 88px rgba(4, 12, 25, 0.6);
-  border-color: rgba(238, 243, 255, 0.26);
+  box-shadow: 0 44px 88px rgba(5, 15, 28, 0.6);
+  border-color: rgba(246, 248, 249, 0.26);
 }
 
 .threew-category-grid__tile:hover::before,
@@ -107,7 +107,7 @@
 
 .threew-category-grid__summary {
   margin: 0;
-  color: rgba(238, 243, 255, 0.74);
+  color: rgba(246, 248, 249, 0.74);
   max-width: 28ch;
 }
 
@@ -137,34 +137,34 @@
 
 .threew-category-grid__tile--lighting {
   --tile-image: url('../../assets/images/category-lighting.jpg');
-  --tile-highlight: rgba(24, 184, 215, 0.62);
+  --tile-highlight: rgba(26, 152, 149, 0.62);
 }
 
 .threew-category-grid__tile--aero {
   --tile-image: url('../../assets/images/category-aero.jpg');
-  --tile-highlight: rgba(29, 107, 205, 0.52);
+  --tile-highlight: rgba(var(--threew-accent-rgb), 0.52);
 }
 
 .threew-category-grid__tile--performance {
   --tile-image: url('../../assets/images/category-performance.jpg');
-  --tile-highlight: rgba(216, 68, 50, 0.42);
-  --tile-border: rgba(216, 68, 50, 0.26);
+  --tile-highlight: rgba(26, 152, 149, 0.48);
+  --tile-border: rgba(26, 152, 149, 0.28);
 }
 
 .threew-category-grid__tile--wheels {
   --tile-image: url('../../assets/images/category-wheels.jpg');
-  --tile-highlight: rgba(24, 184, 215, 0.48);
+  --tile-highlight: rgba(26, 152, 149, 0.48);
 }
 
 .threew-category-grid__tile--interior {
   --tile-image: url('../../assets/images/category-interior.jpg');
-  --tile-highlight: rgba(29, 107, 205, 0.46);
+  --tile-highlight: rgba(var(--threew-accent-rgb), 0.46);
 }
 
 .threew-category-grid__tile--clearance {
   --tile-image: url('../../assets/images/category-clearance.jpg');
-  --tile-highlight: rgba(216, 68, 50, 0.5);
-  --tile-border: rgba(216, 68, 50, 0.28);
+  --tile-highlight: rgba(var(--threew-accent-rgb), 0.58);
+  --tile-border: rgba(var(--threew-accent-rgb), 0.32);
 }
 
 @media (min-width: 48rem) {

@@ -26,13 +26,15 @@
 
 | Role | Hex | Notes |
 | --- | --- | --- |
-| Primary Blue | `#1D6BCD` | Based on existing 3W header; vibrant enough for buttons and highlights.
-| Deep Navy | `#0C1E33` | Anchor color for header/nav backgrounds and footer blocks.
-| Asphalt Gray | `#151515` | Performance-oriented neutral for hero overlays and typography.
-| Steel Gray | `#2F3640` | Secondary background for cards and striping.
-| Accent Red | `#D84432` | Limited-use accent inspired by automotive brake calipers; ideal for warnings/CTA chips.
-| Electric Cyan | `#18B8D7` | Optional secondary accent for hover states and active filters.
-| Light Smoke | `#F3F6FA` | Soft backdrop for content sections and blog cards.
+| Classic Blue | `#0A1828` | Hero/nav anchor that introduces a deep motorsport tone without going full black.
+| Nightfall Blue | `#050F1C` | Adds depth for overlays, mega menu plates, and footer treatments.
+| Turquoise Current | `#1A9895` | Energetic accent for CTAs, glows, and interactive controls.
+| Satin Gold | `#BFA181` | Premium highlight for pricing badges, icons, and divider accents.
+| Brass Alloy | `#9F8A69` | Richer gold for hover, shadows, and premium strokes.
+| Slate Depth | `#223447` | Mid-tone neutral to bridge the dark navy layers with warm surfaces.
+| Asphalt Gray | `#151515` | Performance-oriented neutral retained for typography and sensor overlays.
+| Warm Bone | `#F4F2EC` | Soft surface neutral that balances the cool blues and keeps content approachable.
+| Cloud White | `#FFFFFF` | Clean contrast for cards, modals, and form surfaces.
 
 ## Imagery & Texture
 - Hero imagery: close-up shots of performance vehicles, carbon fiber textures, wind tunnel lighting.

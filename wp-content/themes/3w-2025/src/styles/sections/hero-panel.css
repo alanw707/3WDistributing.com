@@ -12,6 +12,14 @@
     clamp(0.3rem, 1.4vw, 0.6rem);
   order: 2;
   border-radius: clamp(0.75rem, 1.8vw, 1.1rem);
+  background: linear-gradient(
+    145deg,
+    rgba(244, 242, 236, 0.2) 0%,
+    rgba(var(--threew-depth-rgb), 0.18) 55%,
+    rgba(5, 15, 28, 0.55) 100%
+  );
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.2);
+  box-shadow: 0 22px 44px rgba(5, 15, 28, 0.25);
 }
 
 .threew-hero__panel::before {
@@ -49,10 +57,10 @@
 
 .threew-hero__panel-eyebrow {
   margin: 0;
-  font-size: var(--wp--preset--font-size--body-xs);
+  font-size: var(--threew-font-size-meta);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(238, 243, 255, 0.68);
+  color: rgba(246, 248, 249, 0.68);
 }
 
 .threew-hero__panel-heading {
@@ -64,7 +72,7 @@
 
 .threew-hero__panel-subheading {
   margin: 0;
-  color: rgba(238, 243, 255, 0.72);
+  color: rgba(246, 248, 249, 0.72);
   font-size: clamp(0.82rem, 1.4vw, 0.92rem);
   line-height: 1.4;
 }
@@ -93,9 +101,13 @@
   gap: 0.45rem;
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
-  background: rgba(5, 18, 34, 0.55);
-  border: 1px solid rgba(24, 184, 215, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.05);
+  background: linear-gradient(
+    135deg,
+    rgba(244, 242, 236, 0.18) 0%,
+    rgba(5, 18, 34, 0.62) 100%
+  );
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.22);
+  box-shadow: inset 0 0 0 1px rgba(var(--threew-secondary-rgb), 0.08);
   flex: 1 1 clamp(9rem, 28%, 11.5rem);
   min-height: 2.5rem;
 }
@@ -105,60 +117,20 @@
   font-family: var(--wp--preset--font-family--numeric);
   font-size: clamp(1.05rem, 3.6vw, 1.35rem);
   letter-spacing: 0.08em;
-  color: rgba(238, 243, 255, 0.96);
+  color: rgba(246, 248, 249, 0.96);
 }
 
 .threew-fitment-card__meta span {
   display: inline-block;
   margin: 0;
   font-size: clamp(0.68rem, 2.1vw, 0.8rem);
-  color: rgba(238, 243, 255, 0.8);
+  color: rgba(244, 242, 236, 0.82);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .threew-hero__panel-body .wp-block-3w-fitment-selector {
   color: var(--wp--preset--color--surface-alt);
-}
-
-.threew-hero__panel-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid rgba(24, 184, 215, 0.4);
-  color: rgba(238, 243, 255, 0.82);
-  font-size: var(--wp--preset--font-size--body-sm);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.threew-hero__panel-link:hover,
-.threew-hero__panel-link:focus-visible {
-  border-color: rgba(24, 184, 215, 0.75);
-  box-shadow: 0 10px 28px rgba(24, 184, 215, 0.25);
-  transform: translateY(-1px);
-}
-
-.threew-hero__panel-link:focus-visible {
-  outline: 2px solid rgba(238, 243, 255, 0.85);
-  outline-offset: 2px;
-}
-
-.threew-hero__panel-link-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.threew-hero__panel-link--inline {
-  align-self: flex-start;
-  margin-top: clamp(0.15rem, 0.6vw, 0.4rem);
 }
 
 @media (min-width: 48rem) {
@@ -182,7 +154,7 @@
 .threew-fitment-placeholder {
   display: grid;
   gap: 0.75rem;
-  color: rgba(238, 243, 255, 0.86);
+  color: rgba(246, 248, 249, 0.86);
 }
 
 .threew-fitment-placeholder__meta {
@@ -194,12 +166,12 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: var(--wp--preset--font-size--body-sm);
-  color: rgba(238, 243, 255, 0.65);
+  color: rgba(246, 248, 249, 0.65);
 }
 
 .threew-fitment-placeholder__meta p {
   margin: 0;
-  color: rgba(238, 243, 255, 0.75);
+  color: rgba(246, 248, 249, 0.75);
   font-size: clamp(0.82rem, 2.2vw, 0.95rem);
   line-height: 1.45;
 }
@@ -213,7 +185,7 @@
   font-size: var(--wp--preset--font-size--body-sm);
   text-decoration: none;
   color: var(--wp--preset--color--secondary);
-  border: 1px solid rgba(24, 184, 215, 0.45);
+  border: 1px solid rgba(26, 152, 149, 0.45);
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 

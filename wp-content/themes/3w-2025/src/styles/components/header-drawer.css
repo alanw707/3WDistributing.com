@@ -86,7 +86,7 @@
   gap: var(--threew-space-2xs);
   padding: 0.55rem 0;
   border-bottom: 1px solid var(--threew-border-inverse);
-  color: rgba(238, 243, 255, 0.92);
+  color: rgba(246, 248, 249, 0.92);
   text-decoration: none;
   transition: color 0.2s ease, padding 0.2s ease;
 }
@@ -100,7 +100,12 @@
   width: clamp(14px, 3vw, 18px);
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(24, 184, 215, 0), rgba(24, 184, 215, 0.65), rgba(24, 184, 215, 0));
+  background: linear-gradient(
+    90deg,
+    rgba(26, 152, 149, 0) 0%,
+    rgba(var(--threew-accent-strong-rgb), 0.85) 50%,
+    rgba(26, 152, 149, 0) 100%
+  );
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -108,11 +113,11 @@
 
 .threew-header__menu a:hover,
 .threew-header__menu a:focus-visible {
-  color: var(--wp--preset--color--secondary);
+  color: var(--wp--preset--color--accent);
 }
 
 .threew-header__menu a:focus-visible {
-  outline: 2px solid rgba(24, 184, 215, 0.6);
+  outline: 2px solid rgba(var(--threew-accent-strong-rgb), 0.72);
   outline-offset: 4px;
   border-radius: var(--threew-radius-pill);
 }
@@ -161,14 +166,14 @@
 }
 
 .threew-header__search .wp-block-search__input::placeholder {
-  color: rgba(238, 243, 255, 0.82);
+  color: rgba(246, 248, 249, 0.82);
   font-size: var(--threew-font-size-meta);
 }
 
 .threew-header__search .wp-block-search__inside-wrapper:focus-within {
   background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(24, 184, 215, 0.65);
-  box-shadow: 0 0 0 2px rgba(24, 184, 215, 0.28);
+  border-color: rgba(26, 152, 149, 0.65);
+  box-shadow: 0 0 0 2px rgba(26, 152, 149, 0.35), 0 0 0 4px rgba(5, 15, 28, 0.35);
 }
 
 .threew-header__search .wp-block-search__button {
@@ -178,11 +183,23 @@
   padding: 0.45rem 1rem;
   border: 0;
   border-radius: var(--threew-radius-pill);
-  background: var(--wp--preset--color--secondary);
-  color: var(--wp--preset--color--primary-dark);
+  background: linear-gradient(
+    135deg,
+    var(--wp--preset--color--secondary) 0%,
+    var(--wp--preset--color--primary) 100%
+  );
+  color: var(--wp--preset--color--ink-inverse);
   font-weight: 700;
   letter-spacing: 0.08em;
   font-size: var(--threew-font-size-meta);
+  box-shadow: 0 12px 26px rgba(5, 15, 28, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.threew-header__search .wp-block-search__button:hover,
+.threew-header__search .wp-block-search__button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 32px rgba(5, 15, 28, 0.28);
 }
 
 .threew-header__actions {
@@ -209,24 +226,28 @@
 }
 
 .threew-header__actions .wp-block-button__link:focus-visible {
-  outline: 2px solid rgba(24, 184, 215, 0.65);
+  outline: 2px solid rgba(26, 152, 149, 0.7);
   outline-offset: 3px;
 }
 
 .threew-header__actions .is-style-outline {
   background: transparent;
-  border: 1px solid rgba(238, 243, 255, 0.55);
+  border: 1px solid rgba(246, 248, 249, 0.55);
   color: var(--wp--preset--color--surface-alt);
 }
 
 .threew-header__actions .is-style-outline:hover,
 .threew-header__actions .is-style-outline:focus-visible {
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(26, 152, 149, 0.6);
   color: var(--wp--preset--color--secondary);
 }
 
 .threew-header__actions .wp-block-button__link:not(.is-style-outline) {
-  background: linear-gradient(90deg, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--secondary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--wp--preset--color--secondary) 0%,
+    var(--wp--preset--color--primary) 100%
+  );
   color: var(--wp--preset--color--ink-inverse);
 }
 
@@ -256,7 +277,7 @@
 .threew-header__overlay {
   position: fixed;
   inset: var(--threew-header-overlay-top, 0) 0 0 0;
-  background: rgba(4, 12, 25, 0.65);
+  background: rgba(5, 15, 28, 0.65);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -280,13 +301,15 @@
 
 .threew-header__utility-nav--drawer .threew-header__utility-menu a {
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--threew-accent-rgb), 0.18);
+  border: 1px solid rgba(var(--threew-accent-rgb), 0.35);
 }
 
 .threew-header__utility-nav--drawer .threew-header__utility-menu a:hover,
 .threew-header__utility-nav--drawer .threew-header__utility-menu a:focus-visible {
-  background: rgba(24, 184, 215, 0.24);
-  color: var(--wp--preset--color--surface-alt);
+  background: rgba(var(--threew-accent-strong-rgb), 0.32);
+  border-color: rgba(var(--threew-accent-strong-rgb), 0.48);
+  color: var(--wp--preset--color--accent);
 }
 
 .threew-header--compact .threew-header__drawer {

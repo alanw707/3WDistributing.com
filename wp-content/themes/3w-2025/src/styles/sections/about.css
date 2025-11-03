@@ -6,20 +6,27 @@
 .threew-about-hero {
   padding: clamp(3.5rem, 8vw, 6rem) var(--threew-header-padding-x);
   background:
-    radial-gradient(100% 140% at 50% 0%, rgba(29, 107, 205, 0.28) 0%, rgba(29, 107, 205, 0) 70%),
-    radial-gradient(100% 120% at 50% 100%, rgba(24, 184, 215, 0.18) 0%, rgba(24, 184, 215, 0) 65%),
-    linear-gradient(180deg, rgba(5, 12, 24, 0.98) 0%, rgba(4, 9, 21, 1) 100%);
+    radial-gradient(140% 160% at 18% 0%, rgba(244, 242, 236, 0.35) 0%, rgba(244, 242, 236, 0) 60%),
+    radial-gradient(120% 160% at 82% 10%, rgba(var(--threew-accent-rgb), 0.24) 0%, rgba(var(--threew-accent-rgb), 0) 62%),
+    linear-gradient(185deg, rgba(5, 15, 28, 0.92) 0%, rgba(10, 24, 40, 0.78) 55%, rgba(26, 152, 149, 0.32) 100%),
+    image-set(
+      url('../../assets/images/hero-motorsport.full.jpg') type('image/jpeg'),
+      url('../../assets/images/hero-motorsport@2x.jpg') type('image/jpeg')
+    );
   color: var(--wp--preset--color--ink-inverse);
   position: relative;
   isolation: isolate;
   text-align: center;
+  background-size: cover, cover, 100% 100%, cover;
+  background-position: center top, right top, center, center;
+  background-repeat: no-repeat;
 }
 
 .threew-about-hero::before {
   content: '';
   position: absolute;
   inset: -15%;
-  background: radial-gradient(50% 90% at 50% 50%, rgba(24, 184, 215, 0.15) 0%, rgba(24, 184, 215, 0) 75%);
+  background: radial-gradient(50% 90% at 50% 50%, rgba(var(--threew-secondary-rgb), 0.18) 0%, rgba(var(--threew-secondary-rgb), 0) 75%);
   filter: blur(40px);
   opacity: 0.6;
   pointer-events: none;
@@ -42,7 +49,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: rgba(24, 184, 215, 0.95);
+  color: rgba(var(--threew-secondary-rgb), 0.9);
 }
 
 .threew-about-hero__title {
@@ -53,7 +60,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--wp--preset--color--ink-inverse);
-  text-shadow: 0 4px 20px rgba(24, 184, 215, 0.3);
+  text-shadow: 0 4px 20px rgba(var(--threew-secondary-rgb), 0.32);
 }
 
 .threew-about-hero__subtitle {
@@ -61,7 +68,7 @@
   font-size: clamp(1rem, 2.2vw, 1.3rem);
   font-family: var(--wp--preset--font-family--body);
   line-height: 1.6;
-  color: rgba(238, 243, 255, 0.75);
+  color: rgba(244, 242, 236, 0.82);
   max-width: 48rem;
   margin-inline: auto;
 }
@@ -70,9 +77,9 @@
 .threew-about-mission {
   padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
   background:
-    radial-gradient(120% 140% at 20% 10%, rgba(24, 184, 215, 0.18) 0%, rgba(24, 184, 215, 0) 55%),
-    radial-gradient(120% 120% at 80% 30%, rgba(29, 107, 205, 0.22) 0%, rgba(29, 107, 205, 0) 60%),
-    linear-gradient(180deg, rgba(4, 9, 21, 1) 0%, rgba(5, 12, 24, 0.96) 50%, rgba(4, 9, 21, 0.98) 100%);
+    radial-gradient(140% 140% at 15% 5%, rgba(244, 242, 236, 0.96) 0%, rgba(244, 242, 236, 0.08) 70%),
+    radial-gradient(120% 120% at 85% 30%, rgba(var(--threew-accent-rgb), 0.22) 0%, rgba(var(--threew-accent-rgb), 0) 60%),
+    linear-gradient(180deg, rgba(244, 242, 236, 0.92) 0%, rgba(var(--threew-depth-rgb), 0.15) 52%, rgba(244, 242, 236, 0.94) 100%);
   position: relative;
   isolation: isolate;
 }
@@ -81,7 +88,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgba(24, 184, 215, 0.08) 0%, rgba(24, 184, 215, 0) 45%);
+  background: linear-gradient(120deg, rgba(var(--threew-secondary-rgb), 0.1) 0%, rgba(var(--threew-secondary-rgb), 0) 45%);
   mix-blend-mode: lighten;
   pointer-events: none;
   z-index: 0;
@@ -97,10 +104,10 @@
 .threew-about-mission__content {
   padding: clamp(2.5rem, 5.5vw, 3.75rem);
   border-radius: var(--threew-radius-xl);
-  background: linear-gradient(155deg, rgba(10, 26, 46, 0.92) 0%, rgba(5, 18, 36, 0.9) 60%, rgba(4, 14, 30, 0.95) 100%);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 242, 236, 0.98) 55%, rgba(var(--threew-depth-rgb), 0.18) 100%);
   box-shadow:
-    0 32px 60px rgba(2, 7, 16, 0.65),
-    inset 0 0 0 1px rgba(24, 184, 215, 0.12);
+    0 24px 46px rgba(5, 15, 28, 0.18),
+    inset 0 0 0 1px rgba(var(--threew-secondary-rgb), 0.12);
   position: relative;
   isolation: isolate;
 }
@@ -111,11 +118,11 @@
   inset: 0;
   border-radius: inherit;
   background:
-    linear-gradient(115deg, rgba(24, 184, 215, 0.15) 0%, rgba(24, 184, 215, 0) 50%),
+    linear-gradient(115deg, rgba(var(--threew-secondary-rgb), 0.16) 0%, rgba(var(--threew-secondary-rgb), 0) 50%),
     repeating-linear-gradient(
       105deg,
-      rgba(24, 184, 215, 0.12) 0,
-      rgba(24, 184, 215, 0.12) 2px,
+      rgba(var(--threew-secondary-rgb), 0.12) 0,
+      rgba(var(--threew-secondary-rgb), 0.12) 2px,
       transparent 2px,
       transparent 20px
     );
@@ -131,14 +138,14 @@
   margin: 0;
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   line-height: 1.7;
-  color: rgba(238, 243, 255, 0.85);
+  color: rgba(var(--threew-depth-rgb), 0.9);
   text-align: center;
 }
 
 /* ===== CORE VALUES SECTION ===== */
 .threew-about-values {
   padding: clamp(3rem, 7vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
-  background: linear-gradient(180deg, rgba(4, 9, 21, 0.98) 0%, rgba(5, 12, 24, 0.95) 100%);
+  background: linear-gradient(185deg, rgba(244, 242, 236, 0.98) 0%, rgba(var(--threew-depth-rgb), 0.1) 50%, rgba(5, 15, 28, 0.82) 100%);
   position: relative;
 }
 
@@ -166,10 +173,10 @@
   gap: clamp(1.25rem, 3vw, 1.75rem);
   padding: clamp(2rem, 4.5vw, 2.75rem);
   border-radius: var(--threew-radius-xl);
-  background: linear-gradient(155deg, rgba(12, 30, 51, 0.88) 0%, rgba(8, 22, 42, 0.85) 60%, rgba(6, 18, 38, 0.9) 100%);
+  background: linear-gradient(155deg, rgba(var(--threew-depth-rgb), 0.86) 0%, rgba(5, 15, 28, 0.92) 60%, rgba(5, 12, 24, 0.96) 100%);
   box-shadow:
     0 24px 48px rgba(2, 7, 16, 0.55),
-    inset 0 0 0 1px rgba(24, 184, 215, 0.15);
+    inset 0 0 0 1px rgba(var(--threew-secondary-rgb), 0.2);
   position: relative;
   isolation: isolate;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -180,7 +187,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(24, 184, 215, 0.12) 0%, rgba(24, 184, 215, 0) 60%);
+  background: linear-gradient(135deg, rgba(var(--threew-secondary-rgb), 0.12) 0%, rgba(var(--threew-secondary-rgb), 0) 60%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -191,7 +198,7 @@
   transform: translateY(-4px);
   box-shadow:
     0 32px 64px rgba(2, 7, 16, 0.65),
-    inset 0 0 0 1px rgba(24, 184, 215, 0.25);
+    inset 0 0 0 1px rgba(var(--threew-accent-strong-rgb), 0.55);
 }
 
 .threew-value-card:hover::before {
@@ -205,7 +212,7 @@
   width: clamp(4rem, 10vw, 5rem);
   height: clamp(4rem, 10vw, 5rem);
   margin-inline: auto;
-  color: rgba(24, 184, 215, 0.9);
+  color: rgba(var(--threew-accent-strong-rgb), 0.88);
   position: relative;
   z-index: 1;
 }
@@ -213,7 +220,7 @@
 .threew-value-card__icon svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 12px rgba(24, 184, 215, 0.35));
+  filter: drop-shadow(0 6px 18px rgba(var(--threew-accent-strong-rgb), 0.45));
 }
 
 .threew-value-card__title {
@@ -233,7 +240,7 @@
   margin: 0;
   font-size: clamp(0.95rem, 2vw, 1.05rem);
   line-height: 1.65;
-  color: rgba(238, 243, 255, 0.75);
+  color: rgba(244, 242, 236, 0.78);
   text-align: center;
   position: relative;
   z-index: 1;
@@ -243,8 +250,9 @@
 .threew-about-contact {
   padding: clamp(3rem, 7vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
   background:
-    radial-gradient(100% 120% at 50% 0%, rgba(29, 107, 205, 0.18) 0%, rgba(29, 107, 205, 0) 60%),
-    linear-gradient(180deg, rgba(5, 12, 24, 0.95) 0%, rgba(4, 9, 21, 0.98) 100%);
+    radial-gradient(130% 140% at 20% 0%, rgba(244, 242, 236, 0.98) 0%, rgba(244, 242, 236, 0.1) 70%),
+    radial-gradient(110% 120% at 85% 12%, rgba(var(--threew-accent-rgb), 0.18) 0%, rgba(var(--threew-accent-rgb), 0) 60%),
+    linear-gradient(185deg, rgba(244, 242, 236, 0.97) 0%, rgba(var(--threew-depth-rgb), 0.16) 55%, rgba(5, 15, 28, 0.88) 100%);
   position: relative;
 }
 
@@ -259,15 +267,16 @@
   text-align: center;
   padding: clamp(2rem, 4.5vw, 2.75rem);
   border-radius: var(--threew-radius-lg);
-  background: linear-gradient(155deg, rgba(10, 26, 46, 0.65) 0%, rgba(5, 18, 36, 0.6) 100%);
-  box-shadow: inset 0 0 0 1px rgba(24, 184, 215, 0.08);
+  background: linear-gradient(145deg, rgba(244, 242, 236, 0.92) 0%, rgba(var(--threew-depth-rgb), 0.16) 60%, rgba(5, 15, 28, 0.2) 100%);
+  box-shadow: 0 18px 32px rgba(5, 15, 28, 0.18);
+  border: 1px solid rgba(var(--threew-accent-rgb), 0.18);
 }
 
 .threew-about-contact__cta p {
   margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
   font-size: clamp(1rem, 2.2vw, 1.15rem);
   line-height: 1.7;
-  color: rgba(238, 243, 255, 0.8);
+  color: rgba(var(--threew-depth-rgb), 0.78);
 }
 
 .threew-about-contact__cta p:last-child {
@@ -275,7 +284,7 @@
 }
 
 .threew-about-contact__cta strong {
-  color: rgba(24, 184, 215, 0.95);
+  color: rgba(var(--threew-secondary-rgb), 0.9);
   font-weight: 600;
   letter-spacing: 0.02em;
 }
@@ -283,10 +292,10 @@
 .threew-about-contact__form {
   padding: clamp(2.25rem, 5vw, 3.25rem);
   border-radius: var(--threew-radius-xl);
-  background: linear-gradient(155deg, rgba(10, 26, 46, 0.92) 0%, rgba(5, 18, 36, 0.9) 60%, rgba(4, 14, 30, 0.95) 100%);
+  background: linear-gradient(155deg, rgba(var(--threew-depth-rgb), 0.92) 0%, rgba(5, 15, 28, 0.94) 65%, rgba(5, 12, 24, 0.98) 100%);
   box-shadow:
     0 32px 60px rgba(2, 7, 16, 0.65),
-    inset 0 0 0 1px rgba(24, 184, 215, 0.12);
+    inset 0 0 0 1px rgba(var(--threew-secondary-rgb), 0.16);
 }
 
 .threew-about-contact__form-title {
@@ -330,12 +339,12 @@
 .threew-form-field label {
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 600;
-  color: rgba(238, 243, 255, 0.9);
+  color: rgba(246, 248, 249, 0.9);
   letter-spacing: 0.02em;
 }
 
 .threew-form-field label .required {
-  color: rgba(24, 184, 215, 0.9);
+  color: rgba(26, 152, 149, 0.9);
 }
 
 .threew-about-contact__form input[type="text"],
@@ -347,8 +356,8 @@
   font-size: clamp(0.95rem, 2vw, 1rem);
   font-family: var(--wp--preset--font-family--body);
   color: var(--wp--preset--color--ink-inverse);
-  background: rgba(12, 30, 51, 0.55);
-  border: 1px solid rgba(24, 184, 215, 0.2);
+  background: rgba(10, 24, 40, 0.55);
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.24);
   border-radius: var(--threew-radius-lg);
   transition: all 0.25s ease;
 }
@@ -358,9 +367,9 @@
 .threew-about-contact__form input[type="tel"]:focus,
 .threew-about-contact__form textarea:focus {
   outline: none;
-  border-color: rgba(24, 184, 215, 0.5);
-  background: rgba(12, 30, 51, 0.75);
-  box-shadow: 0 0 0 3px rgba(24, 184, 215, 0.15);
+  border-color: rgba(var(--threew-secondary-rgb), 0.6);
+  background: rgba(10, 24, 40, 0.8);
+  box-shadow: 0 0 0 3px rgba(var(--threew-secondary-rgb), 0.18);
 }
 
 .threew-about-contact__form textarea {
@@ -389,15 +398,15 @@
 
 .threew-btn--primary {
   color: var(--wp--preset--color--ink-inverse);
-  background: linear-gradient(135deg, rgba(24, 184, 215, 0.85) 0%, rgba(29, 107, 205, 0.8) 100%);
-  border: 1px solid rgba(24, 184, 215, 0.3);
-  box-shadow: 0 8px 20px rgba(24, 184, 215, 0.25);
+  background: linear-gradient(135deg, var(--wp--preset--color--secondary) 0%, var(--wp--preset--color--primary) 100%);
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.4);
+  box-shadow: 0 8px 20px rgba(5, 15, 28, 0.3);
 }
 
 .threew-btn--primary:hover {
-  background: linear-gradient(135deg, rgba(24, 184, 215, 0.95) 0%, rgba(29, 107, 205, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(var(--threew-secondary-rgb), 0.95) 0%, rgba(var(--threew-depth-rgb), 0.95) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(24, 184, 215, 0.35);
+  box-shadow: 0 12px 28px rgba(5, 15, 28, 0.35);
 }
 
 .threew-btn--primary:active {
@@ -414,9 +423,9 @@
 }
 
 .threew-form-message--success {
-  background: rgba(24, 184, 215, 0.15);
-  border: 1px solid rgba(24, 184, 215, 0.3);
-  color: rgba(24, 184, 215, 0.95);
+  background: rgba(var(--threew-secondary-rgb), 0.15);
+  border: 1px solid rgba(var(--threew-secondary-rgb), 0.3);
+  color: rgba(var(--threew-secondary-rgb), 0.95);
 }
 
 .threew-form-message--error {

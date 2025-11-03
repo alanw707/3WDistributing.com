@@ -4,19 +4,26 @@
 
 | Token | Hex | Primary Uses |
 | --- | --- | --- |
-| `color.primary` | `#1D6BCD` | Primary buttons, active nav links, call-to-action backgrounds, accent underlines.
-| `color.primary-dark` | `#0C1E33` | Header background, mega menu, footer, dark hero overlays.
-| `color.secondary` | `#18B8D7` | Hover states, secondary buttons, badge borders, active filter indicators.
-| `color.accent` | `#D84432` | Limited call-outs: promo pills, urgent alerts, sale tags.
-| `color.surface` | `#F3F6FA` | Section backgrounds, blog listing cards, checkout summary panels.
-| `color.surface-alt` | `#FFFFFF` | Card surfaces, product tiles, form inputs.
+| `color.primary` | `#0A1828` | Classic blue base for hero sections, navigation shells, and CTA backgrounds on light surfaces.
+| `color.primary-dark` | `#050F1C` | Deepened blue for header overlays, mega menu panels, and footer plates.
+| `color.secondary` | `#1A9895` | Turquoise accent for interactive states, pill toggles, and focus outlines.
+| `color.accent` | `#BFA181` | Satin gold highlight for pricing badges, icons, and subtle dividers on dark sections.
+| `color.accent-strong` | `#9F8A69` | Deeper gold shade reserved for hover states, shadows, and premium borders.
+| `color.surface` | `#F4F2EC` | Warm neutral backdrop for content sections, cards, and merchandising panels.
+| `color.surface-alt` | `#FFFFFF` | Elevated card surfaces, product tiles, and form inputs.
 | `color.text-primary` | `#14181F` | Body text, headings on light surfaces.
-| `color.text-inverse` | `#EEF3FF` | Text on dark backgrounds.
-| `color.border` | `#2F3640` | Divider lines, card borders, filter outlines.
+| `color.text-inverse` | `#F6F8F9` | Text on dark backgrounds and nav elements.
+| `color.border` | `#244452` | Divider lines, card borders, filter outlines.
+| `color.depth` | `#223447` | Slate neutral for mid-tone panels and overlays that bridge dark navy and warm surfaces.
 
 ### Gradients
-- **Hero Gradient:** `linear-gradient(135deg, #0C1E33 0%, #1D6BCD 60%, #18B8D7 100%)`
-- **Category Hover:** `linear-gradient(180deg, rgba(12,30,51,0) 0%, rgba(29,107,205,0.85) 100%)`
+- **Hero Gradient:** `linear-gradient(135deg, #050F1C 0%, #0A1828 50%, #1A9895 82%, #BFA181 100%)`
+- **Category Hover:** `linear-gradient(180deg, rgba(10,24,40,0) 0%, rgba(26,152,149,0.75) 100%)`
+- **CTA / Search:** `linear-gradient(135deg, #1A9895 0%, #0A1828 100%)`
+
+### Accessibility Notes
+- Ensure primary typography on `color.surface` backgrounds maintains a minimum 7.6:1 contrast ratio with `#14181F`.
+- When placing `color.accent` elements on light backgrounds, pair them with `color.primary` typography or outline to preserve legibility.
 
 ## Typography
 - **Display / Hero (`font.display`):** "Rajdhani", sans-serif (uppercase headings, fitment labels)
@@ -47,7 +54,7 @@
 
 ## Iconography
 - Outline icons with 2px stroke to match high-tech aesthetic.
-- Provide hover states shifting from `#FFFFFF` to `#18B8D7` on dark backgrounds.
+- Provide hover states shifting from `#FFFFFF` to `#1A9895` on dark backgrounds.
 
 ## CSS Authoring Rules
 - Modularize styles by block, pattern, or component; avoid piling global declarations into a single file.

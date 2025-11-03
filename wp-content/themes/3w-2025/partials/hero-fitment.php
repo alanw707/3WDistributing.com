@@ -136,15 +136,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						?>
 					</div>
 
-				<a class="threew-hero__panel-link threew-hero__panel-link--inline" href="<?php echo esc_url( threew_2025_get_shop_url() ); ?>">
-					<span class="threew-hero__panel-link-icon" aria-hidden="true">
-						<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M3 9.5h7.5" />
-							<path d="M7.5 5L12 9.5 7.5 14" />
-						</svg>
-					</span>
-					<span><?php esc_html_e( 'Browse All Products', 'threew-2025' ); ?></span>
-				</a>
 				</div>
 			</div>
 		</div>
