@@ -100,13 +100,6 @@ $utility_menu = wp_nav_menu(
 					</div>
 				</form>
 
-				<div class="threew-header__actions">
-					<a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/cart' ) ); ?>" data-threew-cart-link>
-						<span class="threew-header__actions-label"><?php esc_html_e( 'Cart', 'threew-2025' ); ?></span>
-						<span class="threew-header__cart-count" aria-live="polite" aria-atomic="true" data-threew-cart-count hidden>0</span>
-					</a>
-				</div>
-
 				<?php if ( $utility_menu ) : ?>
 				<nav class="threew-header__utility-nav threew-header__utility-nav--drawer" aria-label="<?php esc_attr_e( 'Utility menu', 'threew-2025' ); ?>">
 					<?php echo $utility_menu; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
