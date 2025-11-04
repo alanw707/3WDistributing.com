@@ -1,0 +1,42 @@
+# Robots.txt for 3W Distributing
+# Generated automatically - DO NOT EDIT MANUALLY
+
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/cache/
+Disallow: /wp-content/themes/
+Disallow: /trackback/
+Disallow: /feed/
+Disallow: /comments/
+Disallow: */trackback/
+Disallow: */feed/
+Disallow: */comments/
+Disallow: /xmlrpc.php
+Disallow: /*?*
+Disallow: /*?
+Allow: /wp-content/uploads/
+Allow: /wp-content/themes/*.css
+Allow: /wp-content/themes/*.js
+
+# Allow crawling of product images and assets
+Allow: /wp-content/uploads/
+
+# Sitemap location
+Sitemap: https://www.3wdistributing.com/sitemap.xml
+
+# Block common bad bots (optional, can be extended)
+User-agent: AhrefsBot
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Allow Google specific crawlers
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Allow Bing
+User-agent: Bingbot
+Allow: /
