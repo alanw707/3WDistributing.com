@@ -100,12 +100,12 @@
   }
 
   .threew-header__search {
-    flex: 0 0 clamp(240px, 22vw, 320px);
+    flex: 0 0 clamp(180px, 16vw, 240px);
     max-width: none;
   }
 
   .threew-header--compact .threew-header__search {
-    flex-basis: clamp(220px, 18vw, 280px);
+    flex-basis: clamp(160px, 14vw, 220px);
   }
 
   .threew-header__actions {
