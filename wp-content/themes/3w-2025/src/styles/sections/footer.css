@@ -20,6 +20,15 @@
   gap: 0.75rem;
 }
 
+.threew-footer__col h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--wp--preset--color--surface-alt);
+}
+
 .threew-footer__col ul:not(.threew-footer__socials) {
   margin: 0;
   padding: 0;

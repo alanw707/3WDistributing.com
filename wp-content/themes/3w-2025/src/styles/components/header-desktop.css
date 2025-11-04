@@ -64,6 +64,8 @@
     gap: clamp(var(--threew-space-md), 4vw, var(--threew-space-lg));
     padding-top: 0;
     max-height: none;
+    max-width: 100%;
+    overflow: hidden;
     opacity: 1;
     transform: none;
     pointer-events: auto;
