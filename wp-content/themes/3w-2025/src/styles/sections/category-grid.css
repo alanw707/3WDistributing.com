@@ -13,8 +13,8 @@
   min-height: clamp(12.5rem, 40vw, 19rem);
   border-radius: clamp(1.25rem, 3vw, 1.85rem);
   overflow: hidden;
-  border: 1px solid var(--tile-border, rgba(26, 152, 149, 0.22));
-  box-shadow: 0 32px 68px rgba(5, 15, 28, 0.45);
+  border: 1px solid var(--tile-border, rgba(191, 161, 129, 0.25));
+  box-shadow: 0 32px 68px rgba(5, 15, 28, 0.45), 0 0 0 1px rgba(191, 161, 129, 0.08) inset;
   background: linear-gradient(
     180deg,
     rgba(10, 24, 40, 0.88) 0%,
@@ -40,7 +40,7 @@
 .threew-category-grid__tile::after {
   content: '';
   position: absolute;
-  inset: -40%;
+  inset: 0;
   background:
     radial-gradient(
       75% 70% at 85% 18%,
@@ -67,8 +67,8 @@
 .threew-category-grid__tile:hover,
 .threew-category-grid__tile:focus-within {
   transform: translateY(-6px);
-  box-shadow: 0 44px 88px rgba(5, 15, 28, 0.6);
-  border-color: rgba(246, 248, 249, 0.26);
+  box-shadow: 0 44px 88px rgba(5, 15, 28, 0.6), 0 0 0 1px rgba(191, 161, 129, 0.35) inset, 0 0 32px rgba(191, 161, 129, 0.15);
+  border-color: rgba(191, 161, 129, 0.45);
 }
 
 .threew-category-grid__tile:hover::before,
