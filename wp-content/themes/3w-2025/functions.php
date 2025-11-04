@@ -206,6 +206,11 @@ require_once get_theme_file_path('inc/fitment-api.php');
 require_once get_theme_file_path('inc/fitment-import.php');
 
 /**
+ * Include SEO functionality
+ */
+require_once get_theme_file_path('inc/seo-class.php');
+
+/**
  * Configure PHPMailer to use Mailpit for local development.
  */
 add_action('phpmailer_init', function ($phpmailer) {
@@ -305,3 +310,41 @@ function threew_handle_contact_form() {
 	}
 	exit;
 }
+
+/**
+ * Flush rewrite rules on theme activation
+ */
+add_action('after_switch_theme', function() {
+	flush_rewrite_rules();
+	// Set a transient to show admin notice
+	set_transient('threew_seo_activated', true, 30);
+});
+
+/**
+ * Admin notice for SEO activation
+ */
+add_action('admin_notices', function() {
+	if (get_transient('threew_seo_activated')) {
+		delete_transient('threew_seo_activated');
+		?>
+		<div class="notice notice-success is-dismissible">
+			<p><strong>SEO Features Activated!</strong></p>
+			<p>The 3W Distributing theme now includes comprehensive SEO features:</p>
+			<ul style="list-style: disc; margin-left: 20px;">
+				<li>Meta descriptions and Open Graph tags</li>
+				<li>Schema.org structured data (Organization, Products, Articles, Breadcrumbs)</li>
+				<li>XML Sitemap at <code><?php echo home_url('/sitemap.xml'); ?></code></li>
+				<li>Automatic canonical URLs</li>
+				<li>Image alt text optimization</li>
+			</ul>
+			<p><strong>Next Steps:</strong></p>
+			<ol style="list-style: decimal; margin-left: 20px;">
+				<li>Go to <strong>Settings → Permalinks</strong> and click "Save Changes" to flush permalinks</li>
+				<li>Update organization details in <code>inc/seo-class.php</code> (phone, address, social links)</li>
+				<li>Test your sitemap: <a href="<?php echo home_url('/sitemap.xml'); ?>" target="_blank"><?php echo home_url('/sitemap.xml'); ?></a></li>
+				<li>Submit sitemap to Google Search Console and Bing Webmaster Tools</li>
+			</ol>
+		</div>
+		<?php
+	}
+});
