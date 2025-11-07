@@ -101,6 +101,10 @@ get_header();
 					<div class="threew-form-message threew-form-message--error">
 						There was an error sending your message. Please try again or contact us directly.
 					</div>
+				<?php elseif ( isset( $_GET['contact_status'] ) && $_GET['contact_status'] === 'captcha' ) : ?>
+					<div class="threew-form-message threew-form-message--error">
+						Please confirm you are not a robot and try again.
+					</div>
 				<?php endif; ?>
 
 				<form class="threew-contact-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -135,6 +139,12 @@ get_header();
 						<label for="contact-message">Message <span class="required">*</span></label>
 						<textarea id="contact-message" name="contact_message" rows="6" required></textarea>
 					</div>
+
+					<?php if ( function_exists( 'threew_get_recaptcha_site_key' ) && threew_get_recaptcha_site_key() ) : ?>
+						<div class="threew-form-field threew-form-field--full threew-form-field--captcha">
+							<div class="g-recaptcha" data-sitekey="<?php echo esc_attr( threew_get_recaptcha_site_key() ); ?>"></div>
+						</div>
+					<?php endif; ?>
 
 					<div class="threew-form-submit">
 						<button type="submit" class="threew-btn threew-btn--primary">Send Message</button>
