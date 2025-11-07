@@ -11,13 +11,8 @@ if (!defined('THREEW_SHOP_BASE_URL')) {
     define('THREEW_SHOP_BASE_URL', 'https://shop.3wdistributing.com/');
 }
 
-if (!defined('THREEW_RECAPTCHA_SITE_KEY')) {
-    define('THREEW_RECAPTCHA_SITE_KEY', 'YOUR_RECAPTCHA_SITE_KEY');
-}
-
-if (!defined('THREEW_RECAPTCHA_SECRET_KEY')) {
-    define('THREEW_RECAPTCHA_SECRET_KEY', 'YOUR_RECAPTCHA_SECRET_KEY');
-}
+// reCAPTCHA keys should be set via environment variables or WordPress options
+// Do not hardcode keys here for security reasons
 
 function threew_get_env_value($key) {
     $sources = [
