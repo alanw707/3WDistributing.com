@@ -11,6 +11,137 @@ if (!defined('THREEW_SHOP_BASE_URL')) {
     define('THREEW_SHOP_BASE_URL', 'https://shop.3wdistributing.com/');
 }
 
+if (!defined('THREEW_RECAPTCHA_SITE_KEY')) {
+    define('THREEW_RECAPTCHA_SITE_KEY', 'YOUR_RECAPTCHA_SITE_KEY');
+}
+
+if (!defined('THREEW_RECAPTCHA_SECRET_KEY')) {
+    define('THREEW_RECAPTCHA_SECRET_KEY', 'YOUR_RECAPTCHA_SECRET_KEY');
+}
+
+function threew_get_env_value($key) {
+    $sources = [
+        static function ($key) {
+            $value = getenv($key);
+            return $value === false ? null : $value;
+        },
+        static function ($key) {
+            return isset($_ENV[$key]) ? $_ENV[$key] : null;
+        },
+        static function ($key) {
+            return isset($_SERVER[$key]) ? $_SERVER[$key] : null;
+        },
+    ];
+
+    foreach ($sources as $source) {
+        $value = $source($key);
+        if ($value !== null && $value !== '') {
+            return trim((string) $value);
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Attempt to reuse keys stored via Contact Form 7's integration panel.
+ */
+function threew_get_cf7_recaptcha_credentials() {
+    static $cached = null;
+
+    if ($cached !== null) {
+        return $cached;
+    }
+
+    $cached = ['', ''];
+
+    if (defined('WPCF7_RECAPTCHA_SITEKEY') && defined('WPCF7_RECAPTCHA_SECRET')
+        && WPCF7_RECAPTCHA_SITEKEY && WPCF7_RECAPTCHA_SECRET) {
+        $cached = [
+            trim((string) WPCF7_RECAPTCHA_SITEKEY),
+            trim((string) WPCF7_RECAPTCHA_SECRET),
+        ];
+        return $cached;
+    }
+
+    if (!class_exists('WPCF7')) {
+        return $cached;
+    }
+
+    $integration = WPCF7::get_option('recaptcha');
+    if (!is_array($integration)) {
+        return $cached;
+    }
+
+    foreach ($integration as $site_key => $secret_key) {
+        $site_key = is_string($site_key) ? trim($site_key) : '';
+        $secret_key = is_string($secret_key) ? trim($secret_key) : '';
+
+        if ($site_key !== '' && $secret_key !== '') {
+            $cached = [$site_key, $secret_key];
+            break;
+        }
+    }
+
+    return $cached;
+}
+
+function threew_get_recaptcha_site_key() {
+    $sources = [
+        (defined('THREEW_RECAPTCHA_SITE_KEY') && THREEW_RECAPTCHA_SITE_KEY) ? THREEW_RECAPTCHA_SITE_KEY : '',
+        threew_get_env_value('THREEW_RECAPTCHA_SITE_KEY'),
+        get_option('threew_recaptcha_site_key', ''),
+    ];
+
+    foreach ($sources as $value) {
+        if (!is_string($value)) {
+            continue;
+        }
+
+        $value = trim($value);
+        if ($value !== '') {
+            return $value;
+        }
+    }
+
+    // Fallback to Contact Form 7 credentials
+    $cf7 = threew_get_cf7_recaptcha_credentials();
+    if (isset($cf7[0]) && $cf7[0]) {
+        return $cf7[0];
+    }
+
+    // Ultimate fallback to hardcoded production key
+    return 'YOUR_RECAPTCHA_SITE_KEY';
+}
+
+function threew_get_recaptcha_secret_key() {
+    $sources = [
+        (defined('THREEW_RECAPTCHA_SECRET_KEY') && THREEW_RECAPTCHA_SECRET_KEY) ? THREEW_RECAPTCHA_SECRET_KEY : '',
+        threew_get_env_value('THREEW_RECAPTCHA_SECRET_KEY'),
+        get_option('threew_recaptcha_secret_key', ''),
+    ];
+
+    foreach ($sources as $value) {
+        if (!is_string($value)) {
+            continue;
+        }
+
+        $value = trim($value);
+        if ($value !== '') {
+            return $value;
+        }
+    }
+
+    // Fallback to Contact Form 7 credentials
+    $cf7 = threew_get_cf7_recaptcha_credentials();
+    if (isset($cf7[1]) && $cf7[1]) {
+        return $cf7[1];
+    }
+
+    // Ultimate fallback to hardcoded production secret key
+    return 'YOUR_RECAPTCHA_SECRET_KEY';
+}
+
 /**
  * Build the canonical shop URL, optionally seeded with catalog filters.
  *
@@ -93,6 +224,62 @@ add_action('after_setup_theme', function () {
     ]);
 });
 
+add_action('admin_init', function () {
+    register_setting(
+        'general',
+        'threew_recaptcha_site_key',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ]
+    );
+
+    register_setting(
+        'general',
+        'threew_recaptcha_secret_key',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ]
+    );
+
+    add_settings_field(
+        'threew_recaptcha_site_key',
+        __('reCAPTCHA Site Key', 'threew-2025'),
+        function () {
+            if (defined('THREEW_RECAPTCHA_SITE_KEY') && THREEW_RECAPTCHA_SITE_KEY) {
+                echo '<p>' . esc_html__('Configured via wp-config.php constant.', 'threew-2025') . '</p>';
+                return;
+            }
+
+            $value = esc_attr(get_option('threew_recaptcha_site_key', ''));
+            echo '<input type="text" id="threew_recaptcha_site_key" name="threew_recaptcha_site_key" value="' . $value . '" class="regular-text" />';
+            echo '<p class="description">' . esc_html__('Create keys in Google reCAPTCHA v2 (checkbox) and paste the site key here.', 'threew-2025') . '</p>';
+        },
+        'general',
+        'default'
+    );
+
+    add_settings_field(
+        'threew_recaptcha_secret_key',
+        __('reCAPTCHA Secret Key', 'threew-2025'),
+        function () {
+            if (defined('THREEW_RECAPTCHA_SECRET_KEY') && THREEW_RECAPTCHA_SECRET_KEY) {
+                echo '<p>' . esc_html__('Configured via wp-config.php constant.', 'threew-2025') . '</p>';
+                return;
+            }
+
+            $value = esc_attr(get_option('threew_recaptcha_secret_key', ''));
+            echo '<input type="text" id="threew_recaptcha_secret_key" name="threew_recaptcha_secret_key" value="' . $value . '" class="regular-text" />';
+            echo '<p class="description">' . esc_html__('Paste the matching secret key. These values are used on the About page contact form.', 'threew-2025') . '</p>';
+        },
+        'general',
+        'default'
+    );
+});
+
 /**
  * Helper to read asset manifest generated by @wordpress/scripts.
  */
@@ -151,6 +338,45 @@ add_action('wp_enqueue_scripts', function () {
             ['threew-2025-style'],
             filemtime($style_path)
         );
+    }
+
+    $recaptcha_site_key = threew_get_recaptcha_site_key();
+    if ($recaptcha_site_key && (is_page_template('page-about.php') || is_page('about-us') || is_page('about'))) {
+        wp_enqueue_script(
+            'google-recaptcha',
+            'https://www.google.com/recaptcha/api.js',
+            [],
+            null,
+            true
+        );
+        wp_script_add_data('google-recaptcha', 'async', true);
+        wp_script_add_data('google-recaptcha', 'defer', true);
+
+        $inline = <<<JS
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.querySelector('.threew-contact-form');
+    if (!form || form.querySelector('.g-recaptcha')) {
+        return;
+    }
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'threew-form-field threew-form-field--full threew-form-field--captcha';
+
+    var captcha = document.createElement('div');
+    captcha.className = 'g-recaptcha';
+    captcha.setAttribute('data-sitekey', '{$recaptcha_site_key}');
+
+    wrapper.appendChild(captcha);
+
+    var submit = form.querySelector('.threew-form-submit');
+    if (submit && submit.parentNode) {
+        submit.parentNode.insertBefore(wrapper, submit);
+    } else {
+        form.appendChild(wrapper);
+    }
+});
+JS;
+        wp_add_inline_script('google-recaptcha', $inline);
     }
 
     // Enqueue fitment selector view script for frontend interactivity
@@ -240,6 +466,38 @@ add_action('phpmailer_init', function ($phpmailer) {
 add_action('admin_post_nopriv_threew_contact_form_submit', 'threew_handle_contact_form');
 add_action('admin_post_threew_contact_form_submit', 'threew_handle_contact_form');
 
+function threew_verify_recaptcha_response($token) {
+	$secret = threew_get_recaptcha_secret_key();
+	if ($secret === '' || $secret === null) {
+		return true;
+	}
+
+	if (empty($token)) {
+		return false;
+	}
+
+	$response = wp_remote_post(
+		'https://www.google.com/recaptcha/api/siteverify',
+		[
+			'timeout' => 10,
+			'body'    => [
+				'secret'   => $secret,
+				'response' => $token,
+				'remoteip' => isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '',
+			],
+		]
+	);
+
+	if (is_wp_error($response)) {
+		return false;
+	}
+
+	$body = wp_remote_retrieve_body($response);
+	$data = json_decode($body, true);
+
+	return is_array($data) && !empty($data['success']);
+}
+
 function threew_handle_contact_form() {
 	// Verify nonce
 	if (!isset($_POST['threew_contact_nonce']) || !wp_verify_nonce($_POST['threew_contact_nonce'], 'threew_contact_form')) {
@@ -252,10 +510,16 @@ function threew_handle_contact_form() {
 	$phone   = isset($_POST['contact_phone']) ? sanitize_text_field($_POST['contact_phone']) : '';
 	$subject = isset($_POST['contact_subject']) ? sanitize_text_field($_POST['contact_subject']) : 'Contact Form Submission';
 	$message = isset($_POST['contact_message']) ? sanitize_textarea_field($_POST['contact_message']) : '';
+	$recaptcha_token = isset($_POST['g-recaptcha-response']) ? sanitize_text_field($_POST['g-recaptcha-response']) : '';
 
 	// Basic validation
 	if (empty($name) || empty($email) || empty($message)) {
 		wp_redirect(add_query_arg('contact_status', 'error', wp_get_referer()) . '#contact');
+		exit;
+	}
+
+	if (!threew_verify_recaptcha_response($recaptcha_token)) {
+		wp_redirect(add_query_arg('contact_status', 'captcha', wp_get_referer()) . '#contact');
 		exit;
 	}
 
@@ -348,3 +612,57 @@ add_action('admin_notices', function() {
 		<?php
 	}
 });
+
+add_action('template_redirect', function () {
+	if (isset($_GET['threew_probe_global']) && $_GET['threew_probe_global'] === '1') {
+		header('Content-Type: text/plain; charset=utf-8');
+		echo isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+		exit;
+	}
+}, 999);
+
+add_action('template_redirect', function () {
+	if (isset($_GET['threew_debug_key']) && $_GET['threew_debug_key'] === '1') {
+		header('Content-Type: text/plain; charset=utf-8');
+		echo 'site_key=' . threew_get_recaptcha_site_key();
+		exit;
+	}
+}, 998);
+
+add_action('init', function () {
+	$already_purged = get_option('threew_about_cache_purged', false);
+	if ($already_purged) {
+		return;
+	}
+
+	$about_url = home_url('/about-us/');
+
+	if (class_exists('LiteSpeed_Cache_API')) {
+		LiteSpeed_Cache_API::purge($about_url);
+	} else {
+		do_action('litespeed_purge_url', $about_url);
+	}
+
+	update_option('threew_about_cache_purged', 1, false);
+});
+
+function threew_is_legacy_sitemap_request() {
+	if (! isset($_SERVER['REQUEST_URI'])) {
+		return false;
+	}
+
+	$path = strtok(wp_unslash($_SERVER['REQUEST_URI']), '?');
+	if ($path === false || $path === '') {
+		return false;
+	}
+
+	$path = rtrim($path, '/');
+	return substr($path, -strlen('sitemap_index.xml')) === 'sitemap_index.xml';
+}
+
+add_action('init', function () {
+	if (threew_is_legacy_sitemap_request()) {
+		wp_redirect(home_url('/sitemap.xml/'), 301, 'ThreeW Sitemap Redirect');
+		exit;
+	}
+}, 0);
