@@ -1,0 +1,57 @@
+/* Sub-36rem typography & spacing tweaks */
+@media (max-width: 36rem) {
+  .threew-about-hero__title {
+    font-size: clamp(1.75rem, 10vw, 2rem);
+    letter-spacing: 0.06em;
+  }
+
+  .threew-about-mission__content p {
+    font-size: clamp(0.95rem, 4.5vw, 1.05rem);
+  }
+
+  .threew-value-card__title {
+    font-size: clamp(1.25rem, 5.5vw, 1.4rem);
+  }
+
+  .threew-value-card__description {
+    font-size: clamp(0.9rem, 4vw, 0.95rem);
+  }
+}
+
+/* Contact form tight viewport refinements */
+@media (max-width: 30rem) {
+  .threew-about-contact {
+    padding-inline: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .threew-about-contact__form {
+    padding-inline: clamp(0.75rem, 2.5vw, 1.25rem);
+  }
+
+  .threew-form-field--captcha {
+    overflow: hidden;
+  }
+
+  .threew-form-field--captcha .g-recaptcha {
+    transform: scale(0.94);
+    transform-origin: center;
+  }
+}
+
+@media (max-width: 23.5rem) {
+  .threew-about-contact {
+    padding-inline: clamp(0.25rem, 1.25vw, 0.75rem);
+  }
+
+  .threew-about-contact__form {
+    padding-inline: clamp(0.25rem, 1vw, 0.75rem);
+  }
+
+  .threew-form-field--captcha {
+    padding-inline: 0;
+  }
+
+  .threew-form-field--captcha .g-recaptcha {
+    transform: scale(0.88);
+  }
+}
