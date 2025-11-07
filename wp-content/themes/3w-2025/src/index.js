@@ -8,6 +8,9 @@ import './blocks/fitment-selector';
 // Header interactions
 import './scripts/header';
 
+// Search functionality
+import './scripts/search';
+
 // Hero interactions
 import './scripts/hero-motion';
 
