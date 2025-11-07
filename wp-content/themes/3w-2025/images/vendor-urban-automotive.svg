@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="160" viewBox="0 0 320 160" role="img" aria-label="Urban Automotive logo placeholder">
+  <defs>
+    <linearGradient id="urbanGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080808" />
+      <stop offset="100%" stop-color="#1e1f23" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="160" rx="18" fill="url(#urbanGradient)" />
+  <rect x="36" y="36" width="248" height="88" rx="12" fill="none" stroke="#d1ff52" stroke-width="4" />
+  <text x="160" y="82" fill="#d1ff52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="600" letter-spacing="0.35em" text-anchor="middle" dominant-baseline="middle">
+    URBAN
+  </text>
+  <text x="160" y="112" fill="#9aa0b0" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="16" letter-spacing="0.45em" text-anchor="middle">
+    AUTOMOTIVE
+  </text>
+</svg>

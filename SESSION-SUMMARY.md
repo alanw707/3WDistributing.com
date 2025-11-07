@@ -96,7 +96,7 @@ Returns: ["G90", "G99"]
 
 ### Deployment Scripts
 - ✅ `scripts/deploy-fitment-staging.sh` - Full deployment automation
-- ✅ `scripts/deploy-staging.sh` - Theme FTP deployment
+- ✅ `scripts/deploy-theme.sh` - Theme FTP deployment
 - ✅ `scripts/fetch-woocommerce-products.js` - Product fetching
 
 ### Source Code
@@ -129,7 +129,7 @@ cd ../../..
 
 ### 2. Deploy Theme via FTP
 ```bash
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 ```
 
 ### 3. Upload Product Data

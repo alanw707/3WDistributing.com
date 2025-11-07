@@ -22,7 +22,7 @@
 - **Protocol:** FTP (non-SSL)
 - **Server:** 147.79.122.118:21
 - **User:** u659513315.thrwdiststaging
-- **Script:** `./scripts/deploy-staging.sh`
+- **Script:** `./scripts/deploy-theme.sh`
 - **Parallel Transfers:** 4 concurrent connections
 - **Build Status:** ✅ Webpack compiled successfully
 
@@ -422,7 +422,7 @@ When you view source on staging homepage, you should see:
 ## 📞 Support & Resources
 
 ### Deployment Files
-- Deployment Script: `scripts/deploy-staging.sh`
+- Deployment Script: `scripts/deploy-theme.sh`
 - Environment Config: `.env` (FTP credentials)
 - SEO Implementation: `wp-content/themes/3w-2025/inc/seo-class.php`
 

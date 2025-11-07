@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="160" viewBox="0 0 320 160" role="img" aria-label="ADRO logo placeholder">
+  <defs>
+    <linearGradient id="adroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1118" />
+      <stop offset="100%" stop-color="#020305" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="160" rx="18" fill="url(#adroGradient)" />
+  <path d="M20 124 L80 36 H120 L60 124 Z" fill="#303540" opacity="0.75" />
+  <path d="M90 124 L150 36 H190 L130 124 Z" fill="#e84832" opacity="0.9" />
+  <text x="200" y="90" fill="#ffffff" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="44" font-weight="600" text-anchor="middle" dominant-baseline="middle">
+    ADRO
+  </text>
+  <text x="200" y="120" fill="#8e96a8" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="16" letter-spacing="0.35em" text-anchor="middle">
+    AERO
+  </text>
+</svg>

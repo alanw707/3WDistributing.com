@@ -199,7 +199,7 @@
 		document.addEventListener( 'keydown', handleKeydown );
 		document.addEventListener( 'click', handleClickOutside );
 
-		const mql = window.matchMedia( '(min-width: 64rem)' );
+		const mql = window.matchMedia( '(min-width: 48rem)' ); // Changed from 64rem to 48rem for tablet landscape support
 		const handleViewportChange = ( evt ) => {
 			if ( evt.matches ) {
 				closeNav();

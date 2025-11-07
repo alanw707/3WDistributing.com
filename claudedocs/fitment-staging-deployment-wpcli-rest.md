@@ -72,7 +72,7 @@ ls -lh wp-content/themes/3w-2025/build/view.js
 ### Step 2: Deploy Theme via FTP (3-5 min)
 
 ```bash
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 ```
 
 **Expected output**:
@@ -384,14 +384,14 @@ wp @staging wc product_attribute delete pa_vehicle_trim --force \
 
 # 3. Re-deploy previous theme version
 git checkout <previous-commit>
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 ```
 
 ## Quick Command Reference
 
 ```bash
 # Build & deploy
-cd wp-content/themes/3w-2025 && npm run build && cd ../../.. && bash scripts/deploy-staging.sh
+cd wp-content/themes/3w-2025 && npm run build && cd ../../.. && bash scripts/deploy-theme.sh
 
 # Upload data
 lftp -u u659513315.thrwdiststaging ftp://147.79.122.118 -e "set ftp:passive-mode on; set ssl:verify-certificate no; cd wp-content/themes/3w-2025; put woocommerce-products-all.json; bye"

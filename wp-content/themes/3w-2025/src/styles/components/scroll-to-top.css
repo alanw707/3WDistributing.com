@@ -1,0 +1,175 @@
+.threew-scroll-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2.25rem);
+  bottom: clamp(1rem, 3vw, 2.5rem);
+  width: clamp(3rem, 3.5vw, 3.5rem);
+  min-height: clamp(3rem, 3.5vw, 3.5rem);
+  padding: var(--threew-space-3xs);
+  border-radius: var(--threew-radius-pill);
+  border: 1px solid rgba(8, 23, 39, 0.75);
+  appearance: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: #f8fafc;
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.25),
+      transparent 52%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(4, 14, 25, 0.95),
+      rgba(13, 37, 56, 0.92)
+    );
+  background-size: 180%;
+  background-position: 10% 20%;
+  backdrop-filter: blur(12px);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 20px 45px rgba(5, 15, 28, 0.65),
+    inset 0 1px 3px rgba(255, 255, 255, 0.25);
+  opacity: 0;
+  transform: translate3d(0, 1rem, 0) scale(0.92);
+  transition: opacity 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  pointer-events: none;
+  z-index: 999;
+  isolation: isolate;
+}
+
+.threew-scroll-top::before,
+.threew-scroll-top::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.threew-scroll-top::before {
+  inset: 0.05rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  mix-blend-mode: screen;
+}
+
+.threew-scroll-top::after {
+  inset: -0.5rem;
+  background: radial-gradient(
+    circle,
+    rgba(var(--threew-secondary-rgb), 0.45),
+    transparent 70%
+  );
+  filter: blur(6px);
+  z-index: -1;
+}
+
+.threew-scroll-top:focus-visible {
+  outline: 2px solid rgba(var(--threew-accent-rgb), 0.8);
+  outline-offset: 4px;
+}
+
+.threew-scroll-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.threew-scroll-top.is-visible::after {
+  opacity: 0.6;
+  animation: threew-scroll-top-pulse 3s ease-in-out infinite;
+}
+
+.threew-scroll-top.is-visible::before {
+  opacity: 1;
+}
+
+.threew-scroll-top__icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: #fff;
+  transition: transform 200ms ease;
+}
+
+.threew-scroll-top__label {
+  font-size: 0.55rem;
+  opacity: 0.85;
+}
+
+.threew-scroll-top.is-triggered {
+  box-shadow: 0 22px 55px rgba(5, 15, 28, 0.75);
+}
+
+.threew-scroll-top.is-triggered .threew-scroll-top__icon {
+  animation: threew-scroll-top-chevron 600ms ease;
+}
+
+.threew-scroll-top:hover,
+.threew-scroll-top:focus-visible {
+  box-shadow: 0 26px 60px rgba(5, 15, 28, 0.9),
+    inset 0 1px 4px rgba(255, 255, 255, 0.35);
+  transform: translate3d(0, -0.15rem, 0) scale(1.05);
+  background-position: 60% 60%;
+}
+
+@media (max-width: 48rem) {
+  .threew-scroll-top {
+    right: clamp(0.75rem, 4vw, 1.25rem);
+    bottom: clamp(0.75rem, 4vw, 1.5rem);
+    width: 3rem;
+    min-height: 3rem;
+  }
+}
+
+@keyframes threew-scroll-top-pulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes threew-scroll-top-chevron {
+  0% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-0.35rem);
+  }
+
+  75% {
+    transform: translateY(0.1rem);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .threew-scroll-top {
+    transition: opacity 120ms ease, transform 120ms ease;
+  }
+
+  .threew-scroll-top::after,
+  .threew-scroll-top.is-triggered .threew-scroll-top__icon {
+    animation: none;
+  }
+}

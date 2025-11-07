@@ -23,7 +23,7 @@ npm run build
 cd ../../..
 
 # Deploy to staging
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 ```
 
 ### 2. Upload Product Data (1-2 min)
@@ -87,7 +87,7 @@ open https://staging.3wdistributing.com
 
 **Complete deployment**:
 ```bash
-cd wp-content/themes/3w-2025 && npm run build && cd ../../.. && bash scripts/deploy-staging.sh
+cd wp-content/themes/3w-2025 && npm run build && cd ../../.. && bash scripts/deploy-theme.sh
 ```
 
 **Upload + Import**:

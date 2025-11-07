@@ -1,3 +1,65 @@
+/* Tablet Landscape - Intermediate breakpoint for horizontal layout with compact spacing */
+@media (min-width: 48rem) and (max-width: 63.9375rem) {
+  .threew-header__primary-inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--threew-space-sm), 3vw, var(--threew-space-md));
+  }
+
+  .threew-header__toggle {
+    display: none; /* Hide hamburger menu on tablet landscape */
+  }
+
+  .threew-header__drawer {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: clamp(0.6rem, 2vw, 1.2rem); /* Intermediate spacing between menu and search */
+    padding-top: 0;
+    max-height: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .threew-header__nav {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .threew-header__menu {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(0.5rem, 1.2vw, 0.9rem); /* Tablet-optimized menu item spacing */
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+  }
+
+  .threew-header__menu li {
+    border: 0;
+  }
+
+  .threew-header__menu a {
+    padding: 0.25rem 0;
+    border: 0;
+    white-space: nowrap;
+  }
+
+  .threew-header__search {
+    flex: 0 0 clamp(120px, 14vw, 160px); /* Tablet-optimized search width */
+    max-width: none;
+  }
+
+  .threew-header--compact .threew-header__search {
+    flex-basis: clamp(110px, 12vw, 150px); /* Compact mode for tablet */
+  }
+
+  .threew-header__utility-nav--drawer {
+    display: none; /* Hide duplicate utility menu on tablet landscape */
+  }
+}
+
+/* Desktop - Full horizontal layout with reduced spacing */
 @media (min-width: 64rem) {
   .threew-header {
     border-bottom: none;
@@ -61,7 +123,7 @@
     flex: 1 1 auto;
     display: flex;
     align-items: center;
-    gap: clamp(var(--threew-space-md), 4vw, var(--threew-space-lg));
+    gap: clamp(0.5rem, 1.5vw, 1rem); /* Reduced ~70% from space-md/space-lg for compact layout */
     padding-top: 0;
     max-height: none;
     max-width: 100%;
@@ -80,7 +142,7 @@
   .threew-header__menu {
     display: inline-flex;
     align-items: center;
-    gap: clamp(0.75rem, 2vw, 1.8rem);
+    gap: clamp(0.4rem, 1vw, 0.8rem); /* Reduced from 0.75rem-1.8rem for compact menu */
     font-size: clamp(0.85rem, 1.1vw, 0.95rem);
     letter-spacing: 0.05em;
   }
@@ -100,12 +162,12 @@
   }
 
   .threew-header__search {
-    flex: 0 0 clamp(180px, 16vw, 240px);
+    flex: 0 0 clamp(140px, 12vw, 180px); /* Reduced from 180-240px for narrower search box */
     max-width: none;
   }
 
   .threew-header--compact .threew-header__search {
-    flex-basis: clamp(160px, 14vw, 220px);
+    flex-basis: clamp(120px, 10vw, 160px); /* Reduced from 160-220px for compact mode */
   }
 
   .threew-header__actions {

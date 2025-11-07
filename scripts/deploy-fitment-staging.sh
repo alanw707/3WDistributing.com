@@ -40,7 +40,7 @@ echo ""
 
 # Step 2: Deploy theme via FTP
 echo "📤 Step 2: Deploying theme to staging..."
-bash "${SCRIPT_DIR}/deploy-staging.sh"
+bash "${SCRIPT_DIR}/deploy-theme.sh"
 echo "✅ Theme deployed"
 echo ""
 

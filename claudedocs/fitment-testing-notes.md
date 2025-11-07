@@ -106,7 +106,7 @@ Since the local environment testing is complete, production deployment should fo
 - ✅ All classes and functions are properly defined
 
 ### Next Steps
-1. Deploy to staging using: `bash scripts/deploy-staging.sh`
+1. Deploy to staging using: `bash scripts/deploy-theme.sh`
 2. SSH to staging server
 3. Navigate to WordPress directory
 4. Run: `wp fitment import --limit=10 --dry-run`

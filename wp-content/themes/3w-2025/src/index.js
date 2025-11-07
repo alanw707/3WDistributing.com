@@ -19,3 +19,5 @@ import './scripts/vendor-strip';
 
 // Smooth scroll to anchor links
 import './scripts/smooth-scroll';
+// Scroll-to-top control
+import './scripts/scroll-to-top';

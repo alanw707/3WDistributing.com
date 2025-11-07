@@ -340,7 +340,7 @@ wp fitment import --limit=10
 ### Staging Deployment
 ```bash
 # 1. Deploy theme with new files
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 
 # 2. SSH to staging
 ssh staging-server

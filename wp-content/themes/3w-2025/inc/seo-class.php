@@ -12,7 +12,27 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (!function_exists('threew_2025_get_front_page_faq_entries')) {
+    function threew_2025_get_front_page_faq_entries() {
+        return [
+            [
+                'question' => __('Which tuning brands does 3W partner with?', 'threew-2025'),
+                'answer' => __('At 3W, we work with the best in the industry, sourcing parts from leading automotive brands, including 1016 Industries, 463 Industries, ABT, BBS, Brabus, Capristo, Lumma Design, Mansory, StarTech, TechArt, and Vorsteiner. These trusted partners enable us to offer exclusive deals and cutting-edge products, so you can elevate your ride to perfection.', 'threew-2025'),
+            ],
+            [
+                'question' => __('What services does 3W Distributing provide?', 'threew-2025'),
+                'answer' => __('Your luxury car deserves more than standard care—it deserves craftsmanship. At 3W, we provide full in-house automotive services, from precision tuning to custom builds designed from the ground up. Our team of industry-leading mechanics and technicians are experts in the art of performance tuning and customization, ensuring your car doesn’t just stand out but truly reflects your vision.', 'threew-2025'),
+            ],
+            [
+                'question' => __('How much experience does 3W Distributing have?', 'threew-2025'),
+                'answer' => __('While we’ve proudly led the BRABUS market for over 10 years, our roots run deeper, with more than 20 years of experience in tuning and customizing luxury vehicles. Over these years, we’ve honed our craft and built strong, long-term relationships with the best manufacturers in the industry. Our dedication to quality, innovation, and customer satisfaction ensures you receive nothing but the finest service and products available.', 'threew-2025'),
+            ],
+        ];
+    }
+}
+
 class ThreeW_SEO {
+    private const SITEMAP_REWRITE_VERSION = 2;
 
     /**
      * Site name for consistent branding
@@ -33,11 +53,32 @@ class ThreeW_SEO {
     private $organization_data;
 
     /**
+     * Home page document title
+     * @var string
+     */
+    private $home_title;
+
+    /**
+     * Home page meta description
+     * @var string
+     */
+    private $home_description;
+
+    /**
+     * Default social card image data
+     * @var array|null
+     */
+    private $default_social_image;
+
+    /**
      * Initialize SEO functionality
      */
     public function __construct() {
         $this->site_name = get_bloginfo('name');
         $this->site_description = get_bloginfo('description');
+        $this->home_title = __('3W Distributing | Performance Parts, Lighting & Bespoke Kits', 'threew-2025');
+        $this->home_description = __('Performance parts, lighting, and bespoke fitment expertise for BRABUS, Mansory, and luxury builds.', 'threew-2025');
+        $this->default_social_image = $this->prepare_default_social_image();
 
         // Organization data for schema markup
         $this->organization_data = [
@@ -78,15 +119,20 @@ class ThreeW_SEO {
 
         // Schema.org markup
         add_action('wp_head', [$this, 'output_organization_schema'], 5);
-        add_action('wp_head', [$this, 'output_breadcrumb_schema'], 6);
+        add_action('wp_head', [$this, 'output_website_schema'], 6);
+        add_action('wp_head', [$this, 'output_breadcrumb_schema'], 7);
 
-        // Content-specific schema
-        add_action('wp_head', [$this, 'output_content_schema'], 7);
+        // Content-specific + FAQ schema
+        add_action('wp_head', [$this, 'output_content_schema'], 8);
+        add_action('wp_head', [$this, 'output_faq_schema'], 9);
 
-        // Image alt text filter
+        // Filters
         add_filter('the_content', [$this, 'add_missing_image_alt'], 20);
+        add_filter('wp_robots', [$this, 'filter_wp_robots']);
+        add_filter('pre_get_document_title', [$this, 'filter_document_title']);
 
         // Sitemap generation
+        add_action('init', [$this, 'redirect_legacy_sitemap_index'], 0);
         add_action('init', [$this, 'register_sitemap_endpoints']);
     }
 
@@ -102,13 +148,6 @@ class ThreeW_SEO {
 
         if (!empty($keywords)) {
             echo '<meta name="keywords" content="' . esc_attr($keywords) . '">' . "\n";
-        }
-
-        // Robots meta
-        if (is_search() || is_404()) {
-            echo '<meta name="robots" content="noindex,follow">' . "\n";
-        } else {
-            echo '<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">' . "\n";
         }
 
         // Author meta for single posts
@@ -144,6 +183,21 @@ class ThreeW_SEO {
         }
 
         echo '<meta property="og:locale" content="en_US">' . "\n";
+
+        if (is_single()) {
+            echo '<meta property="article:published_time" content="' . esc_attr(get_the_date('c')) . '">' . "\n";
+            echo '<meta property="article:modified_time" content="' . esc_attr(get_the_modified_date('c')) . '">' . "\n";
+            $primary_category = get_the_category();
+            if (!empty($primary_category)) {
+                echo '<meta property="article:section" content="' . esc_attr($primary_category[0]->name) . '">' . "\n";
+            }
+            $tags = get_the_tags();
+            if ($tags) {
+                foreach ($tags as $tag) {
+                    echo '<meta property="article:tag" content="' . esc_attr($tag->name) . '">' . "\n";
+                }
+            }
+        }
     }
 
     /**
@@ -219,15 +273,14 @@ class ThreeW_SEO {
             $schema['email'] = $this->organization_data['email'];
         }
 
-        if (!empty($this->organization_data['address']['streetAddress'])) {
-            $schema['address'] = $this->organization_data['address'];
-        }
-
         if (!empty($this->organization_data['sameAs'])) {
             $schema['sameAs'] = $this->organization_data['sameAs'];
         }
 
-        // Add opening hours (Mon-Fri 8am-5pm PT)
+        if (!empty($this->organization_data['address']['addressLocality'])) {
+            $schema['address'] = $this->organization_data['address'];
+        }
+
         $schema['openingHoursSpecification'] = [
             '@type' => 'OpeningHoursSpecification',
             'dayOfWeek' => [
@@ -243,6 +296,34 @@ class ThreeW_SEO {
         ];
 
         echo "\n<!-- Organization Schema -->\n";
+        echo '<script type="application/ld+json">' . "\n";
+        echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        echo "\n" . '</script>' . "\n";
+    }
+
+    /**
+     * Output WebSite schema with search action for shop queries
+     */
+    public function output_website_schema() {
+        if (!is_front_page() && !is_home()) {
+            return;
+        }
+
+        $search_target = threew_2025_get_shop_url('{search_term_string}');
+
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'url' => home_url('/'),
+            'name' => $this->site_name,
+            'potentialAction' => [
+                '@type' => 'SearchAction',
+                'target' => $search_target,
+                'query-input' => 'required name=search_term_string',
+            ],
+        ];
+
+        echo "\n<!-- WebSite Schema -->\n";
         echo '<script type="application/ld+json">' . "\n";
         echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         echo "\n" . '</script>' . "\n";
@@ -295,6 +376,42 @@ class ThreeW_SEO {
     }
 
     /**
+     * Output FAQPage schema for front-page accordion copy
+     */
+    public function output_faq_schema() {
+        if (!is_front_page() && !is_home()) {
+            return;
+        }
+
+        $faqs = threew_2025_get_front_page_faq_entries();
+        if (empty($faqs)) {
+            return;
+        }
+
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => [],
+        ];
+
+        foreach ($faqs as $faq) {
+            $schema['mainEntity'][] = [
+                '@type' => 'Question',
+                'name' => wp_strip_all_tags($faq['question']),
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => wp_strip_all_tags($faq['answer']),
+                ],
+            ];
+        }
+
+        echo "\n<!-- FAQ Schema -->\n";
+        echo '<script type="application/ld+json">' . "\n";
+        echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        echo "\n" . '</script>' . "\n";
+    }
+
+    /**
      * Output Article schema for blog posts
      */
     private function output_article_schema() {
@@ -325,6 +442,17 @@ class ThreeW_SEO {
             ]
         ];
 
+        $categories = get_the_category();
+        if (!empty($categories)) {
+            $schema['articleSection'] = $categories[0]->name;
+        }
+
+        $plain_content = wp_strip_all_tags(get_post_field('post_content', get_the_ID()));
+        if (!empty($plain_content)) {
+            $schema['wordCount'] = str_word_count($plain_content);
+            $schema['articleBody'] = wp_html_excerpt($plain_content, 4000, '...');
+        }
+
         // Add featured image if available
         if (has_post_thumbnail()) {
             $image_id = get_post_thumbnail_id();
@@ -335,6 +463,15 @@ class ThreeW_SEO {
                 'url' => $image_data[0],
                 'width' => $image_data[1],
                 'height' => $image_data[2]
+            ];
+        }
+
+        if (!isset($schema['image']) && $this->default_social_image) {
+            $schema['image'] = [
+                '@type' => 'ImageObject',
+                'url' => $this->default_social_image['url'],
+                'width' => $this->default_social_image['width'] ?? null,
+                'height' => $this->default_social_image['height'] ?? null,
             ];
         }
 
@@ -414,6 +551,10 @@ class ThreeW_SEO {
      * Get meta description
      */
     private function get_meta_description() {
+        if (is_home() || is_front_page()) {
+            return $this->home_description ?: ($this->site_description ?: 'Welcome to 3W Distributing - Your trusted source for automotive parts and accessories');
+        }
+
         if (is_singular()) {
             // For single posts/pages, use excerpt or auto-generate
             $excerpt = $this->get_excerpt();
@@ -443,10 +584,6 @@ class ThreeW_SEO {
 
         if (is_404()) {
             return 'Page not found';
-        }
-
-        if (is_home() || is_front_page()) {
-            return $this->site_description ?: 'Welcome to 3W Distributing - Your trusted source for automotive parts and accessories';
         }
 
         return $this->site_description;
@@ -485,6 +622,10 @@ class ThreeW_SEO {
      * Get Open Graph title
      */
     private function get_og_title() {
+        if (is_front_page() || is_home()) {
+            return $this->home_title;
+        }
+
         if (is_singular()) {
             return get_the_title();
         }
@@ -525,6 +666,10 @@ class ThreeW_SEO {
             ];
         }
 
+        if (!$image && $this->default_social_image) {
+            $image = $this->default_social_image;
+        }
+
         // Fallback to site logo or default image
         if (!$image) {
             $custom_logo_id = get_theme_mod('custom_logo');
@@ -540,6 +685,25 @@ class ThreeW_SEO {
         }
 
         return $image;
+    }
+
+    /**
+     * Build a reusable default social image payload
+     */
+    private function prepare_default_social_image() {
+        $path = get_theme_file_path('images/social-card-default.jpg');
+        if (!file_exists($path)) {
+            return null;
+        }
+
+        $dimensions = @getimagesize($path);
+
+        return [
+            'url' => get_theme_file_uri('images/social-card-default.jpg'),
+            'width' => $dimensions[0] ?? 1200,
+            'height' => $dimensions[1] ?? 630,
+            'alt' => __('3W Distributing performance build showcase', 'threew-2025'),
+        ];
     }
 
     /**
@@ -680,10 +844,58 @@ class ThreeW_SEO {
     }
 
     /**
+     * Normalize robots directives via wp_robots filter
+     */
+    public function filter_wp_robots($robots) {
+        if (is_search() || is_404()) {
+            return [
+                'noindex' => true,
+                'follow' => true,
+            ];
+        }
+
+        unset($robots['noindex'], $robots['nofollow']);
+        $robots['follow'] = true;
+        $robots['max-snippet'] = -1;
+        $robots['max-image-preview'] = 'large';
+        $robots['max-video-preview'] = -1;
+
+        return $robots;
+    }
+
+    /**
+     * Improve document titles for key templates
+     */
+    public function filter_document_title($title) {
+        if (is_front_page() || is_home()) {
+            return $this->home_title;
+        }
+
+        if (is_category() || is_tag() || is_tax()) {
+            $term_title = single_term_title('', false);
+            return trim($term_title) !== '' ? sprintf('%s | %s', $term_title, $this->site_name) : $title;
+        }
+
+        if (is_post_type_archive('product')) {
+            $archive_title = post_type_archive_title('', false);
+            if ($archive_title) {
+                return sprintf('%s | %s', $archive_title, $this->site_name);
+            }
+        }
+
+        return $title;
+    }
+
+    /**
      * Register sitemap endpoints
      */
     public function register_sitemap_endpoints() {
+        if ($this->is_legacy_sitemap_request()) {
+            $this->render_sitemap_index();
+        }
+
         add_rewrite_rule('^sitemap\.xml$', 'index.php?threew_sitemap=1', 'top');
+        add_rewrite_rule('^sitemap_index\.xml$', 'index.php?threew_sitemap=1', 'top');
         add_rewrite_rule('^sitemap-([^/]+)\.xml$', 'index.php?threew_sitemap=$matches[1]', 'top');
 
         add_filter('query_vars', function($vars) {
@@ -691,7 +903,133 @@ class ThreeW_SEO {
             return $vars;
         });
 
+        add_filter('request', [$this, 'map_legacy_sitemap_request']);
+        add_action('parse_request', [$this, 'maybe_handle_legacy_sitemap_parse'], 1);
+        add_action('template_redirect', [$this, 'handle_legacy_sitemap_index'], 0);
         add_action('template_redirect', [$this, 'handle_sitemap_request']);
+        add_filter('pre_handle_404', [$this, 'intercept_legacy_sitemap_404'], 10, 2);
+        add_filter('template_include', [$this, 'maybe_override_sitemap_template'], 0);
+        add_action('template_redirect', [$this, 'debug_sitemap_probe'], 0);
+
+        $stored_version = (int) get_option('threew_sitemap_rewrite_version', 0);
+        if ($stored_version < self::SITEMAP_REWRITE_VERSION && !wp_installing()) {
+            flush_rewrite_rules(false);
+            update_option('threew_sitemap_rewrite_version', self::SITEMAP_REWRITE_VERSION, false);
+        }
+    }
+
+    public function handle_legacy_sitemap_index() {
+        if (isset($_GET['threew_debug']) && $_GET['threew_debug'] === '1') {
+            global $wp_query;
+            header('Content-Type: application/json; charset=utf-8');
+            echo wp_json_encode(
+                [
+                    'request_uri' => isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '',
+                    'query_vars'  => $wp_query ? $wp_query->query_vars : [],
+                ],
+                JSON_PRETTY_PRINT
+            );
+            exit;
+        }
+
+        if (!empty(get_query_var('threew_sitemap'))) {
+            return;
+        }
+
+        if (!$this->is_legacy_sitemap_request()) {
+            return;
+        }
+
+        $this->render_sitemap_index();
+    }
+
+    public function redirect_legacy_sitemap_index() {
+        if ($this->is_legacy_sitemap_request()) {
+            wp_redirect(home_url('/sitemap.xml/'), 301, 'ThreeW Sitemap Redirect');
+            exit;
+        }
+    }
+
+    public function maybe_handle_legacy_sitemap_parse($wp) {
+        if ($this->is_legacy_sitemap_request()) {
+            $this->render_sitemap_index();
+        }
+    }
+
+    public function intercept_legacy_sitemap_404($preempt, $wp_query) {
+        if ($this->is_legacy_sitemap_request()) {
+            $this->render_sitemap_index();
+            return true;
+        }
+
+        return $preempt;
+    }
+
+    public function maybe_override_sitemap_template($template) {
+        if ($this->is_legacy_sitemap_request()) {
+            $this->render_sitemap_index();
+        }
+
+        return $template;
+    }
+
+    public function map_legacy_sitemap_request($query_vars) {
+        $is_request = $this->is_legacy_sitemap_request()
+            || (isset($query_vars['pagename']) && $query_vars['pagename'] === 'sitemap_index.xml')
+            || (isset($query_vars['name']) && $query_vars['name'] === 'sitemap_index.xml')
+            || (isset($query_vars['attachment']) && $query_vars['attachment'] === 'sitemap_index.xml');
+
+        if ($is_request) {
+            $query_vars['threew_sitemap'] = '1';
+            unset($query_vars['pagename'], $query_vars['name'], $query_vars['attachment']);
+        }
+
+        if (isset($_GET['threew_debug']) && $_GET['threew_debug'] === '1') {
+            header('X-ThreeW-Debug-QVars: ' . rawurlencode(json_encode($query_vars)));
+        }
+
+        return $query_vars;
+    }
+
+    private function is_legacy_sitemap_request() {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+        if ($request_uri === '') {
+            return false;
+        }
+
+        $path = strtok($request_uri, '?');
+        if ($path === false || $path === '') {
+            return false;
+        }
+
+        $path = rtrim($path, '/');
+        if ($path === '') {
+            return false;
+        }
+
+        return substr($path, -strlen('sitemap_index.xml')) === 'sitemap_index.xml';
+    }
+
+    private function render_sitemap_index() {
+        header('X-ThreeW-Legacy-Sitemap: 1');
+        header('Content-Type: application/xml; charset=utf-8');
+        echo $this->generate_sitemap_index();
+        exit;
+    }
+
+    public function debug_sitemap_probe() {
+        if (isset($_GET['threew_probe']) && $_GET['threew_probe'] === '1') {
+            global $wp_query;
+            header('Content-Type: application/json; charset=utf-8');
+            echo wp_json_encode(
+                [
+                    'request_uri' => isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '',
+                    'query_vars'  => $wp_query ? $wp_query->query_vars : [],
+                ],
+                JSON_PRETTY_PRINT
+            );
+            exit;
+        }
     }
 
     /**

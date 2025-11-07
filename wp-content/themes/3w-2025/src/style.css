@@ -4,6 +4,7 @@
 @import url('./styles/components/header-drawer.css');
 @import url('./styles/components/header-desktop.css');
 @import url('./styles/components/header-admin.css');
+@import url('./styles/components/scroll-to-top.css');
 @import url('./styles/layout/front-page.css');
 @import url('./styles/sections/hero.css');
 @import url('./styles/sections/hero-panel.css');

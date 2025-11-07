@@ -28,7 +28,7 @@
 
 ### Deployment Scripts
 - ✅ `scripts/deploy-fitment-staging.sh` - Core deployment automation
-- ✅ `scripts/deploy-staging.sh` - Theme deployment via FTP
+- ✅ `scripts/deploy-theme.sh` - Theme deployment via FTP
 - ✅ `scripts/README-woocommerce-fetch.md` - Fetch script documentation
 
 ### Documentation
@@ -76,7 +76,7 @@
 project-root/
 ├── scripts/
 │   ├── deploy-fitment-staging.sh     ✅ Keep
-│   ├── deploy-staging.sh              ✅ Keep
+│   ├── deploy-theme.sh              ✅ Keep
 │   └── README-woocommerce-fetch.md    ✅ Keep
 ├── claudedocs/
 │   └── fitment-*.md (10 files)        ✅ Keep

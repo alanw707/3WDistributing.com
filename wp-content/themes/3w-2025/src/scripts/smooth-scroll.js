@@ -26,8 +26,6 @@
 
 			// Check if this is a same-page link or cross-page link to home
 			const isSamePage = url.pathname === window.location.pathname;
-			const isHomeLink =
-				url.pathname === '/' && window.location.pathname !== '/';
 
 			if ( isSamePage ) {
 				// Same page - smooth scroll

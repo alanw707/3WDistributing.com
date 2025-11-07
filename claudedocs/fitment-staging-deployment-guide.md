@@ -33,7 +33,7 @@ npm --version
 lftp --version || sudo apt install lftp
 
 # Check deployment script
-ls -lh scripts/deploy-staging.sh
+ls -lh scripts/deploy-theme.sh
 ```
 
 ### 3. Environment Variables
@@ -77,7 +77,7 @@ ls -lh build/view.js
 
 ```bash
 # From project root
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 ```
 
 **What gets deployed**:
@@ -325,7 +325,7 @@ If deployment causes issues:
 ```bash
 # Re-deploy previous version
 git checkout <previous-commit>
-bash scripts/deploy-staging.sh
+bash scripts/deploy-theme.sh
 ```
 
 ### Database Rollback

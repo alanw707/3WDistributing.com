@@ -28,9 +28,19 @@ $vendors = [
 		'about' => 'Titanium exhaust engineering',
 	],
 	[
+		'name'  => 'ADRO',
+		'logo'  => 'vendor-adro.svg',
+		'about' => 'Aero programs & body kits',
+	],
+	[
 		'name'  => 'Avant Garde',
 		'logo'  => 'vendor-avant-garde.png',
 		'about' => 'Forged wheel design',
+	],
+	[
+		'name'  => 'AWE Tuning',
+		'logo'  => 'vendor-awe.svg',
+		'about' => 'Performance exhaust & intakes',
 	],
 	[
 		'name'  => 'BBS',
@@ -41,11 +51,6 @@ $vendors = [
 		'name'  => 'Brembo',
 		'logo'  => 'vendor-brembo.png',
 		'about' => 'Performance braking systems',
-	],
-	[
-		'name'  => 'BRIDE',
-		'logo'  => 'vendor-bride.png',
-		'about' => 'Competition seating',
 	],
 	[
 		'name'  => 'Brixton Forged',
@@ -63,6 +68,11 @@ $vendors = [
 		'about' => 'BMW & MINI tuning',
 	],
 	[
+		'name'  => 'Eventuri',
+		'logo'  => 'vendor-eventuri.svg',
+		'about' => 'Carbon intake systems',
+	],
+	[
 		'name'  => 'FI Exhaust',
 		'logo'  => 'vendor-fi-exhaust.png',
 		'about' => 'Frequency Intelligent exhausts',
@@ -73,19 +83,9 @@ $vendors = [
 		'about' => 'Progressive spring systems',
 	],
 	[
-		'name'  => 'KW Suspensions',
-		'logo'  => 'vendor-kw.png',
-		'about' => 'Adjustable coilovers',
-	],
-	[
-		'name'  => 'Modulare Wheels',
-		'logo'  => 'vendor-modulare.png',
-		'about' => 'Monoblock forged wheels',
-	],
-	[
-		'name'  => 'PUR Wheels',
-		'logo'  => 'vendor-pur.png',
-		'about' => 'Lightweight forged program',
+		'name'  => 'OHLINS',
+		'logo'  => 'vendor-ohlins.svg',
+		'about' => 'Motorsport suspension systems',
 	],
 	[
 		'name'  => 'Recaro',
@@ -112,6 +112,11 @@ $vendors = [
 		'logo'  => 'vendor-mansory.png',
 		'about' => 'Coachbuilt supercars',
 	],
+	[
+		'name'  => 'Urban Automotive',
+		'logo'  => 'vendor-urban-automotive.svg',
+		'about' => 'Luxury SUV personalization',
+	],
 ];
 ?>
 
@@ -133,11 +138,18 @@ $vendors = [
 		<div class="threew-vendor-strip__marquee" aria-live="off" tabindex="0">
 			<div class="threew-vendor-strip__track">
 				<?php foreach ( $vendors as $vendor ) : ?>
+					<?php
+					$logo_alt = sprintf(
+						/* translators: %s: Vendor name */
+						__( '%s logo', 'threew-2025' ),
+						$vendor['name']
+					);
+					?>
 					<figure class="threew-vendor-strip__logo-card">
 						<span class="threew-vendor-strip__logo-media" aria-hidden="true">
 							<img
 								src="<?php echo esc_url( $vendor_base_uri . $vendor['logo'] ); ?>"
-								alt=""
+								alt="<?php echo esc_attr( $logo_alt ); ?>"
 								loading="lazy"
 								decoding="async"
 							/>
