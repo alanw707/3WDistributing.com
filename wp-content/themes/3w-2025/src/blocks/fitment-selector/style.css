@@ -423,7 +423,7 @@
   }
 
   .threew-fitment-progress__list {
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .threew-fitment-progress__list::before {
@@ -442,7 +442,7 @@
 	}
 
 	.threew-fitment-block__fields {
-		grid-template-columns: repeat(2, minmax(14.5rem, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: clamp(0.6rem, 1.4vw, 0.9rem);
 	}
 

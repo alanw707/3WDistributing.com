@@ -120,6 +120,7 @@ class ThreeW_SEO {
         // Schema.org markup
         add_action('wp_head', [$this, 'output_organization_schema'], 5);
         add_action('wp_head', [$this, 'output_website_schema'], 6);
+        add_action('wp_head', [$this, 'output_site_navigation_schema'], 6);
         add_action('wp_head', [$this, 'output_breadcrumb_schema'], 7);
 
         // Content-specific + FAQ schema
@@ -324,6 +325,37 @@ class ThreeW_SEO {
         ];
 
         echo "\n<!-- WebSite Schema -->\n";
+        echo '<script type="application/ld+json">' . "\n";
+        echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        echo "\n" . '</script>' . "\n";
+    }
+
+    /**
+     * Output SiteNavigationElement schema to encourage sitelinks
+     */
+    public function output_site_navigation_schema() {
+        $nav_items = $this->get_site_navigation_items();
+        if (count($nav_items) < 2) {
+            return;
+        }
+
+        $item_list = [];
+        foreach ($nav_items as $index => $item) {
+            $item_list[] = [
+                '@type' => 'SiteNavigationElement',
+                'position' => $index + 1,
+                'name' => $item['name'],
+                'url' => $item['url'],
+            ];
+        }
+
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ItemList',
+            'itemListElement' => $item_list,
+        ];
+
+        echo "\n<!-- Site Navigation Schema -->\n";
         echo '<script type="application/ld+json">' . "\n";
         echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         echo "\n" . '</script>' . "\n";
@@ -796,6 +828,58 @@ class ThreeW_SEO {
         }
 
         return $breadcrumbs;
+    }
+
+    /**
+     * Build a list of top-level navigation items for schema output
+     *
+     * @return array[]
+     */
+    private function get_site_navigation_items() {
+        static $cached = null;
+        if ($cached !== null) {
+            return $cached;
+        }
+
+        $cached = [];
+        $locations = get_nav_menu_locations();
+        if (empty($locations)) {
+            return $cached;
+        }
+
+        $menu_id = $locations['primary'] ?? reset($locations);
+        if (empty($menu_id)) {
+            return $cached;
+        }
+
+        $menu_items = wp_get_nav_menu_items($menu_id, ['update_post_term_cache' => false]);
+        if (empty($menu_items)) {
+            return $cached;
+        }
+
+        foreach ($menu_items as $item) {
+            if ((int) $item->menu_item_parent !== 0) {
+                continue;
+            }
+
+            $name = trim(wp_strip_all_tags($item->title));
+            $url = esc_url_raw($item->url);
+
+            if ($name === '' || $url === '') {
+                continue;
+            }
+
+            $cached[] = [
+                'name' => $name,
+                'url' => $url,
+            ];
+
+            if (count($cached) >= 8) {
+                break;
+            }
+        }
+
+        return $cached;
     }
 
     /**

@@ -1,9 +1,7 @@
 // Entry point for theme scripts. Import styles and register custom blocks here.
+import './blocks/fitment-selector/style.css';
 import './style.css';
 import './styles/shop.css';
-
-// Blocks
-import './blocks/fitment-selector';
 
 // Header interactions
 import './scripts/header';

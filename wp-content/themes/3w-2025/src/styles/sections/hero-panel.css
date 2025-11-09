@@ -133,6 +133,11 @@
   color: var(--wp--preset--color--surface-alt);
 }
 
+.threew-hero__panel .threew-fitment-block {
+  width: 100%;
+  max-width: 100%;
+}
+
 @media (min-width: 48rem) {
   .threew-hero__panel-header {
     text-align: left;
