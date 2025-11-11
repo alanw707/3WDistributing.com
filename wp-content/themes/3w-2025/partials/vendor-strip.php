@@ -39,7 +39,7 @@ $vendors = [
 	],
 	[
 		'name'  => 'AWE Tuning',
-		'logo'  => 'vendor-awe.svg',
+		'logo'  => 'vendor-awe.png',
 		'about' => 'Performance exhaust & intakes',
 	],
 	[
@@ -69,7 +69,7 @@ $vendors = [
 	],
 	[
 		'name'  => 'Eventuri',
-		'logo'  => 'vendor-eventuri.svg',
+		'logo'  => 'vendor-eventuri.png',
 		'about' => 'Carbon intake systems',
 	],
 	[
@@ -83,7 +83,7 @@ $vendors = [
 		'about' => 'Progressive spring systems',
 	],
 	[
-		'name'  => 'OHLINS',
+		'name'  => 'Öhlins',
 		'logo'  => 'vendor-ohlins.svg',
 		'about' => 'Motorsport suspension systems',
 	],
@@ -113,8 +113,8 @@ $vendors = [
 		'about' => 'Coachbuilt supercars',
 	],
 	[
-		'name'  => 'Urban Automotive',
-		'logo'  => 'vendor-urban-automotive.svg',
+		'name'  => 'Urban USA',
+		'logo'  => 'vendor-urban-usa.svg',
 		'about' => 'Luxury SUV personalization',
 	],
 ];

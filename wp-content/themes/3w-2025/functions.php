@@ -687,3 +687,47 @@ add_action('init', function () {
 		exit;
 	}
 }, 0);
+
+/**
+ * Ensure core legal pages exist so footer links never break.
+ */
+add_action('init', function () {
+	if (defined('WP_INSTALLING') && WP_INSTALLING) {
+		return;
+	}
+
+	$required_pages = [
+		[
+			'slug'  => 'privacy-policy',
+			'title' => __('Privacy Policy', 'threew-2025'),
+		],
+		[
+			'slug'  => 'terms',
+			'title' => __('Terms & Conditions', 'threew-2025'),
+		],
+	];
+
+	foreach ($required_pages as $page) {
+		$existing = get_page_by_path($page['slug']);
+		if ($existing) {
+			continue;
+		}
+
+		$maybe_created = wp_insert_post(
+			[
+				'post_type'      => 'page',
+				'post_status'    => 'publish',
+				'post_title'     => $page['title'],
+				'post_name'      => $page['slug'],
+				'post_content'   => '',
+				'comment_status' => 'closed',
+				'ping_status'    => 'closed',
+			],
+			true
+		);
+
+		if (is_wp_error($maybe_created)) {
+			error_log(sprintf('Failed to auto-create %s page: %s', $page['slug'], $maybe_created->get_error_message()));
+		}
+	}
+}, 20);

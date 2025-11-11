@@ -1,0 +1,296 @@
+/* ========================================
+   Legal Pages (Privacy + Terms)
+   ======================================== */
+
+.threew-legal {
+  background: var(--wp--preset--color--surface);
+  color: var(--wp--preset--color--ink);
+}
+
+.threew-legal__hero {
+  padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1.5rem, 6vw, 4rem);
+  background:
+    radial-gradient(140% 120% at 90% -10%, rgba(var(--threew-secondary-rgb), 0.25) 0%, rgba(var(--threew-secondary-rgb), 0) 60%),
+    radial-gradient(120% 120% at 10% -10%, rgba(var(--threew-accent-rgb), 0.2) 0%, rgba(var(--threew-accent-rgb), 0) 65%),
+    linear-gradient(185deg, rgba(5, 15, 28, 0.92) 0%, rgba(8, 18, 32, 0.82) 40%, rgba(5, 15, 28, 0.95) 100%);
+  color: var(--wp--preset--color--ink-inverse);
+  position: relative;
+  overflow: hidden;
+}
+
+.threew-legal__hero::after {
+  content: '';
+  position: absolute;
+  inset: 10% 5%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--threew-secondary-rgb), 0.18) 0%, rgba(var(--threew-secondary-rgb), 0) 70%);
+  filter: blur(80px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.threew-legal__hero-inner {
+  position: relative;
+  max-width: min(72rem, 94vw);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.75rem);
+  text-align: left;
+}
+
+.threew-legal__eyebrow {
+  margin: 0;
+  font-size: var(--threew-font-size-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.threew-legal__title {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-family: var(--wp--preset--font-family--display);
+  letter-spacing: 0.04em;
+}
+
+.threew-legal__meta {
+  margin: 0;
+  font-size: var(--threew-font-size-meta);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.threew-legal__intro {
+  margin: 0;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 52rem;
+}
+
+.threew-legal__summary-grid {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+}
+
+.threew-legal__summary-card {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: var(--threew-radius-xl);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  min-height: 100%;
+}
+
+.threew-legal__summary-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--wp--preset--color--ink-inverse);
+}
+
+.threew-legal__summary-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.threew-legal__body {
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 6vw, 4rem);
+  max-width: min(74rem, 94vw);
+  margin-inline: auto;
+}
+
+.threew-legal__toc {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: var(--threew-radius-xl);
+  background: rgba(var(--threew-depth-rgb), 0.05);
+  border: 1px solid rgba(var(--threew-depth-rgb), 0.12);
+}
+
+.threew-legal__toc-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(var(--threew-depth-rgb), 0.9);
+}
+
+.threew-legal__toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.threew-legal__toc-list a {
+  display: inline-flex;
+  gap: 0.3rem;
+  align-items: baseline;
+  font-weight: 600;
+  color: var(--wp--preset--color--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(var(--threew-depth-rgb), 0.2);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.threew-legal__toc-list a:hover,
+.threew-legal__toc-list a:focus-visible {
+  color: var(--wp--preset--color--secondary);
+  border-color: rgba(var(--threew-secondary-rgb), 0.6);
+}
+
+.threew-legal__section {
+  padding: clamp(2rem, 5vw, 3.5rem) 0;
+  border-top: 1px solid rgba(var(--threew-depth-rgb), 0.12);
+}
+
+.threew-legal__section:first-of-type {
+  border-top: 0;
+}
+
+.threew-legal__section-header {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.threew-legal__section-number {
+  margin: 0;
+  font-size: var(--threew-font-size-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(var(--threew-depth-rgb), 0.7);
+}
+
+.threew-legal__section-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.15rem);
+  font-family: var(--wp--preset--font-family--display);
+  letter-spacing: 0.04em;
+}
+
+.threew-legal__section-intro {
+  margin: 0;
+  color: rgba(var(--threew-depth-rgb), 0.85);
+  max-width: 48rem;
+}
+
+.threew-legal__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+}
+
+.threew-legal__card {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: var(--threew-radius-xl);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 242, 236, 0.9) 60%, rgba(var(--threew-secondary-rgb), 0.08) 100%);
+  border: 1px solid rgba(var(--threew-depth-rgb), 0.12);
+  box-shadow: 0 14px 28px rgba(5, 15, 28, 0.08);
+}
+
+.threew-legal__card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(var(--threew-depth-rgb), 0.95);
+}
+
+.threew-legal__card p {
+  margin: 0;
+  color: rgba(var(--threew-depth-rgb), 0.78);
+}
+
+.threew-legal__list,
+.threew-legal__bullets {
+  margin: clamp(1rem, 3vw, 1.5rem) 0 0;
+  padding-left: 1.25rem;
+  color: rgba(var(--threew-depth-rgb), 0.85);
+  line-height: 1.75;
+}
+
+.threew-legal__list li + li,
+.threew-legal__bullets li + li {
+  margin-top: 0.35rem;
+}
+
+.threew-legal__cta {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.threew-legal__cta-card {
+  padding: clamp(2rem, 5vw, 3rem);
+  border-radius: var(--threew-radius-xl);
+  background:
+    linear-gradient(135deg, rgba(var(--threew-depth-rgb), 0.92) 0%, rgba(5, 15, 28, 0.95) 60%),
+    radial-gradient(150% 120% at 15% -10%, rgba(var(--threew-secondary-rgb), 0.3) 0%, rgba(var(--threew-secondary-rgb), 0) 65%);
+  color: var(--wp--preset--color--ink-inverse);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  gap: 1rem;
+}
+
+.threew-legal__cta-card h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.threew-legal__cta-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.threew-legal__cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.threew-legal__cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--threew-radius-pill);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--wp--preset--color--ink-inverse);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.threew-legal__cta-link--primary {
+  background: linear-gradient(120deg, rgba(var(--threew-secondary-rgb), 0.35) 0%, rgba(191, 161, 129, 0.5) 100%);
+  border-color: transparent;
+}
+
+.threew-legal__cta-link:hover,
+.threew-legal__cta-link:focus-visible {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.threew-legal__cta-link--primary:hover,
+.threew-legal__cta-link--primary:focus-visible {
+  background: linear-gradient(120deg, rgba(var(--threew-secondary-rgb), 0.5) 0%, rgba(191, 161, 129, 0.65) 100%);
+}
+
+@media (max-width: 48rem) {
+  .threew-legal__summary-grid,
+  .threew-legal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .threew-legal__toc-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .threew-legal__cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
