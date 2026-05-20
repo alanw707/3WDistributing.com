@@ -1,0 +1,87 @@
+name: Deploy Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and deploy theme
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        shell: bash
+    env:
+      THREEW_DEPLOY_TARGET: production
+      THREEW_PROD_FTP_HOST: ${{ secrets.THREEW_PROD_FTP_HOST }}
+      THREEW_PROD_FTP_PORT: ${{ secrets.THREEW_PROD_FTP_PORT }}
+      THREEW_PROD_FTP_USER: ${{ secrets.THREEW_PROD_FTP_USER }}
+      THREEW_PROD_FTP_PASS: ${{ secrets.THREEW_PROD_FTP_PASS }}
+      THREEW_PROD_REMOTE_THEME_DIR: ${{ secrets.THREEW_PROD_REMOTE_THEME_DIR }}
+      THREEW_PROD_DEPLOY_SCHEME: ${{ secrets.THREEW_PROD_DEPLOY_SCHEME }}
+      THREEW_PROD_SSL_VERIFY: ${{ secrets.THREEW_PROD_SSL_VERIFY }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: wp-content/themes/3w-2025/package-lock.json
+
+      - name: Install lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+      - name: Install theme dependencies
+        working-directory: wp-content/themes/3w-2025
+        run: npm ci
+
+      - name: Lint CSS
+        working-directory: wp-content/themes/3w-2025
+        run: npm run lint:css
+
+      - name: Lint JavaScript
+        working-directory: wp-content/themes/3w-2025
+        run: npm run lint:js
+
+      - name: Build theme assets
+        working-directory: wp-content/themes/3w-2025
+        run: npm run build
+
+      - name: Check theme PHP files
+        run: find wp-content/themes/3w-2025 -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Verify deployment secrets
+        run: |
+          missing=0
+          for name in \
+            THREEW_PROD_FTP_HOST \
+            THREEW_PROD_FTP_USER \
+            THREEW_PROD_FTP_PASS \
+            THREEW_PROD_REMOTE_THEME_DIR \
+            THREEW_PROD_DEPLOY_SCHEME; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "Missing required secret-backed env: ${name}" >&2
+              missing=1
+            fi
+          done
+          if [[ "${missing}" -ne 0 ]]; then
+            exit 1
+          fi
+
+      - name: Deploy theme with existing script
+        run: ./scripts/deploy-theme.sh --target production

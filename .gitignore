@@ -33,6 +33,14 @@ test-results/
 scripts/logs/
 .playwright-mcp/
 
+# Agent/local metadata
+.pi/
+.claude/
+
+# Local screenshots and visual review captures
+*.png
+!wp-content/themes/3w-2025/**/*.png
+
 # Product data files
 scraped-products*.json
 woocommerce-products*.json
