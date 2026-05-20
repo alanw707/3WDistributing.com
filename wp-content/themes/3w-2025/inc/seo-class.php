@@ -76,8 +76,8 @@ class ThreeW_SEO {
     public function __construct() {
         $this->site_name = get_bloginfo('name');
         $this->site_description = get_bloginfo('description');
-        $this->home_title = __('3W Distributing | Performance Parts, Lighting & Bespoke Kits', 'threew-2025');
-        $this->home_description = __('Performance parts, lighting, and bespoke fitment expertise for BRABUS, Mansory, and luxury builds.', 'threew-2025');
+        $this->home_title = __('3W Distributing | #1 BRABUS Dealer in North America', 'threew-2025');
+        $this->home_description = __('#1 BRABUS Dealer in North America specializing in genuine BRABUS parts, luxury aftermarket tuning, performance upgrades, aero kits, wheels, exhaust systems, and custom builds.', 'threew-2025');
         $this->default_social_image = $this->prepare_default_social_image();
 
         // Organization data for schema markup
@@ -85,7 +85,7 @@ class ThreeW_SEO {
             'name' => '3W Distributing',
             'url' => home_url('/'),
             'logo' => get_theme_file_uri('assets/images/logo.png'),
-            'description' => 'Performance parts, lighting, and bespoke kits for premium builds. Trusted distributor for global tuning brands.',
+            'description' => '#1 BRABUS Dealer in North America specializing in genuine BRABUS parts, luxury aftermarket tuning, performance upgrades, aero kits, wheels, exhaust systems, and custom builds.',
             'telephone' => '+1-702-430-6622',
             'email' => 'info@3wdistributing.com',
             'address' => [

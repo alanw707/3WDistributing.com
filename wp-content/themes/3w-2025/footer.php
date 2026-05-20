@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 			?>
 			<p class="threew-footer__about">
-				Performance parts, lighting, and bespoke kits for premium builds. Trusted distributor for global tuning brands.
+				#1 BRABUS Dealer in North America. 3W Distributing specializes in genuine BRABUS parts, luxury aftermarket tuning, performance upgrades, aero kits, wheels, exhaust systems, and custom builds for Mercedes-Benz, Porsche, BMW, Lamborghini, and other premium vehicles.
 			</p>
 		</div>
 
