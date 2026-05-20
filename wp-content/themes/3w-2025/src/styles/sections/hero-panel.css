@@ -151,7 +151,8 @@
   }
 
   .threew-hero__panel-shell {
-    max-width: clamp(360px, 34vw, 520px);
+    max-width: none;
+    width: 100%;
     padding: clamp(0.65rem, 1.3vw, 1.1rem);
   }
 }
