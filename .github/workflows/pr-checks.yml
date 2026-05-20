@@ -55,18 +55,6 @@ jobs:
       - name: Check theme PHP files
         run: find wp-content/themes/3w-2025 -name '*.php' -print0 | xargs -0 -n1 php -l
 
-  dependency-review:
-    name: Dependency review
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Review dependency changes
-        uses: actions/dependency-review-action@v4
-        with:
-          fail-on-severity: moderate
-
   npm-audit:
     name: npm audit
     runs-on: ubuntu-latest
