@@ -29,15 +29,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="threew-hero__layout">
 			<div class="threew-hero__content">
 				<p class="threew-hero__eyebrow has-secondary-color has-text-color has-body-sm-font-size">
-					<?php esc_html_e( 'Precision aftermarket specialists', 'threew-2025' ); ?>
+					<?php esc_html_e( '#1 BRABUS dealer in North America', 'threew-2025' ); ?>
 				</p>
 
 				<h1 id="threew-hero-title" class="has-surface-alt-color has-text-color has-display-xl-font-size">
-					<?php esc_html_e( 'Elevate your vehicle with curated upgrades', 'threew-2025' ); ?>
+					<?php esc_html_e( 'Genuine BRABUS parts and luxury performance upgrades', 'threew-2025' ); ?>
 				</h1>
 
 				<p class="threew-hero__lede has-surface-alt-color has-text-color has-body-lg-font-size">
-					<?php esc_html_e( 'Discover track-proven aero, wheels, exhaust, and interior enhancements tailored to coveted marques.', 'threew-2025' ); ?>
+					<?php esc_html_e( 'Shop authentic BRABUS upgrades, Mercedes-Benz G-Class tuning parts, aero kits, forged wheels, exhaust systems, and interior enhancements backed by expert fitment support.', 'threew-2025' ); ?>
 				</p>
 
 				<div class="threew-hero__actions">
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php esc_html_e( '1,200+', 'threew-2025' ); ?>
 							</p>
 							<p class="threew-hero__metric-label has-surface-alt-color has-text-color has-body-sm-font-size">
-								<?php esc_html_e( 'Ready-to-ship combos', 'threew-2025' ); ?>
+								<?php esc_html_e( 'BRABUS-ready upgrades', 'threew-2025' ); ?>
 							</p>
 						</div>
 					</div>
@@ -103,7 +103,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php esc_html_e( '80+', 'threew-2025' ); ?>
 							</p>
 							<p class="threew-hero__metric-label has-surface-alt-color has-text-color has-body-sm-font-size">
-								<?php esc_html_e( 'Global brands onboard', 'threew-2025' ); ?>
+								<?php esc_html_e( 'Premium tuning brands', 'threew-2025' ); ?>
 							</p>
 						</div>
 					</div>

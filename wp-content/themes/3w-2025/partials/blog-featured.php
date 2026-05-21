@@ -23,10 +23,10 @@ $blog_query = new WP_Query(
 		From the garage
 	</p>
 
-	<h2 class="has-display-lg-font-size">Latest tuning insights</h2>
+	<h2 class="has-display-lg-font-size">BRABUS and luxury tuning insights</h2>
 
 	<p class="threew-front-page__blog-intro has-body-md-font-size">
-		Install guides, build stories, and performance tips curated by the 3W team.
+		BRABUS guides, Mercedes-Benz upgrade advice, install notes, build stories, and performance tips curated by the 3W team.
 	</p>
 
 	<div class="threew-blog-grid">

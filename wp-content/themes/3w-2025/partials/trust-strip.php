@@ -32,8 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</svg>
 		</span>
 		<div class="threew-trust-strip__copy">
-			<h5 class="wp-block-heading">Fast Shipping</h5>
-			<p class="has-body-sm-font-size">Same-day dispatch on in-stock items.</p>
+			<h5 class="wp-block-heading">Fast BRABUS Parts Shipping</h5>
+			<p class="has-body-sm-font-size">Same-day dispatch on in-stock BRABUS and premium tuning parts.</p>
 		</div>
 	</div>
 
@@ -54,8 +54,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</svg>
 		</span>
 		<div class="threew-trust-strip__copy">
-			<h5 class="wp-block-heading">Fitment Assurance</h5>
-			<p class="has-body-sm-font-size">Verified compatibility for every listing.</p>
+			<h5 class="wp-block-heading">Mercedes-Benz Fitment Assurance</h5>
+			<p class="has-body-sm-font-size">Verified compatibility for BRABUS, G-Class, AMG, and luxury vehicle upgrades.</p>
 		</div>
 	</div>
 
@@ -78,8 +78,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</svg>
 		</span>
 		<div class="threew-trust-strip__copy">
-			<h5 class="wp-block-heading">Expert Support</h5>
-			<p class="has-body-sm-font-size">Talk with tuning specialists 5 days a week.</p>
+			<h5 class="wp-block-heading">BRABUS Tuning Support</h5>
+			<p class="has-body-sm-font-size">Talk with luxury aftermarket tuning specialists 5 days a week.</p>
 		</div>
 	</div>
 </section>
