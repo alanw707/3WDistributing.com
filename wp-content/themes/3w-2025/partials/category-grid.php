@@ -13,7 +13,7 @@ $categories = [
 	[
 		'slug'        => 'lighting',
 		'title'       => 'Lighting',
-		'description' => 'LED headlamps, fog, halos',
+		'description' => 'BRABUS lighting, LED upgrades, fogs, halos',
 		'links'       => [
 			[
 				'label'  => 'Shop lighting →',
@@ -24,7 +24,7 @@ $categories = [
 	[
 		'slug'        => 'aero',
 		'title'       => 'Aero & Body Kits',
-		'description' => 'Splitters, diffusers, spoilers',
+		'description' => 'BRABUS aero kits, splitters, diffusers, spoilers',
 		'links'       => [
 			[
 				'label'  => 'Shop aero →',
@@ -35,7 +35,7 @@ $categories = [
 	[
 		'slug'        => 'performance',
 		'title'       => 'Engine & Performance',
-		'description' => 'Intakes, ECU, exhaust',
+		'description' => 'BRABUS exhaust, ECU tuning, intakes, performance parts',
 		'links'       => [
 			[
 				'label'  => 'Shop performance →',
@@ -46,7 +46,7 @@ $categories = [
 	[
 		'slug'        => 'wheels',
 		'title'       => 'Wheels & Suspension',
-		'description' => 'Forged wheels, coilovers',
+		'description' => 'BRABUS Monoblock wheels, forged wheels, suspension',
 		'links'       => [
 			[
 				'label'  => 'Shop wheels →',
@@ -61,7 +61,7 @@ $categories = [
 	[
 		'slug'        => 'interior',
 		'title'       => 'Interior & Tech',
-		'description' => 'Carbon trim, digital clusters',
+		'description' => 'BRABUS interior trim, carbon fiber, cabin upgrades',
 		'links'       => [
 			[
 				'label'  => 'Shop interior →',
@@ -72,7 +72,7 @@ $categories = [
 	[
 		'slug'        => 'clearance',
 		'title'       => 'Clearance',
-		'description' => 'Limited inventory deals',
+		'description' => 'Special pricing on premium tuning parts',
 		'links'       => [
 			[
 				'label'  => 'Shop clearance →',

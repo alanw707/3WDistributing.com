@@ -105,7 +105,7 @@ $vendors = [
 	[
 		'name'  => 'Brabus',
 		'logo'  => 'vendor-brabus.png',
-		'about' => 'Flagship Mercedes tuning',
+		'about' => 'Genuine Mercedes-Benz tuning parts',
 	],
 	[
 		'name'  => 'Mansory',
@@ -123,15 +123,15 @@ $vendors = [
 <section id="vendors" class="threew-vendor-strip has-carbon-texture" aria-labelledby="threew-vendor-strip-heading">
 	<div class="threew-vendor-strip__inner">
 		<p class="threew-vendor-strip__eyebrow has-body-sm-font-size">
-			<?php esc_html_e( 'Trusted vendor network', 'threew-2025' ); ?>
+			<?php esc_html_e( 'Authorized BRABUS and premium tuning network', 'threew-2025' ); ?>
 		</p>
 
 		<div class="threew-vendor-strip__headline">
 			<h2 id="threew-vendor-strip-heading">
-				<?php esc_html_e( 'Motorsport-grade partners at your fingertips', 'threew-2025' ); ?>
+				<?php esc_html_e( 'BRABUS, Mansory, TechArt, Vorsteiner and elite tuning brands', 'threew-2025' ); ?>
 			</h2>
 			<p class="has-body-md-font-size">
-				<?php esc_html_e( 'We collaborate with the most respected tuners and manufacturers in the scene—each vetted for precision, durability, and track-proven results.', 'threew-2025' ); ?>
+				<?php esc_html_e( 'From genuine BRABUS Mercedes-Benz upgrades to Mansory, TechArt, Vorsteiner, ABT, Akrapovič, and Capristo performance parts, 3W sources premium components from brands trusted by luxury and exotic car owners.', 'threew-2025' ); ?>
 			</p>
 		</div>
 

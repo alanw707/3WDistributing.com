@@ -16,16 +16,16 @@ if (!function_exists('threew_2025_get_front_page_faq_entries')) {
     function threew_2025_get_front_page_faq_entries() {
         return [
             [
-                'question' => __('Which tuning brands does 3W partner with?', 'threew-2025'),
-                'answer' => __('At 3W, we work with the best in the industry, sourcing parts from leading automotive brands, including 1016 Industries, 463 Industries, ABT, BBS, Brabus, Capristo, Lumma Design, Mansory, StarTech, TechArt, and Vorsteiner. These trusted partners enable us to offer exclusive deals and cutting-edge products, so you can elevate your ride to perfection.', 'threew-2025'),
+                'question' => __('Where can I buy genuine BRABUS parts in North America?', 'threew-2025'),
+                'answer' => __('3W Distributing helps North American customers source genuine BRABUS parts, Mercedes-Benz G-Class upgrades, AMG performance components, BRABUS Monoblock wheels, aero kits, exhaust systems, and luxury aftermarket tuning parts with expert fitment support.', 'threew-2025'),
             ],
             [
-                'question' => __('What services does 3W Distributing provide?', 'threew-2025'),
-                'answer' => __('Your luxury car deserves more than standard care—it deserves craftsmanship. At 3W, we provide full in-house automotive services, from precision tuning to custom builds designed from the ground up. Our team of industry-leading mechanics and technicians are experts in the art of performance tuning and customization, ensuring your car doesn’t just stand out but truly reflects your vision.', 'threew-2025'),
+                'question' => __('What BRABUS and luxury tuning services does 3W provide?', 'threew-2025'),
+                'answer' => __('3W supports BRABUS parts sourcing, Mercedes-Benz and AMG fitment guidance, performance exhaust upgrades, forged wheel packages, aero and body kit planning, interior carbon fiber upgrades, and complete luxury aftermarket custom builds.', 'threew-2025'),
             ],
             [
-                'question' => __('How much experience does 3W Distributing have?', 'threew-2025'),
-                'answer' => __('While we’ve proudly led the BRABUS market for over 10 years, our roots run deeper, with more than 20 years of experience in tuning and customizing luxury vehicles. Over these years, we’ve honed our craft and built strong, long-term relationships with the best manufacturers in the industry. Our dedication to quality, innovation, and customer satisfaction ensures you receive nothing but the finest service and products available.', 'threew-2025'),
+                'question' => __('How much BRABUS experience does 3W Distributing have?', 'threew-2025'),
+                'answer' => __('3W has more than 10 years of BRABUS market experience and over 20 years in luxury vehicle tuning and customization. Our team works with BRABUS, Mansory, TechArt, Vorsteiner, StarTech, ABT, Akrapovič, Capristo, and other premium manufacturers to help customers choose the right parts for serious builds.', 'threew-2025'),
             ],
         ];
     }
@@ -77,7 +77,7 @@ class ThreeW_SEO {
         $this->site_name = get_bloginfo('name');
         $this->site_description = get_bloginfo('description');
         $this->home_title = __('3W Distributing | #1 BRABUS Dealer in North America', 'threew-2025');
-        $this->home_description = __('#1 BRABUS Dealer in North America specializing in genuine BRABUS parts, luxury aftermarket tuning, performance upgrades, aero kits, wheels, exhaust systems, and custom builds.', 'threew-2025');
+        $this->home_description = __('#1 BRABUS Dealer in North America for genuine BRABUS parts, Mercedes-Benz G-Class upgrades, AMG performance tuning, aero kits, wheels, exhaust systems, and luxury custom builds.', 'threew-2025');
         $this->default_social_image = $this->prepare_default_social_image();
 
         // Organization data for schema markup
@@ -85,7 +85,7 @@ class ThreeW_SEO {
             'name' => '3W Distributing',
             'url' => home_url('/'),
             'logo' => get_theme_file_uri('assets/images/logo.png'),
-            'description' => '#1 BRABUS Dealer in North America specializing in genuine BRABUS parts, luxury aftermarket tuning, performance upgrades, aero kits, wheels, exhaust systems, and custom builds.',
+            'description' => '#1 BRABUS Dealer in North America for genuine BRABUS parts, Mercedes-Benz G-Class upgrades, AMG performance tuning, aero kits, wheels, exhaust systems, and luxury custom builds.',
             'telephone' => '+1-702-430-6622',
             'email' => 'info@3wdistributing.com',
             'address' => [
