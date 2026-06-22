@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( '#1 BRABUS dealer in North America', 'threew-2025' ); ?>
 				</p>
 
-				<h1 id="threew-hero-title" class="has-surface-alt-color has-text-color has-display-xl-font-size">
+				<h1 id="threew-hero-title" class="has-surface-alt-color has-text-color">
 					<?php esc_html_e( 'Genuine BRABUS parts and luxury performance upgrades', 'threew-2025' ); ?>
 				</h1>
 

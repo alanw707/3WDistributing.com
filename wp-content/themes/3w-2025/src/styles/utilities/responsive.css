@@ -81,9 +81,15 @@
 
   /* Tame hero headline scale/spacing on small screens */
   .threew-hero__content h1 {
-    font-size: clamp(1.65rem, 7.5vw, 2.2rem);
+    font-size: 1.8rem;
     letter-spacing: 0.03em;
     line-height: 1.12;
+  }
+
+  .threew-hero__content h1,
+  .threew-hero__content h2 {
+    overflow-wrap: normal;
+    text-wrap: balance;
   }
 
   /* Fitment card: tighten heading/subheading and improve touch target spacing */

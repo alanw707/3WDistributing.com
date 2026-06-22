@@ -28,7 +28,7 @@
 		<div class="threew-hero__content">
 			<p class="threew-hero__eyebrow has-secondary-color has-text-color has-body-sm-font-size">Precision aftermarket specialists</p>
 
-			<h2 class="has-surface-alt-color has-text-color has-display-xl-font-size">Elevate your vehicle with curated upgrades</h2>
+			<h2 class="has-surface-alt-color has-text-color">Elevate your vehicle with curated upgrades</h2>
 
 			<p class="threew-hero__lede has-surface-alt-color has-text-color has-body-lg-font-size">Discover track-proven aero, wheels, exhaust, and interior enhancements tailored to coveted marques.</p>
 
