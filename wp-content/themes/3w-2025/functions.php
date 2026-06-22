@@ -11,6 +11,10 @@ if (!defined('THREEW_SHOP_BASE_URL')) {
     define('THREEW_SHOP_BASE_URL', 'https://shop.3wdistributing.com/');
 }
 
+if (!defined('THREEW_GA4_MEASUREMENT_ID')) {
+    define('THREEW_GA4_MEASUREMENT_ID', 'G-0ZT6Z652QC');
+}
+
 // reCAPTCHA keys should be set via environment variables or WordPress options
 // Do not hardcode keys here for security reasons
 
@@ -136,6 +140,26 @@ function threew_get_recaptcha_secret_key() {
     // Ultimate fallback to hardcoded production secret key
     return 'YOUR_RECAPTCHA_SECRET_KEY';
 }
+
+/**
+ * Add Google Analytics 4 tracking for the main brand site.
+ */
+add_action('wp_head', function () {
+    if (!THREEW_GA4_MEASUREMENT_ID) {
+        return;
+    }
+
+    $measurement_id = esc_js(THREEW_GA4_MEASUREMENT_ID);
+    ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr(THREEW_GA4_MEASUREMENT_ID); ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?php echo $measurement_id; ?>');
+    </script>
+    <?php
+}, 20);
 
 /**
  * Build the canonical shop URL, optionally seeded with catalog filters.
