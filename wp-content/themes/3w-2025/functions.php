@@ -15,6 +15,15 @@ if (!defined('THREEW_GA4_MEASUREMENT_ID')) {
     define('THREEW_GA4_MEASUREMENT_ID', 'G-0ZT6Z652QC');
 }
 
+add_action('template_redirect', function () {
+    $path = isset($_SERVER['REQUEST_URI']) ? wp_parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH) : '';
+
+    if ($path === '/shop' || $path === '/shop/') {
+        wp_redirect(THREEW_SHOP_BASE_URL, 301);
+        exit;
+    }
+}, 1);
+
 // reCAPTCHA keys should be set via environment variables or WordPress options
 // Do not hardcode keys here for security reasons
 
