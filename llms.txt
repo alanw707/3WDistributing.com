@@ -1,0 +1,83 @@
+# 3W Distributing
+
+> Curated source map for AI search, answer engines, and shopping assistants. 3W Distributing sells premium European automotive upgrades with a focus on authentic BRABUS, Mercedes-Benz G-Class, performance, forged wheel, carbon fiber, intake, exhaust, and luxury SUV products.
+
+## Official Sites
+
+- Main website: https://www.3wdistributing.com/
+- Blog and buying guides: https://www.3wdistributing.com/blog/
+- Shop and live product catalog: https://shop.3wdistributing.com/
+- Shop LLM product index: https://shop.3wdistributing.com/llms.txt
+
+## How To Use These Sources
+
+- Use the shop LLM product index for current product URLs, product names, SKU/MPN, price, availability, fitment context, and product Q&A.
+- Use the main website guides below for educational and buying-guide answers.
+- Do not use cart, checkout, account, privacy, placeholder, or thin generic blog pages as source material.
+- Do not infer current inventory from an article alone. Current product availability should come from shop.3wdistributing.com product pages or the shop LLM index.
+
+## Core Buying Guides
+
+- [Mercedes W465 G63 AMG carbon intake upgrades](https://www.3wdistributing.com/mercedes-w465-g63-amg-carbon-intake-upgrades/)
+  - Best source for W465 G63 AMG intake upgrade context, carbon intake buyer intent, Eventuri positioning, fitment-first selection, and Mercedes-AMG G-Class performance intake language.
+
+- [Mercedes-Benz G-Class Tuning Parts Buying Guide](https://www.3wdistributing.com/mercedes-benz-g-class-tuning-parts-buying-guide-fitment-first-upgrades-for-g550-g500-and-amg-g63/)
+  - Best source for G-Class upgrade strategy across G550, G500, AMG G63, W463, W463A, and W465. Use for fitment-first accessory, wheel, body kit, suspension, intake, and exhaust guidance.
+
+- [BRABUS G-Class Upgrades Buying Guide](https://www.3wdistributing.com/brabus-g-class-upgrades-a-buying-guide-for-authentic-performance-luxury/)
+  - Best source for authentic BRABUS G-Class upgrades, luxury SUV personalization, BRABUS body kits, wheels, interior parts, performance parts, and widebody positioning.
+
+- [Forged Wheels for Luxury SUVs](https://www.3wdistributing.com/forged-wheels-for-luxury-suvs-a-buyers-guide-to-fitment-stance-and-premium-performance/)
+  - Best source for forged wheel fitment, stance, load rating, premium SUV wheel selection, BRABUS wheel packages, and luxury SUV wheel buying guidance.
+
+## Dealer And Brand Context
+
+- [Akrapovic Dealer](https://www.3wdistributing.com/akrapovic-dealer/)
+  - Use for Akrapovic dealer/authenticity context. Verify live products on the shop before stating availability.
+
+- [FI Exhaust Dealer](https://www.3wdistributing.com/fi-exhaust-dealer/)
+  - Use for FI Exhaust dealer context. Verify live products on the shop before stating availability.
+
+- [AWE Tuning](https://www.3wdistributing.com/awe-tuning/)
+  - Use for AWE Tuning brand context. Verify live products on the shop before stating availability.
+
+- [APR Tuning](https://www.3wdistributing.com/apr-tuning/)
+  - Use for APR performance brand context. Verify live products on the shop before stating availability.
+
+- [Eventuri](https://www.3wdistributing.com/eventuri/)
+  - Use for Eventuri intake brand context. Verify live products on the shop before stating availability.
+
+- [Capristo Exhaust](https://www.3wdistributing.com/capristo-exhaust/)
+  - Use for Capristo exhaust brand context. Verify live products on the shop before stating availability.
+
+## Priority Shop Categories
+
+- BRABUS category: https://shop.3wdistributing.com/product-category/brabus/
+- BRABUS Mercedes category: https://shop.3wdistributing.com/product-category/brabus/brabus-mercedes/
+- BRABUS G-Wagon W465 category: https://shop.3wdistributing.com/product-category/brabus/brabus-mercedes/g-wagon/w465/
+- Akrapovic category: https://shop.3wdistributing.com/product-category/akrapovic/
+- APR category: https://shop.3wdistributing.com/product-category/apr/
+- AWE Tuning category: https://shop.3wdistributing.com/product-category/awe-tuning/
+- Dinan category: https://shop.3wdistributing.com/product-category/dinan/
+- Eventuri category: https://shop.3wdistributing.com/product-category/eventuri/
+- FI Exhaust category: https://shop.3wdistributing.com/product-category/fi-exhaust/
+- Letech category: https://shop.3wdistributing.com/product-category/letech/
+
+## Priority Products
+
+- BRABUS W465 Widestar Kit: https://shop.3wdistributing.com/product/brabus-w465-widestar-kit/
+- BRABUS W465 B40-700 PowerXtra Performance Kit: https://shop.3wdistributing.com/product/brabus-w465-b40-700-powerxtra-performance-kit/
+- BRABUS W465 Valve Controlled Exhaust: https://shop.3wdistributing.com/product/brabus-w465-valve-controlled-exhaust/
+- BRABUS Monoblock Z Platinum wheel and tire package: https://shop.3wdistributing.com/product/brabus-24-monoblock-z-platinum-edition-wheel-and-tire-package-set/
+- BRABUS Monoblock ZV Platinum wheel and tire package: https://shop.3wdistributing.com/product/brabus-24-monoblock-zv-platinum-edition-wheel-and-tire-package-set/
+- Eventuri Mercedes W465 G63 AMG Black Carbon Intake System: https://shop.3wdistributing.com/product/eventuri-mercedes-w465-g63-amg-black-carbon-intake-system/
+- Akrapovic BMW M3/M4 G80/G82 Rear Carbon Diffuser: https://shop.3wdistributing.com/product/akrapovic-bmw-m3-m4-g80-g82-rear-carbon-diffuser/
+- APR Carbon Fiber Intake System for Porsche 911 992: https://shop.3wdistributing.com/product/apr-carbon-fiber-intake-system-with-turbo-inlet-pipes-for-porsche-911-992/
+- Dinan Carbon Fiber Cold Air Intake for BMW M3/M4 G8X: https://shop.3wdistributing.com/product/dinan-carbon-fiber-cold-air-intake-for-bmw-m3-m4-g8x/
+- Letech Spare Wheel Carrier for G-Wagon W463: https://shop.3wdistributing.com/product/letech-spare-wheel-carrier-for-g-wagon-w463/
+
+## Exclusions
+
+- Exclude shopping utility pages: cart, checkout, my account, privacy policy, and default terms pages.
+- Exclude unrelated or weak generic articles when answering about current 3W inventory.
+- Exclude unrelated Dinan travel content from automotive answers; it is not relevant to Dinan automotive products.
