@@ -352,6 +352,56 @@ function threew_2025_get_asset($entry = 'index') {
 }
 
 /**
+ * Resolve a generated theme image URL, falling back to the public asset path.
+ *
+ * @param string $basename Source image basename.
+ * @return string
+ */
+function threew_2025_get_built_image_uri($basename) {
+    $info = pathinfo($basename);
+    $name = isset($info['filename']) ? $info['filename'] : $basename;
+    $extension = isset($info['extension']) ? $info['extension'] : '';
+    $pattern = get_theme_file_path("build/images/{$name}.*.{$extension}");
+    $matches = glob($pattern);
+
+    if (!empty($matches)) {
+        $path = basename($matches[0]);
+        return get_theme_file_uri("build/images/{$path}");
+    }
+
+    return get_theme_file_uri("assets/images/{$basename}");
+}
+
+/**
+ * Identify screens where WooCommerce frontend assets are actually needed.
+ *
+ * @return bool
+ */
+function threew_2025_is_woocommerce_context() {
+    if (is_admin()) {
+        return true;
+    }
+
+    $checks = [
+        'is_woocommerce',
+        'is_cart',
+        'is_checkout',
+        'is_account_page',
+        'is_product',
+        'is_product_category',
+        'is_product_tag',
+    ];
+
+    foreach ($checks as $check) {
+        if (function_exists($check) && $check()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
  * Enqueue shared styles for both editor and frontend.
  */
 add_action('enqueue_block_assets', function () {
@@ -455,6 +505,68 @@ JS;
         );
     }
 });
+
+/**
+ * Keep the marketing pages lean by removing WooCommerce assets outside store flows.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (threew_2025_is_woocommerce_context()) {
+        return;
+    }
+
+    $styles = [
+        'wc-blocks-style',
+        'wc-blocks-vendors-style',
+        'wc-blocks-packages-style',
+        'brands-styles',
+        'woocommerce-layout',
+        'woocommerce-smallscreen',
+        'woocommerce-general',
+        'woocommerce-inline',
+    ];
+
+    foreach ($styles as $handle) {
+        wp_dequeue_style($handle);
+        wp_deregister_style($handle);
+    }
+
+    $scripts = [
+        'wc-add-to-cart',
+        'wc-cart-fragments',
+        'wc-checkout',
+        'wc-country-select',
+        'wc-address-i18n',
+        'wc-single-product',
+        'woocommerce',
+        'jquery-blockui',
+        'js-cookie',
+        'sourcebuster-js',
+        'wc-order-attribution',
+    ];
+
+    foreach ($scripts as $handle) {
+        wp_dequeue_script($handle);
+        wp_deregister_script($handle);
+    }
+}, 100);
+
+add_action('wp_head', function () {
+    if (!is_front_page()) {
+        return;
+    }
+
+    $mobile_hero = threew_2025_get_built_image_uri('hero-motorsport-mobile.webp');
+    $desktop_hero = threew_2025_get_built_image_uri('hero-motorsport-desktop.webp');
+
+    printf(
+        '<link rel="preload" as="image" href="%s" type="image/webp" media="(max-width: 767px)" fetchpriority="high">' . "\n",
+        esc_url($mobile_hero)
+    );
+    printf(
+        '<link rel="preload" as="image" href="%s" type="image/webp" media="(min-width: 768px)" fetchpriority="high">' . "\n",
+        esc_url($desktop_hero)
+    );
+}, 1);
 
 /**
  * Enqueue block editor assets.

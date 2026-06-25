@@ -15,6 +15,8 @@
     radial-gradient(65% 85% at 30% 55%, rgba(var(--threew-secondary-rgb), 0.28) 0%, transparent 70%),
     radial-gradient(80% 90% at 88% 15%, rgba(var(--threew-accent-rgb), 0.25) 0%, transparent 72%),
     image-set(
+      url('../../assets/images/hero-motorsport-mobile.webp') type('image/webp'),
+      url('../../assets/images/hero-motorsport-desktop.webp') type('image/webp'),
       url('../../assets/images/hero-motorsport-source.jpg') type('image/jpeg')
     );
   background-size: 100% 100%, 140% 140%, 180% 180%, cover;
@@ -23,6 +25,19 @@
   filter: saturate(112%) contrast(105%);
   mix-blend-mode: lighten;
   opacity: 0.78;
+}
+
+@media (min-width: 48rem) {
+  .threew-hero__background-photo {
+    background-image:
+      linear-gradient(120deg, rgba(5, 15, 28, 0.65) 0%, rgba(5, 15, 28, 0.45) 35%, rgba(5, 15, 28, 0) 70%),
+      radial-gradient(65% 85% at 30% 55%, rgba(var(--threew-secondary-rgb), 0.28) 0%, transparent 70%),
+      radial-gradient(80% 90% at 88% 15%, rgba(var(--threew-accent-rgb), 0.25) 0%, transparent 72%),
+      image-set(
+        url('../../assets/images/hero-motorsport-desktop.webp') type('image/webp'),
+        url('../../assets/images/hero-motorsport-source.jpg') type('image/jpeg')
+      );
+  }
 }
 
 .threew-hero__background-texture {
