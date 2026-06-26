@@ -54,7 +54,7 @@
 
 - BRABUS category: https://shop.3wdistributing.com/product-category/brabus/
 - BRABUS Mercedes category: https://shop.3wdistributing.com/product-category/brabus/brabus-mercedes/
-- BRABUS G-Wagon W465 category: https://shop.3wdistributing.com/product-category/brabus/brabus-mercedes/g-wagon/w465/
+- BRABUS G-Wagon W465 category: https://shop.3wdistributing.com/product-category/brabus/brabus-mercedes/g-wagon/gwagon-w465/
 - Akrapovic category: https://shop.3wdistributing.com/product-category/akrapovic/
 - APR category: https://shop.3wdistributing.com/product-category/apr/
 - AWE Tuning category: https://shop.3wdistributing.com/product-category/awe-tuning/
@@ -69,11 +69,11 @@
 - BRABUS W465 B40-700 PowerXtra Performance Kit: https://shop.3wdistributing.com/product/brabus-w465-b40-700-powerxtra-performance-kit/
 - BRABUS W465 Valve Controlled Exhaust: https://shop.3wdistributing.com/product/brabus-w465-valve-controlled-exhaust/
 - BRABUS Monoblock Z Platinum wheel and tire package: https://shop.3wdistributing.com/product/brabus-24-monoblock-z-platinum-edition-wheel-and-tire-package-set/
-- BRABUS Monoblock ZV Platinum wheel and tire package: https://shop.3wdistributing.com/product/brabus-24-monoblock-zv-platinum-edition-wheel-and-tire-package-set/
+- BRABUS Monoblock ZV Platinum wheel and tire package: https://shop.3wdistributing.com/product/monoblock-zv-platinum-edition/
 - Eventuri Mercedes W465 G63 AMG Black Carbon Intake System: https://shop.3wdistributing.com/product/eventuri-mercedes-w465-g63-amg-black-carbon-intake-system/
 - Akrapovic BMW M3/M4 G80/G82 Rear Carbon Diffuser: https://shop.3wdistributing.com/product/akrapovic-bmw-m3-m4-g80-g82-rear-carbon-diffuser/
-- APR Carbon Fiber Intake System for Porsche 911 992: https://shop.3wdistributing.com/product/apr-carbon-fiber-intake-system-with-turbo-inlet-pipes-for-porsche-911-992/
-- Dinan Carbon Fiber Cold Air Intake for BMW M3/M4 G8X: https://shop.3wdistributing.com/product/dinan-carbon-fiber-cold-air-intake-for-bmw-m3-m4-g8x/
+- APR Carbon Fiber Intake System for Porsche 911 992: https://shop.3wdistributing.com/product/apr-carbon-fiber-intake-system-with-turbo-inlet-pipes-porsche-911-992-3-0t-3-7t/
+- Dinan Carbon Fiber Cold Air Intake for BMW M3/M4 G8X: https://shop.3wdistributing.com/product/dinan-carbon-fiber-cold-air-intake-2021-2023-bmw-m3-m4-g8x/
 - Letech Spare Wheel Carrier for G-Wagon W463: https://shop.3wdistributing.com/product/letech-spare-wheel-carrier-for-g-wagon-w463/
 
 ## Exclusions
