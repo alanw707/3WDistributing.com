@@ -10,6 +10,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Purge stale full-page cache once when this remediation version ships.
+ */
+add_action( 'init', function () {
+	$cache_version = '2026-08-20-1';
+	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
+		return;
+	}
+
+	if ( class_exists( 'LiteSpeed_Cache_API' ) ) {
+		LiteSpeed_Cache_API::purge_all();
+	} else {
+		do_action( 'litespeed_purge_all' );
+	}
+
+	update_option( 'threew_seo_remediation_cache_version', $cache_version, false );
+}, 1 );
+
+/**
  * Return the selected guide metadata keyed by post slug.
  *
  * @return array<string, array{title: string, description: string}>
