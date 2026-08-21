@@ -485,6 +485,11 @@ require_once get_theme_file_path('inc/fitment-api.php');
 require_once get_theme_file_path('inc/fitment-import.php');
 
 /**
+ * Include targeted SEO remediation for high-value BRABUS guides.
+ */
+require_once get_theme_file_path('inc/seo-remediation.php');
+
+/**
  * Include SEO functionality
  */
 require_once get_theme_file_path('inc/seo-class.php');
@@ -666,22 +671,6 @@ add_action('admin_notices', function() {
 		<?php
 	}
 });
-
-add_action('template_redirect', function () {
-	if (isset($_GET['threew_probe_global']) && $_GET['threew_probe_global'] === '1') {
-		header('Content-Type: text/plain; charset=utf-8');
-		echo isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
-		exit;
-	}
-}, 999);
-
-add_action('template_redirect', function () {
-	if (isset($_GET['threew_debug_key']) && $_GET['threew_debug_key'] === '1') {
-		header('Content-Type: text/plain; charset=utf-8');
-		echo 'site_key=' . threew_get_recaptcha_site_key();
-		exit;
-	}
-}, 998);
 
 add_action('init', function () {
 	$already_purged = get_option('threew_about_cache_purged', false);

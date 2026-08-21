@@ -147,6 +147,47 @@
   border-radius: 1rem;
 }
 
+.threew-commercial-cta {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border: 1px solid rgba(var(--threew-accent-rgb), 0.35);
+  border-radius: 1.25rem;
+  background: linear-gradient(145deg, rgba(10, 24, 40, 0.98), rgba(6, 41, 53, 0.96));
+  color: var(--wp--preset--color--ink-inverse);
+}
+
+.threew-commercial-cta h2,
+.threew-commercial-cta p {
+  margin: 0;
+  color: inherit;
+}
+
+.threew-commercial-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.threew-commercial-cta__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: var(--wp--preset--color--secondary);
+  color: var(--wp--preset--color--ink-inverse);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.threew-commercial-cta__actions a:hover,
+.threew-commercial-cta__actions a:focus-visible {
+  background: var(--wp--preset--color--accent);
+  color: var(--wp--preset--color--ink);
+}
+
 .threew-single__footer {
   max-width: 840px;
   margin: 0 auto;

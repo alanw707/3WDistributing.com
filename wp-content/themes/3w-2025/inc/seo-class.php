@@ -1146,7 +1146,11 @@ class ThreeW_SEO {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
-        $sitemaps = ['posts', 'pages', 'categories', 'products'];
+        $sitemaps = ['posts', 'pages', 'categories'];
+
+        if (post_type_exists('product') && wp_count_posts('product')->publish > 0) {
+            $sitemaps[] = 'products';
+        }
 
         foreach ($sitemaps as $sitemap) {
             $xml .= '  <sitemap>' . "\n";
@@ -1182,7 +1186,11 @@ class ThreeW_SEO {
 
             case 'pages':
                 $pages = get_pages();
+                $excluded_slugs = ['shop', 'cart', 'checkout', 'my-account'];
                 foreach ($pages as $page) {
+                    if (in_array($page->post_name, $excluded_slugs, true)) {
+                        continue;
+                    }
                     $xml .= $this->generate_sitemap_entry(
                         get_permalink($page),
                         get_the_modified_date('c', $page),
