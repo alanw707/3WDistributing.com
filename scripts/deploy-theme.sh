@@ -116,12 +116,15 @@ REMOTE_THEME_DIR=${CUSTOM_REMOTE_DIR:-$REMOTE_THEME_DIR}
 case "$DEPLOY_SCHEME" in
   ftp)
     DEFAULT_PORT=21
+    LFTP_SCHEME=ftp
     ;;
   ftps)
     DEFAULT_PORT=21
+    LFTP_SCHEME=ftp
     ;;
   sftp)
     DEFAULT_PORT=22
+    LFTP_SCHEME=sftp
     ;;
   *)
     echo "Unsupported THREEW_DEPLOY_SCHEME '$DEPLOY_SCHEME'. Use ftp, ftps, or sftp." >&2
@@ -134,7 +137,9 @@ if [[ "$TARGET" == "production" ]]; then
   FTP_PORT=${THREEW_PROD_FTP_PORT:-$FTP_PORT}
 fi
 
-LFTP_URI="${DEPLOY_SCHEME}://${FTP_HOST}:${FTP_PORT}"
+# lftp's ftps:// URI means implicit TLS. Hostinger uses explicit TLS (AUTH TLS)
+# on port 21, represented by an ftp:// URI plus ftp:ssl-force below.
+LFTP_URI="${LFTP_SCHEME}://${FTP_HOST}:${FTP_PORT}"
 
 FTP_SETUP_CMDS="set ssl:verify-certificate $SSL_VERIFY"
 
