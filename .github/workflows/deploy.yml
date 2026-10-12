@@ -101,8 +101,10 @@ jobs:
 
       - name: Resolve newsletter popup asset path
         run: |
-          remote_file=$(./scripts/derive-newsletter-remote-path.sh "${THREEW_PROD_REMOTE_THEME_DIR}")
-          echo "NEWSLETTER_REMOTE_FILE=${remote_file}" >> "${GITHUB_ENV}"
+          shop_file=$(./scripts/derive-newsletter-remote-path.sh "${THREEW_PROD_REMOTE_THEME_DIR}" shop)
+          local_sha256=$(sha256sum deploy/production/3w-newsletter-popup/assets/newsletter-popup.js | awk '{print $1}')
+          echo "NEWSLETTER_REMOTE_FILE_SHOP=${shop_file}" >> "${GITHUB_ENV}"
+          echo "NEWSLETTER_LOCAL_SHA256=${local_sha256}" >> "${GITHUB_ENV}"
 
       - name: Deploy newsletter popup fix with rollback evidence
         env:
@@ -112,11 +114,11 @@ jobs:
           ./scripts/deploy-file.sh \
             --target production \
             --local-file deploy/production/3w-newsletter-popup/assets/newsletter-popup.js \
-            --remote-file "${NEWSLETTER_REMOTE_FILE}" \
+            --remote-file "${NEWSLETTER_REMOTE_FILE_SHOP}" \
             --backup-file "${BACKUP_FILE}" \
             --verified-file "${VERIFIED_FILE}" \
             --expected-remote-sha256 f3873bf2cdef7967a6d227a66d46ce6076a42ec6b660416e0b6a8379f1134cc3 \
-            --expected-remote-sha256 b6af9603cef2cf5cc82541ef256a720a157c2c2e9456eef55ca059711c6e207b
+            --expected-remote-sha256 "${NEWSLETTER_LOCAL_SHA256}"
 
       - name: Verify newsletter popup bytes at the origin
         run: |

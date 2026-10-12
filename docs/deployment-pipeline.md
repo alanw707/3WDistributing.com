@@ -83,5 +83,5 @@ Do not add `.env`, passwords, deploy keys, or host credentials to git.
 - `scripts/deploy-theme.sh` loads `.env` for local runs only. GitHub Actions supplies the same variable names from GitHub Secrets.
 - The npm audit gate omits development dependencies because the WordPress build toolchain currently reports dev-only advisories that require breaking tool upgrades; production dependency exposure is still gated, while CodeQL, Gitleaks, linting, builds and the popup regression cover PR quality/security.
 - The production deploy job is attached to the `production` environment so GitHub can enforce approvals before secrets are exposed to the runner.
-- `scripts/deploy-file.sh` accepts only a reviewed remote path, safe path characters and an allowlist of expected remote hashes. Use it for bounded production assets only; do not replace plugin directories with the theme mirror command.
+- `scripts/deploy-file.sh` accepts only a bounded remote path with safe path segments and an allowlist of expected remote hashes. Use it for bounded production assets only; do not replace plugin directories with the theme mirror command.
 - If SFTP key auth is required later, update `scripts/deploy-theme.sh` to support a production-specific key secret materialized into a temporary runner file, then pass `THREEW_SSH_KEY_PATH` to the script.

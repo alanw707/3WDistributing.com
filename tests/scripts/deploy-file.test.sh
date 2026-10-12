@@ -125,7 +125,9 @@ fi
 # Theme paths may be relative, site-root relative or absolute.
 [[ $("$DERIVE_PATH_SCRIPT" wp-content/themes/3w-2025) == 'wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
 [[ $("$DERIVE_PATH_SCRIPT" public_html/wp-content/themes/3w-2025/) == 'public_html/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
+[[ $("$DERIVE_PATH_SCRIPT" wp-content/themes/3w-2025 shop) == 'shop/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
 [[ $("$DERIVE_PATH_SCRIPT" /home/site/public_html/wp-content/themes/3w-2025) == '/home/site/public_html/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
+[[ $("$DERIVE_PATH_SCRIPT" /home/site/public_html/wp-content/themes/3w-2025 shop) == '/home/site/public_html/shop/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
 [[ $("$DERIVE_PATH_SCRIPT" /wp-content/themes/3w-2025) == '/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
 for unsafe_theme_path in \
   themes/3w-2025 \
