@@ -3,6 +3,7 @@ set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
 SCRIPT="$REPO_ROOT/scripts/deploy-file.sh"
+DERIVE_PATH_SCRIPT="$REPO_ROOT/scripts/derive-newsletter-remote-path.sh"
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
@@ -120,5 +121,20 @@ if env "${COMMON_ENV[@]}" "$SCRIPT" \
   echo 'Expected a missing remote hash allowlist to fail' >&2
   exit 1
 fi
+
+# Theme paths may be relative, site-root relative or absolute.
+[[ $("$DERIVE_PATH_SCRIPT" wp-content/themes/3w-2025) == 'wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
+[[ $("$DERIVE_PATH_SCRIPT" public_html/wp-content/themes/3w-2025/) == 'public_html/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
+[[ $("$DERIVE_PATH_SCRIPT" /home/site/public_html/wp-content/themes/3w-2025) == '/home/site/public_html/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
+[[ $("$DERIVE_PATH_SCRIPT" /wp-content/themes/3w-2025) == '/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js' ]]
+for unsafe_theme_path in \
+  themes/3w-2025 \
+  wp-content/themes/porto \
+  public_html/wp-content/../themes/3w-2025; do
+  if "$DERIVE_PATH_SCRIPT" "$unsafe_theme_path" >/dev/null 2>&1; then
+    echo "Expected invalid theme path to fail: $unsafe_theme_path" >&2
+    exit 1
+  fi
+done
 
 echo 'deploy-file safety tests passed'

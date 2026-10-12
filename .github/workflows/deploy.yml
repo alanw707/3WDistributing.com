@@ -101,14 +101,8 @@ jobs:
 
       - name: Resolve newsletter popup asset path
         run: |
-          theme_dir="${THREEW_PROD_REMOTE_THEME_DIR%/}"
-          suffix="/wp-content/themes/3w-2025"
-          if [[ "${theme_dir}" != *"${suffix}" ]]; then
-            echo "Remote theme directory must end with ${suffix}; refusing to derive a plugin path" >&2
-            exit 1
-          fi
-          site_root="${theme_dir%${suffix}}"
-          echo "NEWSLETTER_REMOTE_FILE=${site_root}/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js" >> "${GITHUB_ENV}"
+          remote_file=$(./scripts/derive-newsletter-remote-path.sh "${THREEW_PROD_REMOTE_THEME_DIR}")
+          echo "NEWSLETTER_REMOTE_FILE=${remote_file}" >> "${GITHUB_ENV}"
 
       - name: Deploy newsletter popup fix with rollback evidence
         env:
