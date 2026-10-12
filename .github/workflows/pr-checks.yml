@@ -78,7 +78,6 @@ jobs:
       - name: Check deployment scripts and asset syntax
         run: |
           bash -n scripts/deploy-file.sh
-          bash -n scripts/derive-newsletter-remote-path.sh
           node --check deploy/production/3w-newsletter-popup/assets/newsletter-popup.js
           bash tests/scripts/deploy-file.test.sh
 
