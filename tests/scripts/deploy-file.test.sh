@@ -10,8 +10,14 @@ mkdir -p "$TMP/bin"
 cat > "$TMP/bin/lftp" <<'FAKE_LFTP'
 #!/usr/bin/env bash
 set -euo pipefail
+if [[ -n "${FAKE_LFTP_ARGS_LOG:-}" ]]; then
+  printf '%s\n' "$*" >> "$FAKE_LFTP_ARGS_LOG"
+fi
 did_put=false
 while IFS= read -r line; do
+  if [[ -n "${FAKE_LFTP_STDIN_LOG:-}" ]]; then
+    printf '%s\n' "$line" >> "$FAKE_LFTP_STDIN_LOG"
+  fi
   if [[ "$line" =~ ^get\ \"([^\"]+)\"\ -o\ \"([^\"]+)\"$ ]]; then
     destination=${BASH_REMATCH[2]}
     if [[ "$did_put" == true && -n "${FAKE_CORRUPT_READBACK_ONCE:-}" && -f "${FAKE_CORRUPT_STATE}" ]]; then
@@ -77,6 +83,34 @@ env "${COMMON_ENV[@]}" "$SCRIPT" \
   --expected-remote-sha256 "$ORIGINAL_HASH" \
   --expected-remote-sha256 "$LOCAL_HASH"
 [[ $(sha256sum "$TMP/remote.js" | awk '{print $1}') == "$LOCAL_HASH" ]]
+
+# Explicit FTPS uses an ftp:// URI plus AUTH TLS rather than implicit ftps://.
+: > "$TMP/lftp-args.log"
+: > "$TMP/lftp-stdin.log"
+env "${COMMON_ENV[@]}" \
+  THREEW_DEPLOY_SCHEME=ftps \
+  "FAKE_LFTP_ARGS_LOG=$TMP/lftp-args.log" \
+  "FAKE_LFTP_STDIN_LOG=$TMP/lftp-stdin.log" \
+  "$SCRIPT" \
+  --target staging \
+  --local-file "$TMP/local.js" \
+  --remote-file newsletter-popup.js \
+  --backup-file "$TMP/backup.js" \
+  --verified-file "$TMP/verified.js" \
+  --expected-remote-sha256 "$ORIGINAL_HASH" \
+  --expected-remote-sha256 "$LOCAL_HASH"
+grep -Fq 'ftp://fake.invalid:21' "$TMP/lftp-args.log"
+if grep -Fq 'ftps://fake.invalid:21' "$TMP/lftp-args.log"; then
+  echo 'Expected explicit FTPS to avoid the implicit-TLS URI scheme' >&2
+  exit 1
+fi
+grep -Fxq 'set ftp:ssl-force true' "$TMP/lftp-stdin.log"
+grep -Fxq 'set ftp:ssl-protect-data true' "$TMP/lftp-stdin.log"
+grep -Fxq 'set ftp:ssl-auth TLS' "$TMP/lftp-stdin.log"
+
+# The theme mirror must use the same explicit-FTPS URI mapping.
+grep -Fq 'LFTP_SCHEME=ftp' "$REPO_ROOT/scripts/deploy-theme.sh"
+grep -Fq 'LFTP_URI="${LFTP_SCHEME}://' "$REPO_ROOT/scripts/deploy-theme.sh"
 
 # Unknown remote bytes must fail before upload.
 printf 'unreviewed remote edit' > "$TMP/remote.js"

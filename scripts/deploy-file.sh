@@ -148,8 +148,9 @@ if [[ "$TARGET" == "production" ]]; then
 fi
 
 case "$DEPLOY_SCHEME" in
-  ftp|ftps) DEFAULT_PORT=21 ;;
-  sftp) DEFAULT_PORT=22 ;;
+  ftp) DEFAULT_PORT=21; LFTP_SCHEME=ftp ;;
+  ftps) DEFAULT_PORT=21; LFTP_SCHEME=ftp ;;
+  sftp) DEFAULT_PORT=22; LFTP_SCHEME=sftp ;;
   *)
     echo "Unsupported THREEW_DEPLOY_SCHEME '$DEPLOY_SCHEME'. Use ftp, ftps, or sftp." >&2
     exit 1
@@ -170,7 +171,9 @@ if [[ -z "$FTP_PASS" && ! ( "$DEPLOY_SCHEME" == "sftp" && -n "$SSH_KEY_PATH" ) ]
   echo
 fi
 
-LFTP_URI="${DEPLOY_SCHEME}://${FTP_HOST}:${FTP_PORT}"
+# lftp's ftps:// URI means implicit TLS. Hostinger uses explicit TLS (AUTH TLS)
+# on port 21, represented by an ftp:// URI plus ftp:ssl-force below.
+LFTP_URI="${LFTP_SCHEME}://${FTP_HOST}:${FTP_PORT}"
 FTP_SETUP_CMDS="set cmd:fail-exit yes
 set ssl:verify-certificate $SSL_VERIFY
 set xfer:clobber yes"
