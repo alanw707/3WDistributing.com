@@ -24,7 +24,7 @@ The replacement is verified by `tests/e2e/newsletter-popup.spec.js` at desktop a
 
 ## Deployment and rollback
 
-The production workflow reruns the desktop/mobile popup regression, deploys the theme as before, then derives the plugin path from the configured production theme directory. `scripts/deploy-file.sh`:
+The production workflow reruns the desktop/mobile popup regression, deploys the theme as before, then uses `scripts/derive-newsletter-remote-path.sh` to derive the plugin path from relative, site-root-relative or absolute production theme directories. It validates the expected `wp-content/themes/3w-2025` path components before returning a plugin path. `scripts/deploy-file.sh` then:
 
 1. downloads the current remote JS as a rollback artifact;
 2. refuses to overwrite any hash except the reviewed original or this exact override (the latter makes retries idempotent);
