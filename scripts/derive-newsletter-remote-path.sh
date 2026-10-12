@@ -2,12 +2,17 @@
 # Derive the live newsletter-popup asset from the configured 3w-2025 theme path.
 set -euo pipefail
 
-if [[ $# -ne 1 || -z "$1" ]]; then
-  echo "Usage: derive-newsletter-remote-path.sh REMOTE_THEME_DIR" >&2
+if [[ $# -lt 1 || $# -gt 2 || -z "$1" ]]; then
+  echo "Usage: derive-newsletter-remote-path.sh REMOTE_THEME_DIR [SITE_SUBDIRECTORY]" >&2
   exit 1
 fi
 
 THEME_DIR=${1%/}
+SITE_SUBDIRECTORY=${2:-}
+if [[ -n "$SITE_SUBDIRECTORY" && ! "$SITE_SUBDIRECTORY" =~ ^[A-Za-z0-9._-]+$ ]]; then
+  echo "Site subdirectory must be one safe path segment" >&2
+  exit 1
+fi
 if [[ ! "$THEME_DIR" =~ ^[A-Za-z0-9._/-]+$ || "$THEME_DIR" == *"//"* ]]; then
   echo "Remote theme directory contains unsupported characters" >&2
   exit 1
@@ -43,4 +48,4 @@ case "$SITE_ROOT" in
   /) SITE_PREFIX="/" ;;
   *) SITE_PREFIX="${SITE_ROOT}/" ;;
 esac
-printf '%s%s\n' "$SITE_PREFIX" "wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js"
+printf '%s%s%s\n' "$SITE_PREFIX" "${SITE_SUBDIRECTORY:+${SITE_SUBDIRECTORY}/}" "wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js"

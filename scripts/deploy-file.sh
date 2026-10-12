@@ -76,6 +76,15 @@ if [[ ! -f "$LOCAL_FILE" ]]; then
   exit 1
 fi
 
+# These local paths are also interpolated into lftp commands. The deployment
+# workflow uses repository and runner-temp paths that fit this conservative set.
+for local_path in "$LOCAL_FILE" "$BACKUP_FILE" "$VERIFIED_FILE"; do
+  if [[ ! "$local_path" =~ ^[A-Za-z0-9._/-]+$ ]]; then
+    echo "Local path contains unsupported characters: $local_path" >&2
+    exit 1
+  fi
+done
+
 # Remote paths are interpolated into an lftp command stream. Limit the accepted
 # alphabet so a caller cannot turn a path into another command.
 if [[ ! "$REMOTE_FILE" =~ ^[A-Za-z0-9._/-]+$ || "$REMOTE_FILE" != */* || "$REMOTE_FILE" == *"//"* ]]; then
@@ -123,6 +132,10 @@ SSL_VERIFY=${THREEW_SSL_VERIFY:-yes}
 FTP_USER=${THREEW_FTP_USER:-u659513315.thrwdiststaging}
 FTP_PASS=${THREEW_FTP_PASS:-}
 SSH_KEY_PATH=${THREEW_SSH_KEY_PATH:-}
+if [[ -n "$SSH_KEY_PATH" && ! "$SSH_KEY_PATH" =~ ^[A-Za-z0-9._/-]+$ ]]; then
+  echo "SSH key path contains unsupported characters" >&2
+  exit 1
+fi
 TARGET_LABEL=staging
 
 if [[ "$TARGET" == "production" ]]; then
