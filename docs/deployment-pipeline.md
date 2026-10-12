@@ -52,7 +52,7 @@ The workflow performs quality gates before calling the script:
 
 The deploy script then builds the theme again and mirrors runtime-safe theme files through `lftp`, using the script's existing exclude rules.
 
-The workflow also reruns the newsletter-popup browser regression and deploys the reviewed JavaScript override with `scripts/deploy-file.sh`. This is deliberately a one-file upload: it backs up and hash-checks the existing remote asset, rejects unsafe path segments, never mirrors or deletes the plugin directory, automatically rolls back failed read-back verification, verifies the uploaded bytes, and archives rollback evidence for 14 days. See `docs/newsletter-popup-fix.md`.
+The workflow also reruns the newsletter-popup browser regression and deploys the reviewed JavaScript override with `scripts/deploy-file.sh` through a separate shop FTP account rooted at the plugin's `assets` directory. This is deliberately a one-file upload: it backs up and hash-checks the existing remote asset, rejects unsafe path segments, never mirrors or deletes the plugin directory, automatically rolls back failed read-back verification, verifies the uploaded bytes, and archives rollback evidence for 14 days. See `docs/newsletter-popup-fix.md`.
 
 ## Required GitHub configuration
 
@@ -75,8 +75,16 @@ Required secrets:
 | `THREEW_PROD_REMOTE_THEME_DIR` | Remote theme directory, e.g. `public_html/wp-content/themes/3w-2025` |
 | `THREEW_PROD_DEPLOY_SCHEME` | `ftp`, `ftps`, or `sftp` |
 | `THREEW_PROD_SSL_VERIFY` | `yes` or `no`; prefer `yes` for FTPS |
+| `THREEW_SHOP_FTP_HOST` | Hostinger TLS hostname used by the restricted shop account |
+| `THREEW_SHOP_FTP_HOST_IP` | Pinned shop FTP server address mapped to the TLS hostname on the runner |
+| `THREEW_SHOP_FTP_PORT` | Shop FTPS port |
+| `THREEW_SHOP_FTP_USER` | Restricted shop deployment username |
+| `THREEW_SHOP_FTP_PASS` | Restricted shop deployment password |
+| `THREEW_SHOP_DEPLOY_SCHEME` | Shop protocol; currently `ftps` |
+| `THREEW_SHOP_SSL_VERIFY` | Shop TLS verification; must remain enabled |
+| `THREEW_SHOP_REMOTE_NEWSLETTER_FILE` | Exact filename within the restricted account root; `newsletter-popup.js` |
 
-Do not add `.env`, passwords, deploy keys, or host credentials to git.
+Do not add `.env`, passwords, deploy keys, or host credentials to git. Keep the shop FTP account rooted at `/public_html/wp-content/plugins/3w-newsletter-popup/assets` so workflow credentials cannot modify unrelated WordPress files.
 
 ## Notes
 

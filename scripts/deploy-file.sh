@@ -87,7 +87,7 @@ done
 
 # Remote paths are interpolated into an lftp command stream. Limit the accepted
 # alphabet so a caller cannot turn a path into another command.
-if [[ ! "$REMOTE_FILE" =~ ^[A-Za-z0-9._/-]+$ || "$REMOTE_FILE" != */* || "$REMOTE_FILE" == *"//"* ]]; then
+if [[ ! "$REMOTE_FILE" =~ ^[A-Za-z0-9._/-]+$ || "$REMOTE_FILE" == *"//"* ]]; then
   echo "Remote file path contains unsupported characters: $REMOTE_FILE" >&2
   exit 1
 fi

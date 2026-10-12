@@ -30,6 +30,14 @@ jobs:
       THREEW_PROD_REMOTE_THEME_DIR: ${{ secrets.THREEW_PROD_REMOTE_THEME_DIR }}
       THREEW_PROD_DEPLOY_SCHEME: ${{ secrets.THREEW_PROD_DEPLOY_SCHEME }}
       THREEW_PROD_SSL_VERIFY: ${{ secrets.THREEW_PROD_SSL_VERIFY }}
+      THREEW_SHOP_FTP_HOST: ${{ secrets.THREEW_SHOP_FTP_HOST }}
+      THREEW_SHOP_FTP_HOST_IP: ${{ secrets.THREEW_SHOP_FTP_HOST_IP }}
+      THREEW_SHOP_FTP_PORT: ${{ secrets.THREEW_SHOP_FTP_PORT }}
+      THREEW_SHOP_FTP_USER: ${{ secrets.THREEW_SHOP_FTP_USER }}
+      THREEW_SHOP_FTP_PASS: ${{ secrets.THREEW_SHOP_FTP_PASS }}
+      THREEW_SHOP_DEPLOY_SCHEME: ${{ secrets.THREEW_SHOP_DEPLOY_SCHEME }}
+      THREEW_SHOP_SSL_VERIFY: ${{ secrets.THREEW_SHOP_SSL_VERIFY }}
+      THREEW_SHOP_REMOTE_NEWSLETTER_FILE: ${{ secrets.THREEW_SHOP_REMOTE_NEWSLETTER_FILE }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -86,7 +94,15 @@ jobs:
             THREEW_PROD_FTP_USER \
             THREEW_PROD_FTP_PASS \
             THREEW_PROD_REMOTE_THEME_DIR \
-            THREEW_PROD_DEPLOY_SCHEME; do
+            THREEW_PROD_DEPLOY_SCHEME \
+            THREEW_SHOP_FTP_HOST \
+            THREEW_SHOP_FTP_HOST_IP \
+            THREEW_SHOP_FTP_PORT \
+            THREEW_SHOP_FTP_USER \
+            THREEW_SHOP_FTP_PASS \
+            THREEW_SHOP_DEPLOY_SCHEME \
+            THREEW_SHOP_SSL_VERIFY \
+            THREEW_SHOP_REMOTE_NEWSLETTER_FILE; do
             if [[ -z "${!name:-}" ]]; then
               echo "Missing required secret-backed env: ${name}" >&2
               missing=1
@@ -99,22 +115,64 @@ jobs:
       - name: Deploy theme with existing script
         run: ./scripts/deploy-theme.sh --target production
 
-      - name: Resolve newsletter popup asset path
+      - name: Configure restricted shop deployment target
         run: |
-          shop_file=$(./scripts/derive-newsletter-remote-path.sh "${THREEW_PROD_REMOTE_THEME_DIR}" shop)
+          if [[ "${THREEW_SHOP_DEPLOY_SCHEME}" != "ftps" ]]; then
+            echo "Restricted shop deployment requires FTPS" >&2
+            exit 1
+          fi
+          if [[ "${THREEW_SHOP_SSL_VERIFY}" != "yes" ]]; then
+            echo "Restricted shop deployment requires TLS certificate verification" >&2
+            exit 1
+          fi
+          if [[ "${THREEW_SHOP_FTP_PORT}" != "21" ]]; then
+            echo "Restricted shop FTPS must use explicit-TLS port 21" >&2
+            exit 1
+          fi
+          if [[ ! "${THREEW_SHOP_FTP_HOST}" =~ ^[A-Za-z0-9.-]+\.hstgr\.io$ ]]; then
+            echo "Shop FTP host must be a Hostinger TLS hostname" >&2
+            exit 1
+          fi
+          if [[ ! "${THREEW_SHOP_FTP_HOST_IP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+            echo "Shop FTP host IP is invalid" >&2
+            exit 1
+          fi
+          IFS='.' read -r -a ip_octets <<< "${THREEW_SHOP_FTP_HOST_IP}"
+          for octet in "${ip_octets[@]}"; do
+            if (( 10#${octet} > 255 )); then
+              echo "Shop FTP host IP is invalid" >&2
+              exit 1
+            fi
+          done
+          if [[ "${THREEW_SHOP_REMOTE_NEWSLETTER_FILE}" != "newsletter-popup.js" ]]; then
+            echo "Restricted shop FTP account must target newsletter-popup.js at its root" >&2
+            exit 1
+          fi
+          printf '%s %s\n' "${THREEW_SHOP_FTP_HOST_IP}" "${THREEW_SHOP_FTP_HOST}" \
+            | sudo tee -a /etc/hosts >/dev/null
+          if ! getent ahostsv4 "${THREEW_SHOP_FTP_HOST}" | awk '{print $1}' \
+            | grep -Fxq "${THREEW_SHOP_FTP_HOST_IP}"; then
+            echo "Pinned shop FTP hostname did not resolve to its configured address" >&2
+            exit 1
+          fi
           local_sha256=$(sha256sum deploy/production/3w-newsletter-popup/assets/newsletter-popup.js | awk '{print $1}')
-          echo "NEWSLETTER_REMOTE_FILE_SHOP=${shop_file}" >> "${GITHUB_ENV}"
           echo "NEWSLETTER_LOCAL_SHA256=${local_sha256}" >> "${GITHUB_ENV}"
 
       - name: Deploy newsletter popup fix with rollback evidence
         env:
+          THREEW_PROD_FTP_HOST: ${{ secrets.THREEW_SHOP_FTP_HOST }}
+          THREEW_PROD_FTP_PORT: ${{ secrets.THREEW_SHOP_FTP_PORT }}
+          THREEW_PROD_FTP_USER: ${{ secrets.THREEW_SHOP_FTP_USER }}
+          THREEW_PROD_FTP_PASS: ${{ secrets.THREEW_SHOP_FTP_PASS }}
+          THREEW_PROD_DEPLOY_SCHEME: ${{ secrets.THREEW_SHOP_DEPLOY_SCHEME }}
+          THREEW_PROD_SSL_VERIFY: ${{ secrets.THREEW_SHOP_SSL_VERIFY }}
           BACKUP_FILE: ${{ runner.temp }}/newsletter-popup.js.before
           VERIFIED_FILE: ${{ runner.temp }}/newsletter-popup.js.after
         run: |
           ./scripts/deploy-file.sh \
             --target production \
             --local-file deploy/production/3w-newsletter-popup/assets/newsletter-popup.js \
-            --remote-file "${NEWSLETTER_REMOTE_FILE_SHOP}" \
+            --remote-file "${THREEW_SHOP_REMOTE_NEWSLETTER_FILE}" \
             --backup-file "${BACKUP_FILE}" \
             --verified-file "${VERIFIED_FILE}" \
             --expected-remote-sha256 f3873bf2cdef7967a6d227a66d46ce6076a42ec6b660416e0b6a8379f1134cc3 \

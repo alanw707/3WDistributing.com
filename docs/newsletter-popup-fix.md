@@ -24,7 +24,7 @@ The replacement is verified by `tests/e2e/newsletter-popup.spec.js` at desktop a
 
 ## Deployment and rollback
 
-The production workflow reruns the desktop/mobile popup regression, deploys the theme as before, then uses `scripts/derive-newsletter-remote-path.sh` to derive the shop plugin path from relative, site-root-relative or absolute production theme directories. It validates the expected `wp-content/themes/3w-2025` path components and inserts only the bounded `shop` site directory. `scripts/deploy-file.sh` then:
+The production workflow reruns the desktop/mobile popup regression and deploys the main-site theme as before. The popup upload uses a separate, least-privilege Hostinger FTP account rooted at the shop plugin's `assets` directory. The workflow requires FTPS with certificate verification, validates the pinned Hostinger TLS target and exact `newsletter-popup.js` remote filename, then runs `scripts/deploy-file.sh`, which:
 
 1. downloads the current remote JS as a rollback artifact;
 2. refuses to overwrite any hash except the reviewed original or this exact override (the latter makes retries idempotent);
@@ -35,10 +35,10 @@ The production workflow reruns the desktop/mobile popup regression, deploys the 
 
 The workflow then verifies the public asset through a cache-busting query and archives before/after files for 14 days.
 
-To roll back, upload the workflow artifact `newsletter-popup.js.before` to:
+To roll back through the restricted shop account, upload the workflow artifact `newsletter-popup.js.before` as `newsletter-popup.js`. Its full shop filesystem location is:
 
 ```text
-wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js
+/public_html/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js
 ```
 
 The production script is still referenced as `?ver=1.0.1` and Cloudflare caches it for seven days. The first workflow run is expected to turn red after a successful origin upload when that canonical URL is still stale. This failure deliberately leaves the verified fix at the origin. Purge only this exact URL and rerun the workflow (or wait for its TTL); the idempotent override hash is allowlisted for that rerun. A green deployment therefore cannot be mistaken for a customer-visible fix:
