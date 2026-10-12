@@ -55,6 +55,35 @@ jobs:
       - name: Check theme PHP files
         run: find wp-content/themes/3w-2025 -name '*.php' -print0 | xargs -0 -n1 php -l
 
+  newsletter-popup:
+    name: Newsletter popup regression
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install test dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Check deployment scripts and asset syntax
+        run: |
+          bash -n scripts/deploy-file.sh
+          node --check deploy/production/3w-newsletter-popup/assets/newsletter-popup.js
+          bash tests/scripts/deploy-file.test.sh
+
+      - name: Run newsletter popup regression
+        run: npx playwright test tests/e2e/newsletter-popup.spec.js --reporter=line
+
   npm-audit:
     name: npm audit
     runs-on: ubuntu-latest

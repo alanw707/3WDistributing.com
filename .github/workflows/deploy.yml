@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build and deploy theme
+    name: Build and deploy production assets
     runs-on: ubuntu-latest
     environment: production
     defaults:
@@ -39,7 +39,9 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: wp-content/themes/3w-2025/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            wp-content/themes/3w-2025/package-lock.json
 
       - name: Install lftp
         run: |
@@ -65,6 +67,17 @@ jobs:
       - name: Check theme PHP files
         run: find wp-content/themes/3w-2025 -name '*.php' -print0 | xargs -0 -n1 php -l
 
+      - name: Install newsletter regression dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run newsletter popup regression
+        run: |
+          npx playwright test tests/e2e/newsletter-popup.spec.js --reporter=line
+          bash tests/scripts/deploy-file.test.sh
+
       - name: Verify deployment secrets
         run: |
           missing=0
@@ -85,3 +98,62 @@ jobs:
 
       - name: Deploy theme with existing script
         run: ./scripts/deploy-theme.sh --target production
+
+      - name: Resolve newsletter popup asset path
+        run: |
+          theme_dir="${THREEW_PROD_REMOTE_THEME_DIR%/}"
+          suffix="/wp-content/themes/3w-2025"
+          if [[ "${theme_dir}" != *"${suffix}" ]]; then
+            echo "Remote theme directory must end with ${suffix}; refusing to derive a plugin path" >&2
+            exit 1
+          fi
+          site_root="${theme_dir%${suffix}}"
+          echo "NEWSLETTER_REMOTE_FILE=${site_root}/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js" >> "${GITHUB_ENV}"
+
+      - name: Deploy newsletter popup fix with rollback evidence
+        env:
+          BACKUP_FILE: ${{ runner.temp }}/newsletter-popup.js.before
+          VERIFIED_FILE: ${{ runner.temp }}/newsletter-popup.js.after
+        run: |
+          ./scripts/deploy-file.sh \
+            --target production \
+            --local-file deploy/production/3w-newsletter-popup/assets/newsletter-popup.js \
+            --remote-file "${NEWSLETTER_REMOTE_FILE}" \
+            --backup-file "${BACKUP_FILE}" \
+            --verified-file "${VERIFIED_FILE}" \
+            --expected-remote-sha256 f3873bf2cdef7967a6d227a66d46ce6076a42ec6b660416e0b6a8379f1134cc3 \
+            --expected-remote-sha256 b6af9603cef2cf5cc82541ef256a720a157c2c2e9456eef55ca059711c6e207b
+
+      - name: Verify newsletter popup bytes at the origin
+        run: |
+          expected=$(sha256sum deploy/production/3w-newsletter-popup/assets/newsletter-popup.js | awk '{print $1}')
+          curl --fail --silent --show-error --retry 4 \
+            "https://shop.3wdistributing.com/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js?deploy=${GITHUB_SHA}" \
+            --output "${RUNNER_TEMP}/newsletter-popup.js.public"
+          actual=$(sha256sum "${RUNNER_TEMP}/newsletter-popup.js.public" | awk '{print $1}')
+          if [[ "${actual}" != "${expected}" ]]; then
+            echo "Public cache-busted asset verification failed: expected ${expected}, got ${actual}" >&2
+            exit 1
+          fi
+
+          curl --fail --silent --show-error \
+            "https://shop.3wdistributing.com/wp-content/plugins/3w-newsletter-popup/assets/newsletter-popup.js?ver=1.0.1" \
+            --output "${RUNNER_TEMP}/newsletter-popup.js.canonical"
+          canonical=$(sha256sum "${RUNNER_TEMP}/newsletter-popup.js.canonical" | awk '{print $1}')
+          if [[ "${canonical}" != "${expected}" ]]; then
+            echo "The canonical ?ver=1.0.1 URL is still cached. Purge that exact Cloudflare URL, then rerun the workflow." >&2
+            exit 1
+          fi
+
+      - name: Archive newsletter popup rollback evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-popup-deploy-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/newsletter-popup.js.before
+            ${{ runner.temp }}/newsletter-popup.js.after
+            ${{ runner.temp }}/newsletter-popup.js.public
+            ${{ runner.temp }}/newsletter-popup.js.canonical
+          if-no-files-found: warn
+          retention-days: 14
