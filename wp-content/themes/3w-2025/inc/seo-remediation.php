@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-3';
+	$cache_version = '2026-10-29-4';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -229,30 +229,45 @@ add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
 /**
  * Keep Rank Math's social output aligned with the guide metadata.
  *
- * Rank Math reads the raw post title for og:title and twitter:title, so the
+ * Rank Math resolves og:title and twitter:title from stored post meta, so the
  * guides otherwise advertise the pre-remediation copy with a stale model year.
+ * These run on Rank Math's per-tag filter, which is applied to the final value.
+ *
+ * @param string $content Tag content.
+ * @return string
  */
-add_filter( 'rank_math/frontend/title', function ( $title ) {
+function threew_2025_filter_guide_social_title( $content ) {
 	if ( ! is_singular( 'post' ) ) {
-		return $title;
+		return $content;
 	}
 
 	$map  = threew_2025_get_price_guide_seo();
 	$slug = get_post_field( 'post_name', get_queried_object_id() );
 
-	return isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $title;
-}, 20 );
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $content;
+}
 
-add_filter( 'rank_math/frontend/description', function ( $description ) {
+/**
+ * Same as above for the social description.
+ *
+ * @param string $content Tag content.
+ * @return string
+ */
+function threew_2025_filter_guide_social_description( $content ) {
 	if ( ! is_singular( 'post' ) ) {
-		return $description;
+		return $content;
 	}
 
 	$map  = threew_2025_get_price_guide_seo();
 	$slug = get_post_field( 'post_name', get_queried_object_id() );
 
-	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $description;
-}, 20 );
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $content;
+}
+
+add_filter( 'rank_math/opengraph/facebook/og_title', 'threew_2025_filter_guide_social_title', 20 );
+add_filter( 'rank_math/opengraph/twitter/twitter_title', 'threew_2025_filter_guide_social_title', 20 );
+add_filter( 'rank_math/opengraph/facebook/og_description', 'threew_2025_filter_guide_social_description', 20 );
+add_filter( 'rank_math/opengraph/twitter/twitter_description', 'threew_2025_filter_guide_social_description', 20 );
 
 /**
  * Add a direct, measurable commercial path without changing editorial copy.
