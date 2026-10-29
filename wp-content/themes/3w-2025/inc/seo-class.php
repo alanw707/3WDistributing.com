@@ -176,26 +176,8 @@ class ThreeW_SEO {
      */
     public function output_open_graph() {
         if ($this->rank_math_active()) {
-            // Rank Math emits the social set. It only supplies an image from the
-            // featured image, so add the default card where one would be missing.
-            if (is_singular() && has_post_thumbnail()) {
-                return;
-            }
-
-            $image = $this->get_og_image();
-            if ($image) {
-                echo '<meta property="og:image" content="' . esc_url($image['url']) . '">' . "\n";
-                if (isset($image['width'])) {
-                    echo '<meta property="og:image:width" content="' . esc_attr($image['width']) . '">' . "\n";
-                }
-                if (isset($image['height'])) {
-                    echo '<meta property="og:image:height" content="' . esc_attr($image['height']) . '">' . "\n";
-                }
-                if (isset($image['alt'])) {
-                    echo '<meta property="og:image:alt" content="' . esc_attr($image['alt']) . '">' . "\n";
-                }
-            }
-
+            // Rank Math emits the whole social set, including a default image
+            // supplied through threew_2025_filter_social_image_url().
             return;
         }
 
@@ -244,17 +226,8 @@ class ThreeW_SEO {
     public function output_twitter_cards() {
         if ($this->rank_math_active()) {
             // Rank Math covers card, title, description and image; keep only the
-            // handles it does not emit, plus an image where it has none.
-            if (!(is_singular() && has_post_thumbnail())) {
-                $image = $this->get_og_image();
-                if ($image) {
-                    echo '<meta name="twitter:image" content="' . esc_url($image['url']) . '">' . "\n";
-                    if (isset($image['alt'])) {
-                        echo '<meta name="twitter:image:alt" content="' . esc_attr($image['alt']) . '">' . "\n";
-                    }
-                }
-            }
-
+            // handles it does not emit. The fallback image is supplied through
+            // threew_2025_filter_social_image_url().
             echo '<meta name="twitter:site" content="@3wdistributing">' . "\n";
             echo '<meta name="twitter:creator" content="@3wdistributing">' . "\n";
             return;
