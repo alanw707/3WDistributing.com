@@ -111,6 +111,27 @@ $img_passthru = $GLOBALS['filters']['rank_math/opengraph/facebook/image'][0]( 'h
 check( $img_passthru === 'https://example.com/featured.jpg', 'Rank Math image left alone when present' );
 check( isset( $GLOBALS['filters']['rank_math/opengraph/twitter/image'][0] ), 'twitter image fallback registered' );
 
+// Default social card is added only when Rank Math collected no image.
+class ThreeW_Fake_Image {
+	public $images = [];
+	public $added  = [];
+	public function has_images() { return ! empty( $this->images ); }
+	public function add_image( $url ) { $this->added[] = $url; $this->images[ $url ] = []; }
+}
+
+$empty_image = new ThreeW_Fake_Image();
+threew_2025_add_default_social_image( $empty_image );
+check( count( $empty_image->added ) === 1, 'default image added when Rank Math has none' );
+check( str_contains( $empty_image->added[0], 'social-card-default.jpg' ), 'default card used for empty collector' );
+
+$filled_image = new ThreeW_Fake_Image();
+$filled_image->images['https://example.com/real.jpg'] = [];
+threew_2025_add_default_social_image( $filled_image );
+check( count( $filled_image->added ) === 0, 'existing image left alone' );
+
+threew_2025_add_default_social_image( null );
+check( true, 'non-object input ignored without fatal' );
+
 // Negative scope.
 $GLOBALS['mock_slug'] = 'unrelated-post';
 $plain = '<p>Unrelated article mentioning forged wheels.</p>';
