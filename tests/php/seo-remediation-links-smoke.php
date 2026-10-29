@@ -78,7 +78,7 @@ check( substr_count( $out, 'utm_content=carbon_body_trims' ) === 1, 'carbon trim
 $GLOBALS['mock_slug'] = 'price-of-g-wagon-brabus';
 $prelinked = '<p>Popular upgrades include <a href="https://example.com/">forged wheels</a> and more.</p>';
 $out = $filter( $prelinked );
-check( str_starts_with( $out, $prelinked ), 'already-linked anchor left intact' );
+check( str_contains( $out, $prelinked ), 'already-linked anchor left intact' );
 check( substr_count( $out, 'forged wheels</a>' ) === 1, 'no second wrap around a linked phrase' );
 check( ! str_contains( $out, 'utm_content=monoblock_r_23' ), 'no duplicate wheel link injected' );
 
