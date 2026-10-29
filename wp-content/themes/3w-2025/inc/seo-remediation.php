@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-2';
+	$cache_version = '2026-10-29-3';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -225,6 +225,34 @@ add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
 	$slug = $post instanceof WP_Post ? $post->post_name : '';
 	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $excerpt;
 }, 20, 2 );
+
+/**
+ * Keep Rank Math's social output aligned with the guide metadata.
+ *
+ * Rank Math reads the raw post title for og:title and twitter:title, so the
+ * guides otherwise advertise the pre-remediation copy with a stale model year.
+ */
+add_filter( 'rank_math/frontend/title', function ( $title ) {
+	if ( ! is_singular( 'post' ) ) {
+		return $title;
+	}
+
+	$map  = threew_2025_get_price_guide_seo();
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $title;
+}, 20 );
+
+add_filter( 'rank_math/frontend/description', function ( $description ) {
+	if ( ! is_singular( 'post' ) ) {
+		return $description;
+	}
+
+	$map  = threew_2025_get_price_guide_seo();
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $description;
+}, 20 );
 
 /**
  * Add a direct, measurable commercial path without changing editorial copy.
