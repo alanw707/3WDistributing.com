@@ -13,15 +13,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-08-20-1';
+	$cache_version = '2026-10-29-1';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
 
-	if ( class_exists( 'LiteSpeed_Cache_API' ) ) {
-		LiteSpeed_Cache_API::purge_all();
-	} else {
-		do_action( 'litespeed_purge_all' );
+	foreach ( array_keys( threew_2025_get_price_guide_seo() ) as $slug ) {
+		$guide = get_page_by_path( $slug, OBJECT, 'post' );
+		if ( ! $guide instanceof WP_Post ) {
+			continue;
+		}
+
+		if ( class_exists( 'LiteSpeed_Cache_API' ) && method_exists( 'LiteSpeed_Cache_API', 'purge_post' ) ) {
+			LiteSpeed_Cache_API::purge_post( $guide->ID );
+		} else {
+			do_action( 'litespeed_purge_post', $guide->ID );
+		}
 	}
 
 	update_option( 'threew_seo_remediation_cache_version', $cache_version, false );
@@ -43,6 +50,130 @@ function threew_2025_get_price_guide_seo() {
 			'description' => 'See 2026 Mercedes-AMG G63 BRABUS pricing, upgrade options and genuine parts guidance from 3W Distributing, a premier North American BRABUS dealer.',
 		],
 	];
+}
+
+/**
+ * Contextual product links for the price guides.
+ *
+ * Anchors are phrases that already appear in the article copy, so linking them
+ * adds a commercial path without rewriting editorial content.
+ *
+ * @return array<string, array<int, array{anchor: string, path: string, utm_content: string, occurrence?: int}>>
+ */
+function threew_2025_get_price_guide_product_links() {
+	return [
+		'price-of-g-wagon-brabus' => [
+			[
+				'anchor'      => 'illuminated logos',
+				'path'        => '/product/brabus-w465-illuminated-grille-emblem/',
+				'utm_content' => 'illuminated_grille_emblem',
+			],
+			[
+				'anchor'      => 'forged wheels',
+				'path'        => '/product/brabus-monoblock-r-platinum-edition-5-double-spoke-rims-forged-anthracite-titan-polished-for-the-mercedes-benz-g-class-w463/',
+				'utm_content' => 'monoblock_r_23',
+			],
+			[
+				'anchor'      => 'carbon fiber body kits',
+				'path'        => '/product/brabus-w465-widestar-kit-carbon-fiber-package-1/',
+				'utm_content' => 'widestar_pkg1',
+			],
+		],
+		'g63-brabus-price'        => [
+			[
+				'anchor'      => 'Widestar body kit',
+				'path'        => '/product/brabus-w465-widestar-kit-carbon-fiber-package-1/',
+				'utm_content' => 'widestar_pkg1',
+				'occurrence'  => 2,
+			],
+			[
+				'anchor'      => 'forged wheels up to 23 inches',
+				'path'        => '/product/brabus-monoblock-r-platinum-edition-5-double-spoke-rims-forged-anthracite-titan-polished-for-the-mercedes-benz-g-class-w463/',
+				'utm_content' => 'monoblock_r_23',
+			],
+			[
+				'anchor'      => 'carbon fiber aerodynamic elements',
+				'path'        => '/product/brabus-carbon-fiber-body-trims-for-g-wagon/',
+				'utm_content' => 'carbon_body_trims',
+			],
+		],
+	];
+}
+
+/**
+ * Wrap the nth plain-text occurrence of an anchor in a link.
+ *
+ * @param string $content    Post content.
+ * @param string $anchor     Existing phrase to link.
+ * @param string $url        Destination URL.
+ * @param int    $occurrence One-based occurrence to target.
+ * @return string
+ */
+function threew_2025_link_nth_anchor( $content, $anchor, $url, $occurrence = 1 ) {
+	if ( '' === $anchor ) {
+		return $content;
+	}
+
+	$length = strlen( $anchor );
+	$offset = 0;
+	$found  = 0;
+
+	while ( false !== ( $position = strpos( $content, $anchor, $offset ) ) ) {
+		++$found;
+
+		if ( $found === (int) $occurrence ) {
+			$before = substr( $content, 0, $position );
+
+			// Leave the copy alone if this phrase is already inside a link.
+			if ( preg_match( '~<a\b[^>]*>[^<]*$~i', $before ) ) {
+				return $content;
+			}
+
+			$link = '<a href="' . esc_url( $url ) . '">' . $anchor . '</a>';
+
+			return substr( $content, 0, $position ) . $link . substr( $content, $position + $length );
+		}
+
+		$offset = $position + $length;
+	}
+
+	return $content;
+}
+
+/**
+ * Apply the guide product links, refusing to insert the same link twice.
+ *
+ * @param string $content  Post content.
+ * @param string $slug     Post slug.
+ * @param string $campaign UTM campaign value.
+ * @return string
+ */
+function threew_2025_apply_price_guide_product_links( $content, $slug, $campaign ) {
+	$links = threew_2025_get_price_guide_product_links();
+
+	if ( empty( $links[ $slug ] ) ) {
+		return $content;
+	}
+
+	foreach ( $links[ $slug ] as $link ) {
+		if ( str_contains( $content, 'utm_content=' . $link['utm_content'] ) ) {
+			continue;
+		}
+
+		$url = add_query_arg(
+			[
+				'utm_source'   => '3w_main',
+				'utm_medium'   => 'editorial',
+				'utm_campaign' => $campaign,
+				'utm_content'  => $link['utm_content'],
+			],
+			'https://shop.3wdistributing.com' . $link['path']
+		);
+
+		$content = threew_2025_link_nth_anchor( $content, $link['anchor'], $url, $link['occurrence'] ?? 1 );
+	}
+
+	return $content;
 }
 
 /**
@@ -110,6 +241,7 @@ add_filter( 'the_content', function ( $content ) {
 	}
 
 	$campaign = rawurlencode( str_replace( '-', '_', $slug ) );
+	$content  = threew_2025_apply_price_guide_product_links( $content, $slug, $campaign );
 	$category = add_query_arg(
 		[
 			'utm_source'   => '3w_main',
