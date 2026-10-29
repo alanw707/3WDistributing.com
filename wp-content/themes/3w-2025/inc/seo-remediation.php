@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-1';
+	$cache_version = '2026-10-29-2';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -42,12 +42,12 @@ add_action( 'init', function () {
 function threew_2025_get_price_guide_seo() {
 	return [
 		'price-of-g-wagon-brabus' => [
-			'title'       => '2026 BRABUS G-Wagon Price: G63, 700, 800 & 900 Costs',
-			'description' => 'Compare 2026 BRABUS G-Wagon prices for the G63, 700, 800 and 900, plus upgrade costs and guidance from 3W Distributing.',
+			'title'       => 'BRABUS G-Wagon Price Guide: G63, 700, 800 & 900',
+			'description' => 'Explore BRABUS G-Wagon vehicle price estimates and G63, 700, 800 and 900 upgrades. Contact 3W Distributing for current parts pricing and fitment.',
 		],
 		'g63-brabus-price' => [
-			'title'       => '2026 Mercedes-AMG G63 BRABUS Price & Upgrade Guide',
-			'description' => 'See 2026 Mercedes-AMG G63 BRABUS pricing, upgrade options and genuine parts guidance from 3W Distributing, a premier North American BRABUS dealer.',
+			'title'       => 'Mercedes-AMG G63 BRABUS Price & Upgrade Guide',
+			'description' => 'Explore Mercedes-AMG G63 BRABUS vehicle price estimates and upgrade options. Browse genuine G-Wagon parts or ask 3W Distributing for current pricing and fitment.',
 		],
 	];
 }
@@ -248,7 +248,7 @@ add_filter( 'the_content', function ( $content ) {
 			'utm_medium'   => 'editorial',
 			'utm_campaign' => $campaign,
 		],
-		'https://shop.3wdistributing.com/product-category/brabus/'
+		'https://shop.3wdistributing.com/product-category/brabus/brabus-mercedes/g-wagon/'
 	);
 	$contact = add_query_arg(
 		[
@@ -259,14 +259,17 @@ add_filter( 'the_content', function ( $content ) {
 		'https://shop.3wdistributing.com/contact-us/'
 	);
 
+	$note = '<p class="threew-pricing-note"><strong>' . esc_html__( 'Pricing note:', 'threew-2025' ) . '</strong> ';
+	$note .= esc_html__( 'Vehicle price figures in this guide are estimates from earlier model years, not current quotes. Contact us to confirm current BRABUS parts pricing, availability and fitment before ordering.', 'threew-2025' ) . '</p>';
+
 	$cta  = '<aside class="threew-commercial-cta" data-threew-commercial-cta aria-label="BRABUS parts and fitment assistance">';
 	$cta .= '<h2>' . esc_html__( 'Ready to build your G-Wagon?', 'threew-2025' ) . '</h2>';
 	$cta .= '<p>' . esc_html__( 'Browse genuine BRABUS upgrades or contact 3W Distributing for pricing, fitment and availability help before ordering.', 'threew-2025' ) . '</p>';
 	$cta .= '<div class="threew-commercial-cta__actions">';
-	$cta .= '<a href="' . esc_url( $category ) . '">' . esc_html__( 'Shop BRABUS upgrades', 'threew-2025' ) . '</a>';
+	$cta .= '<a href="' . esc_url( $category ) . '">' . esc_html__( 'Shop BRABUS G-Wagon parts', 'threew-2025' ) . '</a>';
 	$cta .= '<a href="' . esc_url( $contact ) . '">' . esc_html__( 'Request fitment help', 'threew-2025' ) . '</a>';
 	$cta .= '<a href="tel:+17024306622">' . esc_html__( 'Call (702) 430-6622', 'threew-2025' ) . '</a>';
 	$cta .= '</div></aside>';
 
-	return $content . $cta;
+	return $note . $content . $cta;
 }, 30 );

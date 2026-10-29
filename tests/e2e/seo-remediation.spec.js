@@ -33,12 +33,14 @@ test.describe('SEO remediation', () => {
 		}
 	});
 
-	test('retained price guides have current metadata and commercial actions', async ({ page }) => {
+	test('retained price guides distinguish estimates from current quotes and link to G-Wagon parts', async ({ page }) => {
 		for (const path of ['/price-of-g-wagon-brabus/', '/g63-brabus-price/']) {
 			await page.goto(`${BASE_URL}${path}`, { waitUntil: 'domcontentloaded' });
-			await expect(page).toHaveTitle(/2026/);
+			await expect(page).toHaveTitle(/BRABUS/);
+			await expect(page).not.toHaveTitle(/^2026/);
+			await expect(page.locator('.threew-pricing-note')).toContainText('not current quotes');
 			await expect(page.locator('[data-threew-commercial-cta]')).toBeVisible();
-			await expect(page.locator('[data-threew-commercial-cta] a[href*="shop.3wdistributing.com/product-category/brabus"]')).toBeVisible();
+			await expect(page.locator('[data-threew-commercial-cta] a[href*="/product-category/brabus/brabus-mercedes/g-wagon/"]')).toHaveText('Shop BRABUS G-Wagon parts');
 			await expect(page.locator('[data-threew-commercial-cta] a[href*="shop.3wdistributing.com/contact-us"]')).toBeVisible();
 		}
 	});

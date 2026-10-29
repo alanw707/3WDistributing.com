@@ -147,6 +147,15 @@
   border-radius: 1rem;
 }
 
+.threew-pricing-note {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--wp--preset--color--secondary);
+  border-radius: 0.5rem;
+  background: rgba(26, 152, 149, 0.08);
+  color: rgba(11, 30, 50, 0.92);
+}
+
 .threew-commercial-cta {
   display: grid;
   gap: 1rem;
