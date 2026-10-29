@@ -82,6 +82,19 @@ check( str_contains( $out, $prelinked ), 'already-linked anchor left intact' );
 check( substr_count( $out, 'forged wheels</a>' ) === 1, 'no second wrap around a linked phrase' );
 check( ! str_contains( $out, 'utm_content=monoblock_r_23' ), 'no duplicate wheel link injected' );
 
+// Rank Math social output must use the remediated guide metadata.
+foreach ( [ 'rank_math/frontend/title', 'rank_math/frontend/description' ] as $hook ) {
+	check( isset( $GLOBALS['filters'][ $hook ][0] ), "rank math filter registered: $hook" );
+}
+$GLOBALS['mock_slug'] = 'g63-brabus-price';
+$rm_title = $GLOBALS['filters']['rank_math/frontend/title'][0]( 'Old raw title - Site' );
+$rm_desc  = $GLOBALS['filters']['rank_math/frontend/description'][0]( 'Old raw description' );
+check( $rm_title === 'Mercedes-AMG G63 BRABUS Price & Upgrade Guide', 'rank math title uses remediated copy' );
+check( str_contains( $rm_desc, 'price estimates' ), 'rank math description uses remediated copy' );
+check( ! str_contains( $rm_title, '2026' ), 'rank math title drops the unsupported year' );
+$GLOBALS['mock_slug'] = 'unrelated-post';
+check( $GLOBALS['filters']['rank_math/frontend/title'][0]( 'Keep me' ) === 'Keep me', 'rank math title untouched elsewhere' );
+
 // Negative scope.
 $GLOBALS['mock_slug'] = 'unrelated-post';
 $plain = '<p>Unrelated article mentioning forged wheels.</p>';
