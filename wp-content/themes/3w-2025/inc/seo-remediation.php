@@ -13,22 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-4';
+	$cache_version = '2026-10-29-5';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
 
-	foreach ( array_keys( threew_2025_get_price_guide_seo() ) as $slug ) {
-		$guide = get_page_by_path( $slug, OBJECT, 'post' );
-		if ( ! $guide instanceof WP_Post ) {
-			continue;
-		}
-
-		if ( class_exists( 'LiteSpeed_Cache_API' ) && method_exists( 'LiteSpeed_Cache_API', 'purge_post' ) ) {
-			LiteSpeed_Cache_API::purge_post( $guide->ID );
-		} else {
-			do_action( 'litespeed_purge_post', $guide->ID );
-		}
+	// This release changes head tags on every page, not just the guides, so the
+	// whole cache has to be invalidated once. Later releases can purge narrowly.
+	if ( class_exists( 'LiteSpeed_Cache_API' ) ) {
+		LiteSpeed_Cache_API::purge_all();
+	} else {
+		do_action( 'litespeed_purge_all' );
 	}
 
 	update_option( 'threew_seo_remediation_cache_version', $cache_version, false );

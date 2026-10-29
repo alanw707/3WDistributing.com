@@ -138,6 +138,19 @@ class ThreeW_SEO {
     }
 
     /**
+     * Whether Rank Math owns the social meta tags on this site.
+     *
+     * Rank Math emits a fuller Open Graph/Twitter set (per-post featured images,
+     * article timestamps, section). Emitting our own on top duplicates every
+     * tag and can win the scraper with a weaker generic card.
+     *
+     * @return bool
+     */
+    private function rank_math_active() {
+        return defined('RANK_MATH_VERSION') || class_exists('RankMath\\Helper');
+    }
+
+    /**
      * Output meta tags
      */
     public function output_meta_tags() {
@@ -162,6 +175,10 @@ class ThreeW_SEO {
      * Output Open Graph tags
      */
     public function output_open_graph() {
+        if ($this->rank_math_active()) {
+            return;
+        }
+
         echo "\n<!-- Open Graph / Facebook -->\n";
         echo '<meta property="og:type" content="' . esc_attr($this->get_og_type()) . '">' . "\n";
         echo '<meta property="og:site_name" content="' . esc_attr($this->site_name) . '">' . "\n";
@@ -205,6 +222,14 @@ class ThreeW_SEO {
      * Output Twitter Card tags
      */
     public function output_twitter_cards() {
+        if ($this->rank_math_active()) {
+            // Rank Math covers card, title, description and image; keep only the
+            // handles it does not emit.
+            echo '<meta name="twitter:site" content="@3wdistributing">' . "\n";
+            echo '<meta name="twitter:creator" content="@3wdistributing">' . "\n";
+            return;
+        }
+
         echo "\n<!-- Twitter Card -->\n";
         echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
         echo '<meta name="twitter:title" content="' . esc_attr($this->get_og_title()) . '">' . "\n";
