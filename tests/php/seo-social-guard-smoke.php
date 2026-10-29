@@ -59,28 +59,11 @@ function check( $condition, $message ) {
 check( ! str_contains( $og, 'og:title' ), 'no duplicate og:title' );
 check( ! str_contains( $og, 'og:description' ), 'no duplicate og:description' );
 check( ! str_contains( $og, 'og:url' ), 'no duplicate og:url' );
-check( substr_count( $og, 'property="og:image"' ) === 1, 'default og:image supplied when Rank Math has none' );
-check( str_contains( $og, 'social-card-default.jpg' ), 'default card used' );
+check( '' === trim( $og ), 'theme emits no Open Graph tags at all when Rank Math is active' );
 check( ! str_contains( $tw, 'twitter:title' ), 'no duplicate twitter:title' );
 check( ! str_contains( $tw, 'twitter:card' ), 'no duplicate twitter:card' );
-check( substr_count( $tw, 'name="twitter:image"' ) === 1, 'default twitter:image supplied' );
+check( ! str_contains( $tw, 'twitter:image' ), 'no duplicate twitter:image' );
 check( str_contains( $tw, 'twitter:site' ), 'twitter:site retained (Rank Math does not emit it)' );
 check( str_contains( $tw, 'twitter:creator' ), 'twitter:creator retained' );
 
-// With a featured image, Rank Math supplies it, so the theme must stay silent.
-$GLOBALS['mock_singular'] = true;
-$GLOBALS['mock_thumbnail'] = true;
-
-ob_start();
-$seo->output_open_graph();
-$og2 = ob_get_clean();
-
-ob_start();
-$seo->output_twitter_cards();
-$tw2 = ob_get_clean();
-
-check( ! str_contains( $og2, 'og:image' ), 'no duplicate og:image when a featured image exists' );
-check( ! str_contains( $tw2, 'twitter:image' ), 'no duplicate twitter:image when a featured image exists' );
-check( str_contains( $tw2, 'twitter:site' ), 'handles still emitted with a featured image' );
-
-echo "PASS: social tags defer to Rank Math, default image only where it has none\n";
+echo "PASS: social tags defer entirely to Rank Math, handles kept\n";

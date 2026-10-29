@@ -24,6 +24,7 @@ function get_queried_object_id() { return 1; }
 function add_query_arg( $args, $url ) { return $url . '?' . http_build_query( $args ); }
 function esc_url( $value ) { return htmlspecialchars( $value, ENT_QUOTES, 'UTF-8' ); }
 function esc_html__( $value, $domain ) { return htmlspecialchars( $value, ENT_QUOTES, 'UTF-8' ); }
+function get_theme_file_uri( $path = '' ) { return 'https://www.3wdistributing.com/wp-content/themes/3w-2025/' . $path; }
 
 if ( ! class_exists( 'WP_Post' ) ) {
 	class WP_Post {}
@@ -102,6 +103,13 @@ check( str_contains( $rm_desc, 'price estimates' ), 'og:description uses remedia
 check( ! str_contains( $rm_title, '2026' ) && ! str_contains( $rm_title, '2025' ), 'social title carries no stale year' );
 $GLOBALS['mock_slug'] = 'unrelated-post';
 check( $GLOBALS['filters']['rank_math/opengraph/facebook/og_title'][0]( 'Keep me' ) === 'Keep me', 'social title untouched elsewhere' );
+
+// Default social image is only supplied when Rank Math found none.
+$img_fallback = $GLOBALS['filters']['rank_math/opengraph/facebook/image'][0]( '' );
+check( str_contains( $img_fallback, 'social-card-default.jpg' ), 'default card supplied when Rank Math has no image' );
+$img_passthru = $GLOBALS['filters']['rank_math/opengraph/facebook/image'][0]( 'https://example.com/featured.jpg' );
+check( $img_passthru === 'https://example.com/featured.jpg', 'Rank Math image left alone when present' );
+check( isset( $GLOBALS['filters']['rank_math/opengraph/twitter/image'][0] ), 'twitter image fallback registered' );
 
 // Negative scope.
 $GLOBALS['mock_slug'] = 'unrelated-post';

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-7';
+	$cache_version = '2026-10-29-8';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -263,6 +263,27 @@ add_filter( 'rank_math/opengraph/facebook/og_title', 'threew_2025_filter_guide_s
 add_filter( 'rank_math/opengraph/twitter/twitter_title', 'threew_2025_filter_guide_social_title', 20 );
 add_filter( 'rank_math/opengraph/facebook/og_description', 'threew_2025_filter_guide_social_description', 20 );
 add_filter( 'rank_math/opengraph/twitter/twitter_description', 'threew_2025_filter_guide_social_description', 20 );
+
+/**
+ * Supply the theme's social card when Rank Math found no image of its own.
+ *
+ * Rank Math calls its image filter with an empty value even when nothing was
+ * found, so pages without a featured or content image would otherwise share
+ * without any picture.
+ *
+ * @param string $url Image URL from Rank Math.
+ * @return string
+ */
+function threew_2025_filter_social_image_url( $url ) {
+	if ( '' !== trim( (string) $url ) ) {
+		return $url;
+	}
+
+	return get_theme_file_uri( 'images/social-card-default.jpg' );
+}
+
+add_filter( 'rank_math/opengraph/facebook/image', 'threew_2025_filter_social_image_url', 20 );
+add_filter( 'rank_math/opengraph/twitter/image', 'threew_2025_filter_social_image_url', 20 );
 
 /**
  * Add a direct, measurable commercial path without changing editorial copy.
