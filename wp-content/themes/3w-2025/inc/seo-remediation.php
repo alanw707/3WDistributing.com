@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-8';
+	$cache_version = '2026-10-29-9';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -284,6 +284,32 @@ function threew_2025_filter_social_image_url( $url ) {
 
 add_filter( 'rank_math/opengraph/facebook/image', 'threew_2025_filter_social_image_url', 20 );
 add_filter( 'rank_math/opengraph/twitter/image', 'threew_2025_filter_social_image_url', 20 );
+
+/**
+ * Add the default social card before Rank Math runs its default-image step.
+ *
+ * The image filter alone is not enough: when a configured default image ID
+ * fails to resolve, Rank Math returns from that step without ever calling
+ * add_image(), so the filter never runs and the page ships with no og:image.
+ * This action fires after the per-context image setters and before that step.
+ *
+ * @param object $image Rank Math OpenGraph image collector.
+ * @return void
+ */
+function threew_2025_add_default_social_image( $image ) {
+	if ( ! is_object( $image ) || ! method_exists( $image, 'has_images' ) || ! method_exists( $image, 'add_image' ) ) {
+		return;
+	}
+
+	if ( $image->has_images() ) {
+		return;
+	}
+
+	$image->add_image( get_theme_file_uri( 'images/social-card-default.jpg' ) );
+}
+
+add_action( 'rank_math/opengraph/facebook/add_additional_images', 'threew_2025_add_default_social_image', 20 );
+add_action( 'rank_math/opengraph/twitter/add_additional_images', 'threew_2025_add_default_social_image', 20 );
 
 /**
  * Add a direct, measurable commercial path without changing editorial copy.
