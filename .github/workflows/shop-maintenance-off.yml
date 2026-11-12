@@ -1,0 +1,44 @@
+name: Shop maintenance off
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Locate and disable the maintenance drop-in
+        env:
+          HOST: ${{ secrets.THREEW_SHOP_FTP_HOST }}
+          PORT: ${{ secrets.THREEW_SHOP_FTP_PORT }}
+          USER: ${{ secrets.THREEW_SHOP_FTP_USER }}
+          PASS: ${{ secrets.THREEW_SHOP_FTP_PASS }}
+        run: |
+          set -uo pipefail
+          lftp -u "$USER","$PASS" -p "$PORT" "ftps://$HOST" <<'CMDS' || true
+          set ssl:verify-certificate yes
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set net:timeout 20
+          set net:max-retries 2
+          pwd
+          ls
+          cd ..
+          pwd
+          ls
+          cd -
+          echo "--- looking for wp-content/maintenance.php"
+          CD wp-content
+          pwd
+          ls | head -40
+          echo "--- candidate files"
+          ls -l maintenance.php 2>/dev/null || echo "no maintenance.php here"
+          echo "--- renaming if present"
+          mv maintenance.php maintenance.php.disabled-${{ github.run_id }} && echo "RENAMED_OK" || echo "RENAME_SKIPPED"
+          ls -l | grep -i maintenance || true
+          CMDS
