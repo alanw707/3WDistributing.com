@@ -1,0 +1,41 @@
+name: FTP probe
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: List prod FTP tree and look for the shop site
+        env:
+          HOST: ${{ secrets.THREEW_PROD_FTP_HOST }}
+          PORT: ${{ secrets.THREEW_PROD_FTP_PORT }}
+          USER: ${{ secrets.THREEW_PROD_FTP_USER }}
+          PASS: ${{ secrets.THREEW_PROD_FTP_PASS }}
+          SCHEME: ${{ secrets.THREEW_PROD_DEPLOY_SCHEME }}
+          VERIFY: ${{ secrets.THREEW_PROD_SSL_VERIFY }}
+        run: |
+          set -uo pipefail
+          URI="ftp://$HOST:$PORT"
+          [ "$SCHEME" = "ftps" ] && URI="ftp://$HOST:$PORT"
+          lftp -u "$USER","$PASS" "$URI" <<CMDS || true
+          set ssl:verify-certificate ${VERIFY:-yes}
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ftp:ssl-auth TLS
+          set ftp:passive-mode on
+          set net:timeout 20
+          pwd
+          ls
+          cd ..
+          pwd
+          ls
+          cd ..
+          pwd
+          ls
+          CMDS
