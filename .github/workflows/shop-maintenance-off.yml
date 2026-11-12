@@ -15,11 +15,14 @@ jobs:
       - name: Locate and disable the maintenance drop-in
         env:
           HOST: ${{ secrets.THREEW_SHOP_FTP_HOST }}
+          HOST_IP: ${{ secrets.THREEW_SHOP_FTP_HOST_IP }}
           PORT: ${{ secrets.THREEW_SHOP_FTP_PORT }}
           USER: ${{ secrets.THREEW_SHOP_FTP_USER }}
           PASS: ${{ secrets.THREEW_SHOP_FTP_PASS }}
         run: |
           set -uo pipefail
+          printf '%s %s\n' "$HOST_IP" "$HOST" | sudo tee -a /etc/hosts >/dev/null
+          getent ahostsv4 "$HOST" | head -2 || true
           lftp -u "$USER","$PASS" -p "$PORT" "ftps://$HOST" <<'CMDS' || true
           set ssl:verify-certificate yes
           set ftp:ssl-force true
