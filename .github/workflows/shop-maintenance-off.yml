@@ -23,12 +23,17 @@ jobs:
           set -uo pipefail
           printf '%s %s\n' "$HOST_IP" "$HOST" | sudo tee -a /etc/hosts >/dev/null
           getent ahostsv4 "$HOST" | head -2 || true
-          lftp -u "$USER","$PASS" -p "$PORT" "ftps://$HOST" <<'CMDS' || true
+          lftp -u "$USER","$PASS" "ftp://$HOST:$PORT" <<'CMDS' || true
           set ssl:verify-certificate yes
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
+          set ftp:ssl-auth TLS
+          set ftp:passive-mode on
           set net:timeout 20
           set net:max-retries 2
+          pwd
+          ls
+          cd ..
           pwd
           ls
           cd ..
