@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-22-2';
+	$cache_version = '2026-11-22-3';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
