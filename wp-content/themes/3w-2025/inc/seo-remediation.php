@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-21-3';
+	$cache_version = '2026-11-21-4';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -262,6 +262,10 @@ function threew_2025_filter_guide_social_description( $content ) {
 
 	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $content;
 }
+
+// Rank Math resolves the meta description from stored post meta, which still
+// carries the pre-remediation copy. This runs on its final-value filter.
+add_filter( 'rank_math/frontend/description', 'threew_2025_filter_guide_social_description', 20 );
 
 add_filter( 'rank_math/opengraph/facebook/og_title', 'threew_2025_filter_guide_social_title', 20 );
 add_filter( 'rank_math/opengraph/twitter/twitter_title', 'threew_2025_filter_guide_social_title', 20 );
