@@ -611,6 +611,17 @@ class ThreeW_SEO {
      * Get meta description
      */
     private function get_meta_description() {
+        // Pages whose editor excerpt is too short to work as a description.
+        if (is_page()) {
+            $page_descriptions = array(
+                'about-us' => '3W Distributing supplies genuine BRABUS parts and Mercedes G-Class upgrades from Las Vegas, with worldwide shipping and fitment support.',
+            );
+            $slug = get_post_field('post_name', get_queried_object_id());
+            if (isset($page_descriptions[$slug])) {
+                return $page_descriptions[$slug];
+            }
+        }
+
         if (is_home() || is_front_page()) {
             return $this->home_description ?: ($this->site_description ?: 'Welcome to 3W Distributing - Your trusted source for automotive parts and accessories');
         }

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-22-1';
+	$cache_version = '2026-11-22-2';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -209,13 +209,6 @@ add_filter( 'the_title', function ( $title, $post_id ) {
 	$slug = get_post_field( 'post_name', $post_id );
 
 	return isset( $map[ $slug ] ) ? $map[ $slug ]['heading'] : $title;
-}, 20, 2 );
-
-add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
-	$map  = threew_2025_get_page_seo();
-	$slug = $post instanceof WP_Post ? $post->post_name : '';
-
-	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $excerpt;
 }, 20, 2 );
 
 /**
