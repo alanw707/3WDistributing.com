@@ -156,11 +156,17 @@ class ThreeW_SEO {
     public function output_meta_tags() {
         $description = $this->get_meta_description();
         $keywords = $this->get_meta_keywords();
+        $rank_math = $this->rank_math_active();
 
         echo "\n<!-- SEO Meta Tags -->\n";
-        echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
 
-        if (!empty($keywords)) {
+        // Rank Math emits its own description; a second tag lets Google pick the
+        // stale stored one, so only one emitter is allowed to run.
+        if (!$rank_math) {
+            echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
+        }
+
+        if (!$rank_math && !empty($keywords)) {
             echo '<meta name="keywords" content="' . esc_attr($keywords) . '">' . "\n";
         }
 
