@@ -13,6 +13,7 @@
 
 .threew-header__drawer {
   display: grid;
+
   /* Cap the column at the drawer width; an auto column floors at the widest
      child's min-content, which pushed the search field past the edge. */
   grid-template-columns: minmax(0, 1fr);
@@ -164,6 +165,7 @@
 
 .threew-header__search .wp-block-search__input {
   flex: 1 1 0;
+
   /* Default min-width is the input's size attribute (~203px); without this the
      flex item refuses to shrink and clips the submit button. */
   min-width: 0;
