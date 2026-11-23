@@ -99,7 +99,7 @@ $rm_tw    = $GLOBALS['filters']['rank_math/opengraph/twitter/twitter_title'][0](
 $rm_desc  = $GLOBALS['filters']['rank_math/opengraph/facebook/og_description'][0]( 'Old raw description' );
 check( $rm_title === threew_2025_get_price_guide_seo()['g63-brabus-price']['title'], 'og:title uses remediated copy' );
 check( $rm_tw === $rm_title, 'twitter:title matches og:title' );
-check( str_contains( $rm_desc, 'price estimates' ), 'og:description uses remediated copy' );
+check( $rm_desc === threew_2025_get_price_guide_seo()['g63-brabus-price']['description'], 'og:description uses remediated copy' );
 check( ! str_contains( $rm_title, '2026' ) && ! str_contains( $rm_title, '2025' ), 'social title carries no stale year' );
 $GLOBALS['mock_slug'] = 'unrelated-post';
 check( $GLOBALS['filters']['rank_math/opengraph/facebook/og_title'][0]( 'Keep me' ) === 'Keep me', 'social title untouched elsewhere' );
