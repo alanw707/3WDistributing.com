@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-21-2';
+	$cache_version = '2026-11-21-3';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -37,12 +37,12 @@ add_action( 'init', function () {
 function threew_2025_get_price_guide_seo() {
 	return [
 		'price-of-g-wagon-brabus' => [
-			'title'       => 'BRABUS G-Wagon Price & Cost Guide: G63, 700, 800 & 900',
-			'description' => 'What a BRABUS G-Wagon costs: price estimates for the G63, 700, 800 and 900, plus upgrade costs. Contact 3W Distributing for current parts pricing and fitment.',
+			'title'       => 'BRABUS G-Wagon Price: G63, 700, 800 & 900 Costs',
+			'description' => 'BRABUS G-Wagon prices: the 700 starts around $375,000, the 800 from $425,000, the 900 Rocket from $500,000+. Most North American buyers pay $400,000-$550,000.',
 		],
 		'g63-brabus-price' => [
-			'title'       => 'Mercedes-AMG G63 BRABUS Price & Cost Guide',
-			'description' => 'What a G63 BRABUS costs: price estimates plus upgrade costs. Browse genuine G-Wagon parts or ask 3W Distributing for current pricing and fitment.',
+			'title'       => 'Mercedes-AMG G63 BRABUS Price & Upgrade Costs',
+			'description' => 'A G63 starts around $180,000-$200,000. A BRABUS 700 conversion adds $100,000-$150,000, and the 800 adds $180,000-$250,000. See what a full build costs.',
 		],
 	];
 }
@@ -202,7 +202,11 @@ add_filter( 'pre_get_document_title', function ( $title ) {
 
 	$map  = threew_2025_get_price_guide_seo();
 	$slug = get_post_field( 'post_name', get_queried_object_id() );
-	return isset( $map[ $slug ] ) ? $map[ $slug ]['title'] . ' - ' . get_bloginfo( 'name' ) : $title;
+	if ( isset( $map[ $slug ] ) ) {
+		return $map[ $slug ]['title'];
+	}
+
+	return $title;
 }, 20 );
 
 add_filter( 'the_title', function ( $title, $post_id ) {
