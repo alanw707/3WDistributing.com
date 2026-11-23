@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-21-5';
+	$cache_version = '2026-11-22-1';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -170,6 +170,53 @@ function threew_2025_apply_price_guide_product_links( $content, $slug, $campaign
 
 	return $content;
 }
+
+/**
+ * Metadata for hand-picked marketing pages.
+ *
+ * These pages carry a short editor-supplied excerpt and a default title, which
+ * leaves the meta description far below a usable length.
+ *
+ * @return array<string, array{title: string, heading: string, description: string}>
+ */
+function threew_2025_get_page_seo() {
+	return [
+		'about-us' => [
+			'title'       => 'About 3W Distributing | Genuine BRABUS Parts Dealer',
+			'heading'     => 'About 3W Distributing',
+			'description' => '3W Distributing supplies genuine BRABUS parts and Mercedes G-Class upgrades from Las Vegas, with worldwide shipping and fitment support.',
+		],
+	];
+}
+
+add_filter( 'pre_get_document_title', function ( $title ) {
+	if ( ! is_page() ) {
+		return $title;
+	}
+
+	$map  = threew_2025_get_page_seo();
+	$slug = get_post_field( 'post_name', get_queried_object_id() );
+
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['title'] : $title;
+}, 20 );
+
+add_filter( 'the_title', function ( $title, $post_id ) {
+	if ( ! is_page() || (int) $post_id !== get_queried_object_id() ) {
+		return $title;
+	}
+
+	$map  = threew_2025_get_page_seo();
+	$slug = get_post_field( 'post_name', $post_id );
+
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['heading'] : $title;
+}, 20, 2 );
+
+add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
+	$map  = threew_2025_get_page_seo();
+	$slug = $post instanceof WP_Post ? $post->post_name : '';
+
+	return isset( $map[ $slug ] ) ? $map[ $slug ]['description'] : $excerpt;
+}, 20, 2 );
 
 /**
  * Consolidate overlapping price articles into two authoritative hubs.
