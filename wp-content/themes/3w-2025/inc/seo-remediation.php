@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Purge stale full-page cache once when this remediation version ships.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-10-29-9';
+	$cache_version = '2026-11-21-1';
 	if ( get_option( 'threew_seo_remediation_cache_version' ) === $cache_version ) {
 		return;
 	}
@@ -37,12 +37,12 @@ add_action( 'init', function () {
 function threew_2025_get_price_guide_seo() {
 	return [
 		'price-of-g-wagon-brabus' => [
-			'title'       => 'BRABUS G-Wagon Price Guide: G63, 700, 800 & 900',
-			'description' => 'Explore BRABUS G-Wagon vehicle price estimates and G63, 700, 800 and 900 upgrades. Contact 3W Distributing for current parts pricing and fitment.',
+			'title'       => 'BRABUS G-Wagon Price & Cost Guide: G63, 700, 800 & 900',
+			'description' => 'What a BRABUS G-Wagon costs: price estimates for the G63, 700, 800 and 900, plus upgrade costs. Contact 3W Distributing for current parts pricing and fitment.',
 		],
 		'g63-brabus-price' => [
-			'title'       => 'Mercedes-AMG G63 BRABUS Price & Upgrade Guide',
-			'description' => 'Explore Mercedes-AMG G63 BRABUS vehicle price estimates and upgrade options. Browse genuine G-Wagon parts or ask 3W Distributing for current pricing and fitment.',
+			'title'       => 'Mercedes-AMG G63 BRABUS Price & Cost Guide',
+			'description' => 'What a G63 BRABUS costs: price estimates plus upgrade costs. Browse genuine G-Wagon parts or ask 3W Distributing for current pricing and fitment.',
 		],
 	];
 }
