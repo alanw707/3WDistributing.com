@@ -17,7 +17,7 @@ get_header();
 	<section class="threew-about-hero">
 		<div class="threew-about-hero__inner">
 			<p class="threew-about-hero__eyebrow">Your Partner in Performance</p>
-			<h1 class="threew-about-hero__title">About Us</h1>
+			<h1 class="threew-about-hero__title">About 3W Distributing</h1>
 			<p class="threew-about-hero__subtitle">Premium aftermarket parts and accessories for enthusiasts who demand excellence</p>
 		</div>
 	</section>
