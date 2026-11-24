@@ -66,11 +66,20 @@ add_action(
 
 /**
  * Purge full-page cache once when the redirect map changes.
+ *
+ * The LiteSpeed class API is not present in every plugin version, so the
+ * documented action hooks are used first and the class is kept as a fallback.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-23-2';
+	$cache_version = '2026-11-24-1';
 	if ( get_option( 'threew_consolidation_cache_version' ) === $cache_version ) {
 		return;
+	}
+
+	do_action( 'litespeed_purge_all' );
+
+	foreach ( array_keys( threew_consolidation_redirects() ) as $path ) {
+		do_action( 'litespeed_purge_url', home_url( $path ) );
 	}
 
 	if ( class_exists( 'LiteSpeed_Cache_API' ) ) {
