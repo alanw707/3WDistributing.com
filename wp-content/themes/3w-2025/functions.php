@@ -607,6 +607,11 @@ require_once get_theme_file_path('inc/seo-remediation.php');
 require_once get_theme_file_path('inc/seo-class.php');
 
 /**
+ * Include permanent consolidations for duplicate pages.
+ */
+require_once get_theme_file_path('inc/redirects.php');
+
+/**
  * Configure PHPMailer to use Mailpit for local development.
  */
 add_action('phpmailer_init', function ($phpmailer) {
