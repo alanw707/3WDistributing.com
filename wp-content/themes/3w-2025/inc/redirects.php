@@ -68,7 +68,7 @@ add_action(
  * Purge full-page cache once when the redirect map changes.
  */
 add_action( 'init', function () {
-	$cache_version = '2026-11-23-1';
+	$cache_version = '2026-11-23-2';
 	if ( get_option( 'threew_consolidation_cache_version' ) === $cache_version ) {
 		return;
 	}
